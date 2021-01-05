@@ -1,1 +1,1 @@
-# LibraryManager
+# 毕设图书管理系统
