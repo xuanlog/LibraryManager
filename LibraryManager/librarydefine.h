@@ -1,13 +1,20 @@
 #ifndef LIBRARYDEFINE_H
 #define LIBRARYDEFINE_H
 
-#include <QString>
 #include <QMessageBox>
 #include <QDebug>
 
 #define MAX_COLUMN 4
 
-enum TABLE_HEADER
+enum WIDGET_PAGE
+{
+    PAGE_LOGIN = 0,
+    PAGE_REGISTERED,
+    PAGE_PERSONAL,
+    PAGE_STACK_ROOM
+};
+
+enum STACK_ROOM_HEADER
 {
     HEADER_NUM = 0,
     HEADER_NAME,

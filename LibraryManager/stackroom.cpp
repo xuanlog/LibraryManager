@@ -3,9 +3,9 @@
 #include "librarydefine.h"
 #include <QDateTime>
 
-StackRoom::StackRoom(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::StackRoom)
+StackRoom::StackRoom(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::StackRoom)
 {
     ui->setupUi(this);
 
@@ -21,12 +21,12 @@ StackRoom::~StackRoom()
 // 初始化
 void StackRoom::initialization()
 {
-    m_model = new QSqlTableModel(this);
+    m_model = new SqlTableModel(this);
     m_model->setTable("stackRoom");
     m_model->select();
 
     // 更新方式，OnRowChange：切换选中行时更新 OnFieldChange：切换选中区更新 OnManualSubmit：手动更新
-    m_model->setEditStrategy(QSqlTableModel::OnManualSubmit);
+    m_model->setEditStrategy(SqlTableModel::OnManualSubmit);
 
     // 设置列宽，Stretch：填充屏幕 ResizeToContents：根据内容长度设定 Fixed：固定
     ui->bookInfoView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
@@ -39,7 +39,7 @@ void StackRoom::connectConfig()
     /*
      * QComboBox 的 currentIndexChanged 有两个重载，一个参数是 int，一个参数是 QString，所以需要用下面的语句强制类型转换，否则
      * connect 不知道触发哪个信号，用 QT4 的写法则无此问题
-    */
+     */
     connect(ui->queryTypeComboBox, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &StackRoom::changeType);
     connect(ui->queryEdit, &QLineEdit::textChanged, this, &StackRoom::queryBook);
     connect(ui->borrowButton, &QPushButton::clicked, this, &StackRoom::borrowBook);
@@ -49,29 +49,29 @@ void StackRoom::connectConfig()
 void StackRoom::queryBook(const QString &info)
 {
     int queryType = ui->queryTypeComboBox->currentIndex();
-    QString cmd = "";
+    QString filter = "";
 
     // like '%%1%' 模糊搜索 %1：arg 里面的参数 前后两个 % 表示参数前或后可能有其他字符
     switch (queryType)
     {
     case HEADER_NUM:
-        cmd = QString::fromUtf8("编号 like '%%1%'").arg(info);
+        filter = QString::fromUtf8("编号 like %%1%").arg(info);
         break;
     case HEADER_NAME:
-        cmd = QString::fromUtf8("书名 like '%%1%'").arg(info);
+        filter = QString::fromUtf8("书名 like '%%1%'").arg(info);
         break;
     case HEADER_PUBLISH:
-        cmd = QString::fromUtf8("出版社 like '%%1%'").arg(info);
+        filter = QString::fromUtf8("出版社 like '%%1%'").arg(info);
         break;
     case HEADER_AUTHOR:
-        cmd = QString::fromUtf8("作者 like '%%1%'").arg(info);
+        filter = QString::fromUtf8("作者 like '%%1%'").arg(info);
         break;
     case HEADER_INVENTORY:
-        cmd = QString::fromUtf8("库存 like '%%1%'").arg(info);
+        filter = QString::fromUtf8("库存 like %%1%").arg(info);
         break;
     }
 
-    m_model->setFilter(cmd);
+    m_model->setFilter(filter);
     m_model->select();
 }
 
@@ -103,14 +103,11 @@ void StackRoom::borrowBook()
     QDateTime curTime = QDateTime::currentDateTime();
     QString lendTime = curTime.toString("yyyy-MM-dd:hh:mm:ss");    // 获取当前时间
     QString returnTime = curTime.addDays(15).toString("yyyy-MM-dd:hh:mm:ss");    // 15 天后还书
-    QStringList info = {lendTime, returnTime};
 
-    for (int i = 0; i < MAX_COLUMN; i++)    // 获取书籍信息
-    {
-        index = m_model->index(selectRow, i);
-        info.push_back(m_model->data(index).toString());
-    }
+    index = m_model->index(selectRow, HEADER_NUM);
+    QString bookNum = m_model->data(index).toString();    // 书籍编号
 
+    QStringList info = {lendTime, returnTime, bookNum};
     emit sigBorrowBook(info);
 }
 
@@ -120,6 +117,7 @@ void StackRoom::inventoryUpdate()
     int selectRow = ui->bookInfoView->currentIndex().row();
     QModelIndex index = m_model->index(selectRow, HEADER_INVENTORY);
     int inventory = m_model->data(index).toInt();
+
     m_model->setData(index, --inventory);
     commitData();
 }

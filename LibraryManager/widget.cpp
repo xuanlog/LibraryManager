@@ -7,8 +7,7 @@ Widget::Widget(QWidget *parent)
 {
     ui->setupUi(this);
 
-    connect(ui->stackRoomWidget, &StackRoom::sigBorrowBook, ui->personalCenterWidget, &PersonalCenter::recvBookInfo);
-    connect(ui->personalCenterWidget, &PersonalCenter::sigSuccessful, ui->stackRoomWidget, &StackRoom::inventoryUpdate);
+    connectConfig();
 }
 
 Widget::~Widget()
@@ -16,15 +15,10 @@ Widget::~Widget()
     delete ui;
 }
 
-
-void Widget::on_pushButton_clicked()
+// 信号与槽的设置
+void Widget::connectConfig()
 {
-    if (ui->stackedWidget->currentIndex())
-    {
-        ui->stackedWidget->setCurrentIndex(0);
-    }
-    else
-    {
-        ui->stackedWidget->setCurrentIndex(1);
-    }
+    connect(ui->stackRoomWidget, &StackRoom::sigBorrowBook, ui->personalCenterWidget, &PersonalCenter::recvBookInfo);
+    connect(ui->personalCenterWidget, &PersonalCenter::sigSuccessful, ui->stackRoomWidget, &StackRoom::inventoryUpdate);
+    connect(ui->loginWidget, &Login::sigLogin, ui->personalCenterWidget, &PersonalCenter::addAcountInfo);
 }

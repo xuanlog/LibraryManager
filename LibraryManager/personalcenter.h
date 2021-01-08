@@ -2,7 +2,7 @@
 #define PERSONALCENTER_H
 
 #include <QWidget>
-#include <QSqlTableModel>
+#include "sqltablemodel.h"
 
 namespace Ui {
 class PersonalCenter;
@@ -19,18 +19,19 @@ public:
 protected:
     void initialization();    // 初始化
 
-private:
     void commitData();    // 提交数据
 
+private:
     Ui::PersonalCenter *ui;
 
-    QSqlTableModel *m_model;
+    SqlTableModel *m_model;
 
 signals:
     void sigSuccessful();    // 借阅成功信号
 
 public slots:
     void recvBookInfo(const QStringList &info);    // 获取书籍信息
+    void addAcountInfo(const QString &info);    // 添加账号信息
 };
 
 #endif // PERSONALCENTER_H

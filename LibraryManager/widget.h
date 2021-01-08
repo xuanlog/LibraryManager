@@ -2,8 +2,6 @@
 #define WIDGET_H
 
 #include <QWidget>
-#include <QSqlQuery>
-#include <QMessageBox>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Widget; }
@@ -17,10 +15,10 @@ public:
     Widget(QWidget *parent = nullptr);
     ~Widget();
 
+protected:
+    void connectConfig();    // 信号与槽的设置
+
 private:
     Ui::Widget *ui;
-
-private slots:
-    void on_pushButton_clicked();
 };
 #endif // WIDGET_H

@@ -2,7 +2,7 @@
 #define STACKROOM_H
 
 #include <QWidget>
-#include <QSqlTableModel>
+#include "sqltablemodel.h"
 
 namespace Ui {
 class StackRoom;
@@ -19,13 +19,12 @@ public:
 protected:
     void initialization();    // 初始化
     void connectConfig();    // 信号与槽的设置
-
-private:
     void commitData();    // 提交数据
 
+private:
     Ui::StackRoom *ui;
 
-    QSqlTableModel *m_model;
+    SqlTableModel *m_model;
 
 signals:
     void sigBorrowBook(const QStringList &info);    // 借阅信号

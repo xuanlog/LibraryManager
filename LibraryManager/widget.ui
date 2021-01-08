@@ -15,17 +15,11 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QPushButton" name="pushButton">
-     <property name="text">
-      <string>PushButton</string>
-     </property>
-    </widget>
-   </item>
-   <item>
     <widget class="QStackedWidget" name="stackedWidget">
-     <widget class="StackRoom" name="stackRoomWidget"/>
+     <widget class="Login" name="loginWidget"/>
+     <widget class="Registered" name="registeredWidget"/>
      <widget class="PersonalCenter" name="personalCenterWidget"/>
-     <widget class="QWidget" name="loginWidget"/>
+     <widget class="StackRoom" name="stackRoomWidget"/>
     </widget>
    </item>
   </layout>
@@ -41,6 +35,18 @@
    <class>PersonalCenter</class>
    <extends>QWidget</extends>
    <header>personalcenter.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Login</class>
+   <extends>QWidget</extends>
+   <header>login.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Registered</class>
+   <extends>QWidget</extends>
+   <header>registered.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

@@ -38,3 +38,17 @@ LibraryManager/debug/stackroom.o
 LibraryManager/debug/widget.o
 LibraryManager/.qmake.stash
 LibraryManager/library.db
+LibraryManager/object_script.LibraryManager.Debug
+LibraryManager/object_script.LibraryManager.Release
+LibraryManager/debug/login.o
+LibraryManager/debug/menubar.o
+LibraryManager/debug/moc_login.cpp
+LibraryManager/debug/moc_login.o
+LibraryManager/debug/moc_menubar.cpp
+LibraryManager/debug/moc_menubar.o
+LibraryManager/debug/moc_registered.cpp
+LibraryManager/debug/moc_registered.o
+LibraryManager/debug/moc_sqltablemodel.cpp
+LibraryManager/debug/moc_sqltablemodel.o
+LibraryManager/debug/registered.o
+LibraryManager/debug/sqltablemodel.o
