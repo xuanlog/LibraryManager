@@ -52,12 +52,26 @@ void Login::login()
         return;
     }
 
-    emit sigLogin(account);
-    changeWidget(PAGE_PERSONAL);
+    if (account == kManagerAccount)    // 管理员登录
+    {
+        emit sigManager();
+        changeWidget(PAGE_MANAGER);
+    }
+    else    // 普通用户
+    {
+        emit sigLogin(account);
+        changeWidget(PAGE_PERSONAL);
+    }
+
+    // 登陆成功后清除登录信息
+    ui->accountEdit->clear();
+    ui->passwordEdit->clear();
 }
 
 // 跳转注册页面
 void Login::moveToRegistered()
 {
     changeWidget(PAGE_REGISTERED);
+
+    ui->passwordEdit->clear();
 }

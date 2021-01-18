@@ -9,6 +9,7 @@ MenuBar::MenuBar(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    initialization();
     connectConfig();
 }
 
@@ -17,11 +18,41 @@ MenuBar::~MenuBar()
     delete ui;
 }
 
+// 初始化
+void MenuBar::initialization()
+{
+    // 管理员与普通用户显示不同的菜单栏
+    if (this->parent()->objectName() == "Manager" || this->parent()->objectName() == "Reader")
+    {
+        ui->userWidget->hide();
+        return;
+    }
+
+    ui->managerWidget->hide();
+}
+
 // 信号与槽的设置
 void MenuBar::connectConfig()
 {
     connect(ui->personalButton, &QPushButton::clicked, this, &MenuBar::moveToPersonalCenter);
     connect(ui->stackRoomButton, &QPushButton::clicked, this, &MenuBar::moveToStackRoom);
+    connect(ui->logoutButton, &QPushButton::clicked, this, &MenuBar::moveToLogin);
+    connect(ui->managerButton, &QPushButton::clicked, this, &MenuBar::moveToManager);
+    connect(ui->readerButton, &QPushButton::clicked, this, &MenuBar::moveToReader);
+}
+
+// 显示窗口
+void MenuBar::showWidget(int index)
+{
+    ui->userWidget->show();
+    ui->managerWidget->hide();
+
+    if (index == PAGE_MANAGER)
+    {
+        ui->userWidget->hide();
+        ui->managerWidget->show();
+        return;
+    }
 }
 
 // 切换窗口
@@ -39,4 +70,25 @@ void MenuBar::moveToStackRoom()
 void MenuBar::moveToPersonalCenter()
 {
     changeWidget(PAGE_PERSONAL);
+}
+
+void MenuBar::moveToLogin()
+{
+    int ret = QMessageBox::question(this, QString::fromUtf8("提示"), QString::fromUtf8("确定退出登录?"),
+                                    QString::fromUtf8("确定"), QString::fromUtf8("取消"));
+
+    if (ret == 0)
+    {
+        changeWidget(PAGE_LOGIN);
+    }
+}
+
+void MenuBar::moveToManager()
+{
+    changeWidget(PAGE_MANAGER);
+}
+
+void MenuBar::moveToReader()
+{
+    changeWidget(PAGE_READER);
 }

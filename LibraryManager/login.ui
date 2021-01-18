@@ -89,8 +89,14 @@
            <property name="text">
             <string/>
            </property>
+           <property name="maxLength">
+            <number>20</number>
+           </property>
            <property name="placeholderText">
             <string>请输入账号</string>
+           </property>
+           <property name="clearButtonEnabled">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -114,8 +120,17 @@
              <height>16777215</height>
             </size>
            </property>
+           <property name="maxLength">
+            <number>20</number>
+           </property>
+           <property name="echoMode">
+            <enum>QLineEdit::Password</enum>
+           </property>
            <property name="placeholderText">
             <string>请输入密码</string>
+           </property>
+           <property name="clearButtonEnabled">
+            <bool>true</bool>
            </property>
           </widget>
          </item>

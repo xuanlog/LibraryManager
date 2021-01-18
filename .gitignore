@@ -52,3 +52,9 @@ LibraryManager/debug/moc_sqltablemodel.cpp
 LibraryManager/debug/moc_sqltablemodel.o
 LibraryManager/debug/registered.o
 LibraryManager/debug/sqltablemodel.o
+LibraryManager/debug/manager.o
+LibraryManager/debug/moc_manager.cpp
+LibraryManager/debug/moc_manager.o
+LibraryManager/debug/moc_reader.cpp
+LibraryManager/debug/moc_reader.o
+LibraryManager/debug/reader.o

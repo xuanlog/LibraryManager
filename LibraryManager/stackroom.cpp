@@ -8,8 +8,6 @@ StackRoom::StackRoom(QWidget *parent)
     , ui(new Ui::StackRoom)
 {
     ui->setupUi(this);
-
-    initialization();
     connectConfig();
 }
 
@@ -23,6 +21,7 @@ void StackRoom::initialization()
 {
     m_model = new SqlTableModel(this);
     m_model->setTable("stackRoom");
+    m_model->setSort(0, Qt::AscendingOrder);    // 升序
     m_model->select();
 
     // 更新方式，OnRowChange：切换选中行时更新 OnFieldChange：切换选中区更新 OnManualSubmit：手动更新
@@ -51,23 +50,23 @@ void StackRoom::queryBook(const QString &info)
     int queryType = ui->queryTypeComboBox->currentIndex();
     QString filter = "";
 
-    // like '%%1%' 模糊搜索 %1：arg 里面的参数 前后两个 % 表示参数前或后可能有其他字符
+    // LIKE '%%1%' 模糊搜索 %1：arg 里面的参数 前后两个 % 表示参数前或后可能有其他字符
     switch (queryType)
     {
     case HEADER_NUM:
-        filter = QString::fromUtf8("编号 like %%1%").arg(info);
+        filter = QString::fromUtf8("编号 LIKE '%%1%'").arg(info);
         break;
     case HEADER_NAME:
-        filter = QString::fromUtf8("书名 like '%%1%'").arg(info);
+        filter = QString::fromUtf8("书名 LIKE '%%1%'").arg(info);
         break;
     case HEADER_PUBLISH:
-        filter = QString::fromUtf8("出版社 like '%%1%'").arg(info);
+        filter = QString::fromUtf8("出版社 LIKE '%%1%'").arg(info);
         break;
     case HEADER_AUTHOR:
-        filter = QString::fromUtf8("作者 like '%%1%'").arg(info);
+        filter = QString::fromUtf8("作者 LIKE '%%1%'").arg(info);
         break;
     case HEADER_INVENTORY:
-        filter = QString::fromUtf8("库存 like %%1%").arg(info);
+        filter = QString::fromUtf8("库存 LIKE '%%1%'").arg(info);
         break;
     }
 
@@ -103,11 +102,15 @@ void StackRoom::borrowBook()
     QDateTime curTime = QDateTime::currentDateTime();
     QString lendTime = curTime.toString("yyyy-MM-dd:hh:mm:ss");    // 获取当前时间
     QString returnTime = curTime.addDays(15).toString("yyyy-MM-dd:hh:mm:ss");    // 15 天后还书
+    QStringList info = {lendTime, returnTime};
 
-    index = m_model->index(selectRow, HEADER_NUM);
-    QString bookNum = m_model->data(index).toString();    // 书籍编号
+    for (int i = 0; i < MAX_COLUMN; i++)
+    {
+        index = m_model->index(selectRow, i);
+        QString data = m_model->data(index).toString();
+        info.push_back(data);
+    }
 
-    QStringList info = {lendTime, returnTime, bookNum};
     emit sigBorrowBook(info);
 }
 
@@ -120,6 +123,25 @@ void StackRoom::inventoryUpdate()
 
     m_model->setData(index, --inventory);
     commitData();
+}
+
+void StackRoom::bookUpdate(int bookNum)
+{
+    int maxRow = m_model->rowCount();
+
+    for (int i = 0; i < maxRow; i++)
+    {
+        QModelIndex index = m_model->index(i, HEADER_NUM);
+
+        if (bookNum == m_model->data(index).toInt())
+        {
+            index = m_model->index(i, HEADER_INVENTORY);
+            int inventory = m_model->data(index).toInt();
+            m_model->setData(index, ++inventory);
+            commitData();
+            break;
+        }
+    }
 }
 
 // 提交数据

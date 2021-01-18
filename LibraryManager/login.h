@@ -29,6 +29,7 @@ private:
     SqlTableModel *m_model;
 
 signals:
+    void sigManager();
     void sigLogin(const QString &info);
 
 private slots:

@@ -30,14 +30,25 @@ bool SqlTableModel::checkData(const QString &condition)
      * 利用 query.next() 使得 query 指向结果集的第一条记录
      */
     m_query->exec(cmd);
+    qDebug() << cmd;
     return m_query->next();
 }
 
 // 新增一行
-void SqlTableModel::insertRow(const QString &values)
+void SqlTableModel::insertData(const QString &values)
 {
     QString tableName = QSqlTableModel::tableName();
     QString cmd = QString("INSERT INTO %1 VALUES(%2)").arg(tableName).arg(values);
+    m_query->exec(cmd);
+    QSqlTableModel::select();
+    qDebug() << cmd;
+}
+
+// 删除相关行
+void SqlTableModel::removeData(const QString &values)
+{
+    QString tableName = QSqlTableModel::tableName();
+    QString cmd = QString("DELETE FROM %1 WHERE %2").arg(tableName).arg(values);
     m_query->exec(cmd);
     qDebug() << cmd;
 }

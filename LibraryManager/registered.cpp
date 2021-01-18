@@ -47,13 +47,22 @@ void Registered::registered()
     QString confirmPassword = ui->confirmEdit->text();
     QString condition = QString::fromUtf8("账号 = '%1'").arg(account);
 
-    if (m_model->checkData(condition))
+    if (account.isEmpty() || password.isEmpty())
+    {
+        QMessageBox::about(this, QString::fromUtf8("提示"), QString::fromUtf8("请输入账号或密码!"));
+        return;
+    }
+    else if (account.length() < 6 || password.length() < 6)
+    {
+        QMessageBox::about(this, QString::fromUtf8("提示"), QString::fromUtf8("账号或密码过短!"));
+        return;
+    }
+    else if (m_model->checkData(condition))
     {
         QMessageBox::about(this, QString::fromUtf8("提示"), QString::fromUtf8("该账号已存在!"));
         return;
     }
-
-    if (password != confirmPassword)
+    else if (password != confirmPassword)
     {
         QMessageBox::about(this, QString::fromUtf8("提示"), QString::fromUtf8("两次密码不一致!"));
         return;
@@ -64,10 +73,18 @@ void Registered::registered()
 
     QMessageBox::about(this, QString::fromUtf8("提示"), QString::fromUtf8("注册成功!"));
     changeWidget(PAGE_LOGIN);
+
+    ui->accountEdit->clear();
+    ui->passwordEdit->clear();
+    ui->confirmEdit->clear();
 }
 
 // 返回登录
 void Registered::back()
 {
     changeWidget(PAGE_LOGIN);
+
+    ui->accountEdit->clear();
+    ui->passwordEdit->clear();
+    ui->confirmEdit->clear();
 }

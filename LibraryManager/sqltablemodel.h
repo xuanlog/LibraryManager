@@ -13,7 +13,9 @@ public:
 
     bool checkData(const QString &condition);    // 判断表中是否存在数据
 
-    void insertRow(const QString &values);    // 新增一行
+    void insertData(const QString &values);    // 新增一行
+
+    void removeData(const QString &values);    // 删除相关行
 
 protected:
     void initialization();    // 初始化

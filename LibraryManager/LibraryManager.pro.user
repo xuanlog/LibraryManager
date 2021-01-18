@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.11.1, 2021-01-08T09:14:02. -->
+<!-- Written by QtCreator 4.11.1, 2021-01-18T17:32:37. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -58,7 +58,8 @@
    <valuelist type="QVariantList" key="ClangCodeModel.CustomCommandLineKey">
     <value type="QString">-fno-delayed-template-parsing</value>
    </valuelist>
-   <value type="bool" key="ClangCodeModel.UseGlobalConfig">true</value>
+   <value type="bool" key="ClangCodeModel.UseGlobalConfig">false</value>
+   <value type="QString" key="ClangCodeModel.WarningConfigId">{5065997d-ac76-45f9-8607-6953f9095a10}</value>
   </valuemap>
  </data>
  <data>
@@ -119,7 +120,7 @@
     <value type="int" key="Qt4ProjectManager.Qt4BuildConfiguration.BuildConfiguration">2</value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.BuildConfiguration.1">
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">D:/Xuan/Code/QT/LibraryManager/build-LibraryManager-Desktop_Qt_5_14_2_MinGW_32_bit-Release</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">D:/Xuan/GitHub/LibraryManager/LibraryManager</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>

@@ -97,6 +97,8 @@ public:
         accountEdit->setSizePolicy(sizePolicy);
         accountEdit->setMinimumSize(QSize(200, 0));
         accountEdit->setMaximumSize(QSize(16777215, 16777215));
+        accountEdit->setMaxLength(20);
+        accountEdit->setClearButtonEnabled(true);
 
         verticalLayout_2->addWidget(accountEdit);
 
@@ -106,6 +108,9 @@ public:
         passwordEdit->setSizePolicy(sizePolicy);
         passwordEdit->setMinimumSize(QSize(200, 0));
         passwordEdit->setMaximumSize(QSize(16777215, 16777215));
+        passwordEdit->setMaxLength(20);
+        passwordEdit->setEchoMode(QLineEdit::Password);
+        passwordEdit->setClearButtonEnabled(true);
 
         verticalLayout_2->addWidget(passwordEdit);
 

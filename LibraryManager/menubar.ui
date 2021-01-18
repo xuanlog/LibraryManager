@@ -15,17 +15,43 @@
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
-    <widget class="QPushButton" name="stackRoomButton">
-     <property name="text">
-      <string>书库大厅</string>
-     </property>
+    <widget class="QWidget" name="userWidget" native="true">
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QPushButton" name="stackRoomButton">
+        <property name="text">
+         <string>书库大厅</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="personalButton">
+        <property name="text">
+         <string>个人中心</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="personalButton">
-     <property name="text">
-      <string>个人中心</string>
-     </property>
+    <widget class="QWidget" name="managerWidget" native="true">
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QPushButton" name="managerButton">
+        <property name="text">
+         <string>书籍管理</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="readerButton">
+        <property name="text">
+         <string>读者管理</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
    <item>
@@ -40,6 +66,13 @@
       </size>
      </property>
     </spacer>
+   </item>
+   <item>
+    <widget class="QPushButton" name="logoutButton">
+     <property name="text">
+      <string>退出登录</string>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

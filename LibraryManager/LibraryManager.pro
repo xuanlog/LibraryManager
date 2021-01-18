@@ -19,8 +19,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     login.cpp \
     main.cpp \
+    manager.cpp \
     menubar.cpp \
     personalcenter.cpp \
+    reader.cpp \
     registered.cpp \
     sqltablemodel.cpp \
     stackroom.cpp \
@@ -29,8 +31,10 @@ SOURCES += \
 HEADERS += \
     librarydefine.h \
     login.h \
+    manager.h \
     menubar.h \
     personalcenter.h \
+    reader.h \
     registered.h \
     sqltablemodel.h \
     stackroom.h \
@@ -38,8 +42,10 @@ HEADERS += \
 
 FORMS += \
     login.ui \
+    manager.ui \
     menubar.ui \
     personalcenter.ui \
+    reader.ui \
     registered.ui \
     stackroom.ui \
     widget.ui

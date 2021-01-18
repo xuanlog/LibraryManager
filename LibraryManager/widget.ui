@@ -20,6 +20,8 @@
      <widget class="Registered" name="registeredWidget"/>
      <widget class="PersonalCenter" name="personalCenterWidget"/>
      <widget class="StackRoom" name="stackRoomWidget"/>
+     <widget class="Manager" name="managerWidget"/>
+     <widget class="Reader" name="readerWidget"/>
     </widget>
    </item>
   </layout>
@@ -47,6 +49,18 @@
    <class>Registered</class>
    <extends>QWidget</extends>
    <header>registered.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Manager</class>
+   <extends>QWidget</extends>
+   <header>manager.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Reader</class>
+   <extends>QWidget</extends>
+   <header>reader.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

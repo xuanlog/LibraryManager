@@ -1,17 +1,22 @@
 #ifndef LIBRARYDEFINE_H
 #define LIBRARYDEFINE_H
 
+#include <QString>
 #include <QMessageBox>
 #include <QDebug>
 
 #define MAX_COLUMN 4
+
+const QString kManagerAccount = "admin";
 
 enum WIDGET_PAGE
 {
     PAGE_LOGIN = 0,
     PAGE_REGISTERED,
     PAGE_PERSONAL,
-    PAGE_STACK_ROOM
+    PAGE_STACK_ROOM,
+    PAGE_MANAGER,
+    PAGE_READER
 };
 
 enum STACK_ROOM_HEADER
