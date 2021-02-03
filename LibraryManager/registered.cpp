@@ -57,7 +57,7 @@ void Registered::registered()
         QMessageBox::about(this, QString::fromUtf8("提示"), QString::fromUtf8("账号或密码过短!"));
         return;
     }
-    else if (m_model->checkData(condition))
+    else if (m_model->checkSqlData(condition))
     {
         QMessageBox::about(this, QString::fromUtf8("提示"), QString::fromUtf8("该账号已存在!"));
         return;
@@ -69,7 +69,7 @@ void Registered::registered()
     }
 
     QString values = QString("'%1', '%2'").arg(account).arg(password);
-    m_model->insertRow(values);
+    m_model->insertSqlRow(values);
 
     QMessageBox::about(this, QString::fromUtf8("提示"), QString::fromUtf8("注册成功!"));
     changeWidget(PAGE_LOGIN);

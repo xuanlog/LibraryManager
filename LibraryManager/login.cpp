@@ -46,7 +46,7 @@ void Login::login()
     QString password = ui->passwordEdit->text();
     QString condition = QString::fromUtf8("账号 = '%1' AND 密码 = '%2'").arg(account).arg(password);
 
-    if (!m_model->checkData(condition))
+    if (!m_model->checkSqlData(condition))
     {
         QMessageBox::about(this, QString::fromUtf8("提示"), QString::fromUtf8("账号或密码错误!"));
         return;

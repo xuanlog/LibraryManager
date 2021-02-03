@@ -50,7 +50,7 @@ void PersonalCenter::recvBookInfo(const QStringList &info)
 {
     QString condition = QString::fromUtf8("编号 = %1 AND 账号 = '%2'").arg(info.at(2)).arg(m_account);
 
-    if (m_model->checkData(condition))
+    if (m_model->checkSqlData(condition))
     {
         QMessageBox::about(this, QString::fromUtf8("提示"), QString::fromUtf8("请不要重复借阅!"));
         return;
@@ -60,7 +60,7 @@ void PersonalCenter::recvBookInfo(const QStringList &info)
             .arg(info.at(1)).arg(info.at(2)).arg(info.at(3))
             .arg(info.at(4)).arg(info.at(5)).arg(m_account);
 
-    m_model->insertRow(values);
+    m_model->insertSqlRow(values);
 
     emit sigSuccessful();
 }
@@ -119,7 +119,9 @@ void PersonalCenter::returnBook()
 // 清除账号信息
 void PersonalCenter::clearAccount(const QString &account)
 {
-
+    initialization(account);
+    QString values = QString::fromUtf8("账号 = '%1'").arg(account);
+    m_model->removeSqlRow(values);
 }
 
 // 提交数据

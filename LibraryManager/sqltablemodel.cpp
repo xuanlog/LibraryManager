@@ -20,7 +20,7 @@ void SqlTableModel::initialization()
 }
 
 // 判断表中是否存在数据
-bool SqlTableModel::checkData(const QString &condition)
+bool SqlTableModel::checkSqlData(const QString &condition)
 {
     QString tableName = QSqlTableModel::tableName();
     QString cmd = QString("SELECT * FROM %1 WHERE %2").arg(tableName).arg(condition);
@@ -35,7 +35,7 @@ bool SqlTableModel::checkData(const QString &condition)
 }
 
 // 新增一行
-void SqlTableModel::insertData(const QString &values)
+void SqlTableModel::insertSqlRow(const QString &values)
 {
     QString tableName = QSqlTableModel::tableName();
     QString cmd = QString("INSERT INTO %1 VALUES(%2)").arg(tableName).arg(values);
@@ -45,7 +45,7 @@ void SqlTableModel::insertData(const QString &values)
 }
 
 // 删除相关行
-void SqlTableModel::removeData(const QString &values)
+void SqlTableModel::removeSqlRow(const QString &values)
 {
     QString tableName = QSqlTableModel::tableName();
     QString cmd = QString("DELETE FROM %1 WHERE %2").arg(tableName).arg(values);

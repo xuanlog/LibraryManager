@@ -118,7 +118,7 @@ void Manager::addBook()
             .arg(ui->publishEdit->text()).arg(ui->authorEdit->text())
             .arg(ui->inventoryEdit->text());
 
-    m_model->insertData(values);
+    m_model->insertSqlRow(values);
 }
 
 // 删除书籍

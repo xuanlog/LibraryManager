@@ -40,8 +40,6 @@ private slots:
     void changeType();    // 切换查询类型
 
     void borrowBook();    // 借阅
-
-    void confirmBorrow();    // 确认借阅
 };
 
 #endif // STACKROOM_H
