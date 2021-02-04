@@ -1,6 +1,7 @@
 #include "stackroom.h"
 #include "ui_stackroom.h"
 #include "librarydefine.h"
+#include "widget.h"
 #include <QDateTime>
 
 StackRoom::StackRoom(QWidget *parent)
@@ -8,6 +9,8 @@ StackRoom::StackRoom(QWidget *parent)
     , ui(new Ui::StackRoom)
 {
     ui->setupUi(this);
+
+    initialization();
     connectConfig();
 }
 
@@ -19,13 +22,10 @@ StackRoom::~StackRoom()
 // 初始化
 void StackRoom::initialization()
 {
+    m_account = "";
     m_model = new SqlTableModel(this);
     m_model->setTable("stackRoom");
     m_model->setSort(0, Qt::AscendingOrder);    // 升序
-    m_model->select();
-
-    // 更新方式，OnRowChange：切换选中行时更新 OnFieldChange：切换选中区更新 OnManualSubmit：手动更新
-    m_model->setEditStrategy(SqlTableModel::OnManualSubmit);
 
     // 设置列宽，Stretch：填充屏幕 ResizeToContents：根据内容长度设定 Fixed：固定
     ui->bookInfoView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
@@ -39,7 +39,8 @@ void StackRoom::connectConfig()
      * QComboBox 的 currentIndexChanged 有两个重载，一个参数是 int，一个参数是 QString，所以需要用下面的语句强制类型转换，否则
      * connect 不知道触发哪个信号，用 QT4 的写法则无此问题
      */
-    connect(ui->queryTypeComboBox, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &StackRoom::changeType);
+    connect(ui->queryTypeComboBox, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
+            this, &StackRoom::changeType);
     connect(ui->queryEdit, &QLineEdit::textChanged, this, &StackRoom::queryBook);
     connect(ui->borrowButton, &QPushButton::clicked, this, &StackRoom::borrowBook);
 }
@@ -53,19 +54,19 @@ void StackRoom::queryBook(const QString &info)
     // LIKE '%%1%' 模糊搜索 %1：arg 里面的参数 前后两个 % 表示参数前或后可能有其他字符
     switch (queryType)
     {
-    case HEADER_NUM:
+    case STACK_NUM:
         filter = QString::fromUtf8("编号 LIKE '%%1%'").arg(info);
         break;
-    case HEADER_NAME:
+    case STACK_NAME:
         filter = QString::fromUtf8("书名 LIKE '%%1%'").arg(info);
         break;
-    case HEADER_PUBLISH:
+    case STACK_PUBLISH:
         filter = QString::fromUtf8("出版社 LIKE '%%1%'").arg(info);
         break;
-    case HEADER_AUTHOR:
+    case STACK_AUTHOR:
         filter = QString::fromUtf8("作者 LIKE '%%1%'").arg(info);
         break;
-    case HEADER_INVENTORY:
+    case STACK_INVENTORY:
         filter = QString::fromUtf8("库存 LIKE '%%1%'").arg(info);
         break;
     }
@@ -84,45 +85,59 @@ void StackRoom::changeType()
 void StackRoom::borrowBook()
 {
     int selectRow = ui->bookInfoView->currentIndex().row();
-    QModelIndex index = m_model->index(selectRow, HEADER_INVENTORY);
-    int inventory = m_model->data(index).toInt();
 
     if (selectRow < 0)
     {
-        QMessageBox::about(this, QString::fromUtf8("提示"), QString::fromUtf8("请选择需要借阅的书籍!"));
+        QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("请选择需要借阅的书籍!"),
+                                 QString::fromUtf8("确定"));
         return;
     }
+
+    // 获取库存
+    QModelIndex index = m_model->index(selectRow, STACK_INVENTORY);
+    int inventory = m_model->data(index).toInt();
 
     if (inventory == 0)
     {
-        QMessageBox::about(this, QString::fromUtf8("提示"), QString::fromUtf8("该书暂无库存!"));
+        QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("该书暂无库存!"),
+                                 QString::fromUtf8("确定"));
         return;
     }
 
-    QDateTime curTime = QDateTime::currentDateTime();
-    QString lendTime = curTime.toString("yyyy-MM-dd:hh:mm:ss");    // 获取当前时间
-    QString returnTime = curTime.addDays(15).toString("yyyy-MM-dd:hh:mm:ss");    // 15 天后还书
-    QStringList info = {lendTime, returnTime};
+    // 获取书籍编号
+    index = m_model->index(selectRow, STACK_NUM);
+    QString data = m_model->data(index).toString();
+    QString condition = QString::fromUtf8("编号 = %1 AND 账号 = '%2'").arg(data).arg(m_account);
 
-    for (int i = 0; i < MAX_COLUMN; i++)
+    if (m_model->checkSqlData("personalCenter", condition))
     {
-        index = m_model->index(selectRow, i);
-        QString data = m_model->data(index).toString();
-        info.push_back(data);
+        QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("请不要重复借阅!"),
+                                 QString::fromUtf8("确定"));
+        return;
     }
 
-    emit sigBorrowBook(info);
-}
+    condition = QString::fromUtf8("账号 = '%1' AND 已借书 = %2").arg(m_account).arg(MAX_BORROW);
 
-// 库存更新
-void StackRoom::inventoryUpdate()
-{
-    int selectRow = ui->bookInfoView->currentIndex().row();
-    QModelIndex index = m_model->index(selectRow, HEADER_INVENTORY);
-    int inventory = m_model->data(index).toInt();
+    if (m_model->checkSqlData("userInfo", condition))
+    {
+        QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("借书上限为 %1 本!")
+                                 .arg(MAX_BORROW), QString::fromUtf8("确定"));
+        return;
+    }
 
-    m_model->setData(index, --inventory);
-    commitData();
+    // 更新库存
+    condition = QString::fromUtf8("编号 = %1").arg(data);
+    QString value = QString::fromUtf8("库存 = %1").arg(--inventory);
+    m_model->setSqlData(condition, value);
+
+    // 获取时间
+    QDateTime curTime = QDateTime::currentDateTime();
+    QString lendTime = curTime.toString("yyyy-MM-dd:hh:mm:ss");    // 借书时间
+    QString returnTime = curTime.addDays(15).toString("yyyy-MM-dd:hh:mm:ss");    // 还书时间
+
+    // 传输数据到 personalCenter 表
+    QStringList info = {lendTime, returnTime, data, m_account};
+    emit sigBorrow(info);
 }
 
 void StackRoom::bookUpdate(int bookNum)
@@ -131,29 +146,28 @@ void StackRoom::bookUpdate(int bookNum)
 
     for (int i = 0; i < maxRow; i++)
     {
-        QModelIndex index = m_model->index(i, HEADER_NUM);
+        // 查找书籍所在行
+        QModelIndex index = m_model->index(i, STACK_NUM);
 
         if (bookNum == m_model->data(index).toInt())
         {
-            index = m_model->index(i, HEADER_INVENTORY);
+            // 获取库存
+            index = m_model->index(i, STACK_INVENTORY);
             int inventory = m_model->data(index).toInt();
-            m_model->setData(index, ++inventory);
-            commitData();
+
+            // 更新库存
+            QString condition = QString::fromUtf8("编号 = %1").arg(bookNum);
+            QString value = QString::fromUtf8("库存 = %1").arg(++inventory);
+            m_model->setSqlData(condition, value);
+            emit sigReturn(m_account, false);
             break;
         }
     }
 }
 
-// 提交数据
-void StackRoom::commitData()
+// 刷新
+void StackRoom::refresh(const QString &account)
 {
-    m_model->database().transaction();    // 开始事务操作
-
-    if (m_model->submitAll())
-    {
-        m_model->database().commit();    // 提交
-        return;
-    }
-
-    m_model->database().rollback();    // 回滚
+    m_account = account;
+    m_model->select();
 }

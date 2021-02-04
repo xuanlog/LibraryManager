@@ -16,17 +16,17 @@ public:
     explicit Manager(QWidget *parent = nullptr);
     ~Manager();
 
-protected:
-    void connectConfig();    // 信号与槽的设置
-
 private:
     Ui::Manager *ui;
 
     SqlTableModel *m_model;
     bool m_isHide;    // 窗口显示标志
 
-public slots:
     void initialization();    // 初始化
+    void connectConfig();    // 信号与槽的设置
+
+public slots:
+    void refresh();    // 刷新
 
 private slots:
     void queryBook(const QString &info);    // 查询

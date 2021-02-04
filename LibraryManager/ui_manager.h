@@ -106,7 +106,7 @@ public:
         bookInfoView->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
         bookInfoView->setEditTriggers(QAbstractItemView::NoEditTriggers);
         bookInfoView->setAlternatingRowColors(false);
-        bookInfoView->setSelectionMode(QAbstractItemView::ExtendedSelection);
+        bookInfoView->setSelectionMode(QAbstractItemView::SingleSelection);
         bookInfoView->setSelectionBehavior(QAbstractItemView::SelectRows);
         bookInfoView->setTextElideMode(Qt::ElideLeft);
         bookInfoView->setSortingEnabled(true);

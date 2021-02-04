@@ -15,10 +15,12 @@ public:
     Widget(QWidget *parent = nullptr);
     ~Widget();
 
-protected:
-    void connectConfig();    // 信号与槽的设置
-
 private:
     Ui::Widget *ui;
+
+    void connectConfig();    // 信号与槽的设置
+
+signals:
+    void sigLogin(const QString &info);
 };
 #endif // WIDGET_H

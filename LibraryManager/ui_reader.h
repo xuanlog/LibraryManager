@@ -49,7 +49,9 @@ public:
         readerView = new QTableView(Reader);
         readerView->setObjectName(QString::fromUtf8("readerView"));
         readerView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+        readerView->setSelectionMode(QAbstractItemView::SingleSelection);
         readerView->setSelectionBehavior(QAbstractItemView::SelectRows);
+        readerView->setSortingEnabled(true);
 
         verticalLayout->addWidget(readerView);
 

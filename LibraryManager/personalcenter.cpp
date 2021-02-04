@@ -3,6 +3,7 @@
 #include <QMessageBox>
 #include <QDebug>
 #include <QDateTime>
+#include "librarydefine.h"
 
 PersonalCenter::PersonalCenter(QWidget *parent)
     : QWidget(parent)
@@ -10,6 +11,7 @@ PersonalCenter::PersonalCenter(QWidget *parent)
 {
     ui->setupUi(this);
 
+    initialization();
     connectConfig();
 }
 
@@ -19,19 +21,15 @@ PersonalCenter::~PersonalCenter()
 }
 
 // 初始化
-void PersonalCenter::initialization(const QString &info)
+void PersonalCenter::initialization()
 {
-    m_account = info;
-    ui->accountLabel->setText(info);
-
     m_model = new SqlTableModel(this);
     m_model->setTable("personalCenter");
-    m_model->setSort(0, Qt::AscendingOrder);
-    QString condition = QString::fromUtf8("personalCenter.账号 = '%1'").arg(m_account);
-    m_model->setFilter(condition);
-    m_model->select();
-    // 更新方式，OnRowChange：切换选中行时更新 OnFieldChange：切换选中区时更新 OnManualSubmit：手动更新
-    m_model->setEditStrategy(SqlTableModel::OnManualSubmit);
+    m_model->setSort(PERSONAL_RTIME, Qt::AscendingOrder);   // 以还书时间升序排列
+
+    // 设置多表查询所需条件
+    m_model->setMultiTable("personalCenter, stackRoom");
+    m_model->setMultiItem(QString::fromUtf8("借书时间, 还书时间, personalCenter.编号, 书名, 出版社, 作者"));
 
     // 设置列宽，Stretch：填充屏幕 ResizeToContents：根据内容长度设定 Fixed：固定
     ui->bookInfoView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
@@ -46,23 +44,14 @@ void PersonalCenter::connectConfig()
 }
 
 // 获取书籍信息
-void PersonalCenter::recvBookInfo(const QStringList &info)
+void PersonalCenter::addBook(const QStringList &info)
 {
-    QString condition = QString::fromUtf8("编号 = %1 AND 账号 = '%2'").arg(info.at(2)).arg(m_account);
+    QString value = QString("'%1', '%2', %3, '%4', %5").arg(info.at(0)).arg(info.at(1))
+            .arg(info.at(2)).arg(info.at(3)).arg(STATUS_NORMAL);
 
-    if (m_model->checkSqlData(condition))
-    {
-        QMessageBox::about(this, QString::fromUtf8("提示"), QString::fromUtf8("请不要重复借阅!"));
-        return;
-    }
-
-    QString values = QString("'%1', '%2', %3, '%4', '%5', '%6', '%7'").arg(info.at(0))
-            .arg(info.at(1)).arg(info.at(2)).arg(info.at(3))
-            .arg(info.at(4)).arg(info.at(5)).arg(m_account);
-
-    m_model->insertSqlRow(values);
-
-    emit sigSuccessful();
+    m_model->insertSqlRow(value);
+    m_model->multiSelect();
+    emit sigBorrow(info.at(3), true);
 }
 
 // 续借
@@ -72,16 +61,38 @@ void PersonalCenter::reBorrow()
 
     if (selectRow < 0)
     {
-        QMessageBox::about(this, QString::fromUtf8("提示"), QString::fromUtf8("请选择需要续借的书籍!"));
+        QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("请选择需要续借的书籍!"),
+                                 QString::fromUtf8("确定"));
         return;
     }
 
-    QModelIndex index = m_model->index(selectRow, 1);
+    // 获取编号
+    QModelIndex index = m_model->index(selectRow, PERSONAL_NUM);
+    int bookNum = m_model->data(index).toInt();
+
+    // 判断是否续借过
+    QString condition = QString::fromUtf8("编号 = %1 AND 状态 = %2").arg(bookNum).arg(STATUS_REBORROW);
+
+    if (m_model->checkSqlData(condition))
+    {
+        QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("每本书仅可续借一次!"),
+                                 QString::fromUtf8("确定"));
+        return;
+    }
+
+    // 获取还书时间
+    index = m_model->index(selectRow, PERSONAL_RTIME);
     QString returnTime = m_model->data(index).toString();
     QDateTime dateTime = QDateTime::fromString(returnTime, "yyyy-MM-dd:hh:mm:ss");
     returnTime = dateTime.addDays(15).toString("yyyy-MM-dd:hh:mm:ss");    // 续借 15 天
-    m_model->setData(index, returnTime);
-    commitData();
+
+    // 更新还书时间
+    condition = QString::fromUtf8("编号 = %1").arg(bookNum);
+    QString value = QString::fromUtf8("还书时间 = '%1', 状态 = %2").arg(returnTime).arg(STATUS_REBORROW);
+    m_model->setSqlData(condition, value);
+    m_model->multiSelect();
+    QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("续借成功!"),
+                             QString::fromUtf8("确定"));
 }
 
 // 还书
@@ -91,49 +102,44 @@ void PersonalCenter::returnBook()
 
     if (selectRow < 0)
     {
-        QMessageBox::about(this, QString::fromUtf8("提示"), QString::fromUtf8("请选择需要归还的书籍!"));
+        QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("请选择需要归还的书籍!"),
+                                 QString::fromUtf8("确定"));
         return;
     }
-
-    QModelIndex index = m_model->index(selectRow, 2);
-    int bookNum = m_model->data(index).toInt();
-    m_model->removeRow(selectRow);
 
     int ret = QMessageBox::question(this, QString::fromUtf8("提示"), QString::fromUtf8("确认归还该书籍?"),
                                     QString::fromUtf8("确定"), QString::fromUtf8("取消"));
 
-    switch (ret)
+    if (ret == 0)
     {
-    case 0:
-        m_model->submitAll();
+        QModelIndex index = m_model->index(selectRow, PERSONAL_NUM);
+        int bookNum = m_model->data(index).toInt();
+
+        QString condition = QString::fromUtf8("编号 = %1").arg(bookNum);
+        m_model->removeSqlRow(condition);
+        m_model->multiSelect();
         emit sigReturn(bookNum);
-        break;
-    case 1:
-        m_model->revertAll();
-        break;
-    default:
-        break;
     }
 }
 
 // 清除账号信息
 void PersonalCenter::clearAccount(const QString &account)
 {
-    initialization(account);
-    QString values = QString::fromUtf8("账号 = '%1'").arg(account);
-    m_model->removeSqlRow(values);
+    QString condition = QString::fromUtf8("账号 = '%1'").arg(account);
+    m_model->removeSqlRow(condition);
+    QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("已删除账号!"),
+                             QString::fromUtf8("确定"));
 }
 
-// 提交数据
-void PersonalCenter::commitData()
+// 刷新
+void PersonalCenter::refresh(const QString &account)
 {
-    m_model->database().transaction();    // 开始事务操作
+    ui->accountLabel->setText(account);
 
-    if (m_model->submitAll())
-    {
-        m_model->database().commit();    // 提交
-        return;
-    }
+    QString filter =
+            QString::fromUtf8("personalCenter.账号 = '%1' AND personalCenter.编号 = stackRoom.编号")
+            .arg(account);
 
-    m_model->database().rollback();    // 回滚
+    m_model->setMultiFilter(filter);
+    m_model->multiSelect();
 }

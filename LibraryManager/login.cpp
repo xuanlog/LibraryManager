@@ -48,7 +48,8 @@ void Login::login()
 
     if (!m_model->checkSqlData(condition))
     {
-        QMessageBox::about(this, QString::fromUtf8("提示"), QString::fromUtf8("账号或密码错误!"));
+        QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("账号或密码错误!"),
+                                 QString::fromUtf8("确定"));
         return;
     }
 
@@ -64,7 +65,6 @@ void Login::login()
     }
 
     // 登陆成功后清除登录信息
-    ui->accountEdit->clear();
     ui->passwordEdit->clear();
 }
 

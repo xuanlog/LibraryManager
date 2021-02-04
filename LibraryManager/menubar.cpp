@@ -22,7 +22,9 @@ MenuBar::~MenuBar()
 void MenuBar::initialization()
 {
     // 管理员与普通用户显示不同的菜单栏
-    if (this->parent()->objectName() == "Manager" || this->parent()->objectName() == "Reader")
+    QString objectName = this->parent()->objectName();
+
+    if (objectName == "Manager" || objectName == "Reader")
     {
         ui->userWidget->hide();
         return;
@@ -39,20 +41,6 @@ void MenuBar::connectConfig()
     connect(ui->logoutButton, &QPushButton::clicked, this, &MenuBar::moveToLogin);
     connect(ui->managerButton, &QPushButton::clicked, this, &MenuBar::moveToManager);
     connect(ui->readerButton, &QPushButton::clicked, this, &MenuBar::moveToReader);
-}
-
-// 显示窗口
-void MenuBar::showWidget(int index)
-{
-    ui->userWidget->show();
-    ui->managerWidget->hide();
-
-    if (index == PAGE_MANAGER)
-    {
-        ui->userWidget->hide();
-        ui->managerWidget->show();
-        return;
-    }
 }
 
 // 切换窗口

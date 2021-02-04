@@ -8,6 +8,7 @@ Reader::Reader(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    initialization();
     connectConfig();
 }
 
@@ -21,12 +22,10 @@ void Reader::initialization()
 {
     m_model = new SqlTableModel(this);
     m_model->setTable("userInfo");
+    // 不显示管理员账号
     QString filter = QString::fromUtf8("账号 NOT LIKE '%1'").arg(kManagerAccount);
     m_model->setFilter(filter);
     m_model->select();
-
-    // 更新方式，OnRowChange：切换选中行时更新 OnFieldChange：切换选中区更新 OnManualSubmit：手动更新
-    m_model->setEditStrategy(SqlTableModel::OnManualSubmit);
 
     // 设置列宽，Stretch：填充屏幕 ResizeToContents：根据内容长度设定 Fixed：固定
     ui->readerView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
@@ -46,19 +45,67 @@ void Reader::deleteAccount()
 
     if (selectRow < 0)
     {
-        QMessageBox::about(this, QString::fromUtf8("提示"), QString::fromUtf8("请选择需要删除的账号!"));
+        QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("请选择需要删除的账号!"),
+                                 QString::fromUtf8("确定"));
         return;
     }
 
-    QModelIndex index = m_model->index(selectRow, 0);
-    QString account = m_model->data(index).toString();
     int ret = QMessageBox::question(this, QString::fromUtf8("提示"), QString::fromUtf8("操作不可逆，是否继续?"),
                                     QString::fromUtf8("确定"), QString::fromUtf8("取消"));
 
     if (ret == 0)    // 确定删除
     {
-        m_model->QSqlTableModel::removeRow(selectRow);
-        m_model->submitAll();
+        QModelIndex index = m_model->index(selectRow, USER_ACCOUNT);
+        QString account = m_model->data(index).toString();
+
+        QString condition = QString::fromUtf8("账号 = '%1'").arg(account);
+        m_model->removeSqlRow(condition);
         emit sigDelete(account);
+    }
+}
+
+// 刷新
+void Reader::refresh()
+{
+    m_model->select();
+}
+
+void Reader::bookUpdate(const QString &account, bool isBorrow)
+{
+    int maxRow = m_model->rowCount();
+
+    for (int i = 0; i < maxRow; i++)
+    {
+        // 查找账号所在行
+        QModelIndex index = m_model->index(i, USER_ACCOUNT);
+
+        if (account == m_model->data(index).toString())
+        {
+            // 获取已借和共借数量
+            index = m_model->index(i, USER_BORROWED);
+            int borrowed = m_model->data(index).toInt();
+            index = m_model->index(i, USER_TOTAL);
+            int total = m_model->data(index).toInt();
+
+            // 更新
+            QString condition = QString::fromUtf8("账号 = %1").arg(account);
+
+            if (isBorrow)
+            {
+                // 借书
+                QString value = QString::fromUtf8("已借书 = %1, 共借书 = %2").arg(++borrowed).arg(++total);
+                m_model->setSqlData(condition, value);
+                QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("借书成功!"),
+                                         QString::fromUtf8("确定"));
+                break;
+            }
+
+            // 还书
+            QString value = QString::fromUtf8("已借书 = %1").arg(--borrowed);
+            m_model->setSqlData(condition, value);
+            QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("还书成功!"),
+                                     QString::fromUtf8("确定"));
+            break;
+        }
     }
 }

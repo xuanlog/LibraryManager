@@ -16,23 +16,21 @@ public:
     explicit PersonalCenter(QWidget *parent = nullptr);
     ~PersonalCenter();
 
-protected:
-    void connectConfig();    // 信号与槽的设置
-    void commitData();    // 提交数据
-
 private:
     Ui::PersonalCenter *ui;
 
     SqlTableModel *m_model;
-    QString m_account;    // 账号
+
+    void initialization();    // 初始化
+    void connectConfig();    // 信号与槽的设置
 
 signals:
-    void sigSuccessful();    // 借阅成功信号
     void sigReturn(int num);    // 归还信号
+    void sigBorrow(const QString &account, bool isBorrow);
 
 public slots:
-    void initialization(const QString &info);    // 初始化
-    void recvBookInfo(const QStringList &info);    // 获取书籍信息
+    void refresh(const QString &account);    // 刷新
+    void addBook(const QStringList &info);    // 获取书籍信息
     void clearAccount(const QString &account);    // 清除账号信息
 
 private slots:

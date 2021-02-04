@@ -5,8 +5,9 @@
 #include <QMessageBox>
 #include <QDebug>
 
-#define MAX_COLUMN 4
+#define MAX_BORROW 5
 
+const QString kVersion = "1.0.0";
 const QString kManagerAccount = "admin";
 
 enum WIDGET_PAGE
@@ -21,11 +22,36 @@ enum WIDGET_PAGE
 
 enum STACK_ROOM_HEADER
 {
-    HEADER_NUM = 0,
-    HEADER_NAME,
-    HEADER_PUBLISH,
-    HEADER_AUTHOR,
-    HEADER_INVENTORY
+    STACK_NUM = 0,
+    STACK_NAME,
+    STACK_PUBLISH,
+    STACK_AUTHOR,
+    STACK_INVENTORY
+};
+
+enum PERSONAL_CENTER_HEADER
+{
+    PERSONAL_LTIME = 0,
+    PERSONAL_RTIME,
+    PERSONAL_NUM,
+    PERSONAL_NAME,
+    PERSONAL_PUBLISH,
+    PERSONAL_INVENTORY
+};
+
+enum USER_INFO_HEADER
+{
+    USER_ACCOUNT = 0,
+    USER_PASSWORD,
+    USER_BORROWED,
+    USER_TOTAL
+};
+
+enum STATUS
+{
+    STATUS_NORMAL = 0,
+    STATUS_REBORROW,
+    STATUS_OVERDUE
 };
 
 #endif // LIBRARYDEFINE_H

@@ -16,22 +16,21 @@ public:
     explicit StackRoom(QWidget *parent = nullptr);
     ~StackRoom();
 
-protected:
-    void connectConfig();    // 信号与槽的设置
-    void commitData();    // 提交数据
-
 private:
     Ui::StackRoom *ui;
 
     SqlTableModel *m_model;
-    SqlTableModel *m_tModel;
+    QString m_account;    // 账号
+
+    void initialization();    // 初始化
+    void connectConfig();    // 信号与槽的设置
 
 signals:
-    void sigBorrowBook(const QStringList &info);    // 借阅信号
+    void sigBorrow(const QStringList &info);    // 借阅信号
+    void sigReturn(const QString &account, bool isBorrow);
 
 public slots:
-    void initialization();    // 初始化
-    void inventoryUpdate();    // 库存更新
+    void refresh(const QString &account);    // 刷新
     void bookUpdate(int bookNum);
 
 private slots:

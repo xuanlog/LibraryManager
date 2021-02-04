@@ -16,17 +16,16 @@ public:
     explicit Registered(QWidget *parent = nullptr);
     ~Registered();
 
-protected:
+private:
+    Ui::Registered *ui;
+
+    SqlTableModel *m_model;
+
     void initialization();    // 初始化
 
     void connectConfig();    // 信号与槽的设置
 
     void changeWidget(int index);    // 切换窗口
-
-private:
-    Ui::Registered *ui;
-
-    SqlTableModel *m_model;
 
 private slots:
     void registered();    // 注册

@@ -15,14 +15,13 @@ public:
     explicit MenuBar(QWidget *parent = nullptr);
     ~MenuBar();
 
-protected:
+private:
+    Ui::MenuBar *ui;
+
     void initialization();    // 初始化
     void connectConfig();    // 信号与槽的设置
 
     void changeWidget(int index);    // 切换窗口
-
-private:
-    Ui::MenuBar *ui;
 
 private slots:
     void moveToStackRoom();    // 移动页面
@@ -30,7 +29,6 @@ private slots:
     void moveToLogin();    // 移动页面
     void moveToManager();
     void moveToReader();
-    void showWidget(int index);    // 显示窗口
 };
 
 #endif // MENUBAR_H

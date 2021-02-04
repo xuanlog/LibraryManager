@@ -8,6 +8,7 @@ Manager::Manager(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    initialization();
     connectConfig();
 }
 
@@ -24,11 +25,7 @@ void Manager::initialization()
 
     m_model = new SqlTableModel(this);
     m_model->setTable("stackRoom");
-    m_model->setSort(0, Qt::AscendingOrder);
-    m_model->select();
-
-    // 更新方式，OnRowChange：切换选中行时更新 OnFieldChange：切换选中区更新 OnManualSubmit：手动更新
-    m_model->setEditStrategy(SqlTableModel::OnManualSubmit);
+    m_model->setSort(STACK_INVENTORY, Qt::DescendingOrder);
 
     // 设置列宽，Stretch：填充屏幕 ResizeToContents：根据内容长度设定 Fixed：固定
     ui->bookInfoView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
@@ -42,7 +39,9 @@ void Manager::connectConfig()
      * QComboBox 的 currentIndexChanged 有两个重载，一个参数是 int，一个参数是 QString，所以需要用下面的语句强制类型转换，否则
      * connect 不知道触发哪个信号，用 QT4 的写法则无此问题
      */
-    connect(ui->queryTypeComboBox, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &Manager::changeType);
+    connect(ui->queryTypeComboBox, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
+            this, &Manager::changeType);
+
     connect(ui->queryEdit, &QLineEdit::textChanged, this, &Manager::queryBook);
     connect(ui->addButton, &QPushButton::clicked, this, &Manager::changeWidgetState);
     connect(ui->confirmButton, &QPushButton::clicked, this, &Manager::addBook);
@@ -58,19 +57,19 @@ void Manager::queryBook(const QString &info)
     // LIKE '%%1%' 模糊搜索 %1：arg 里面的参数 前后两个 % 表示参数前或后可能有其他字符
     switch (queryType)
     {
-    case HEADER_NUM:
+    case STACK_NUM:
         filter = QString::fromUtf8("编号 LIKE '%%1%'").arg(info);
         break;
-    case HEADER_NAME:
+    case STACK_NAME:
         filter = QString::fromUtf8("书名 LIKE '%%1%'").arg(info);
         break;
-    case HEADER_PUBLISH:
+    case STACK_PUBLISH:
         filter = QString::fromUtf8("出版社 LIKE '%%1%'").arg(info);
         break;
-    case HEADER_AUTHOR:
+    case STACK_AUTHOR:
         filter = QString::fromUtf8("作者 LIKE '%%1%'").arg(info);
         break;
-    case HEADER_INVENTORY:
+    case STACK_INVENTORY:
         filter = QString::fromUtf8("库存 LIKE '%%1%'").arg(info);
         break;
     }
@@ -109,16 +108,19 @@ void Manager::addBook()
 
     if (isEmpty)
     {
-        QMessageBox::about(this, QString::fromUtf8("提示"), QString::fromUtf8("请填写完整的信息!"));
+        QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("请填写完整的信息!"),
+                                 QString::fromUtf8("确定"));
         return;
     }
 
-    QString values = QString("%1, '%2', '%3', '%4', %5")
+    QString value = QString("%1, '%2', '%3', '%4', %5")
             .arg(ui->numEdit->text()).arg(ui->nameEdit->text())
             .arg(ui->publishEdit->text()).arg(ui->authorEdit->text())
             .arg(ui->inventoryEdit->text());
 
-    m_model->insertSqlRow(values);
+    m_model->insertSqlRow(value);
+    QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("添加成功!"),
+                             QString::fromUtf8("确定"));
 }
 
 // 删除书籍
@@ -128,24 +130,28 @@ void Manager::deleteBook()
 
     if (selectRow < 0)
     {
-        QMessageBox::about(this, QString::fromUtf8("提示"), QString::fromUtf8("请选择需要删除的书籍!"));
+        QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("请选择需要删除的书籍!"),
+                                 QString::fromUtf8("确定"));
         return;
     }
-
-    m_model->removeRow(selectRow);
 
     int ret = QMessageBox::question(this, QString::fromUtf8("提示"), QString::fromUtf8("确认删除该书籍?"),
                                     QString::fromUtf8("确定"), QString::fromUtf8("取消"));
 
-    switch (ret)
+    if (ret == 0)    // 删除书籍
     {
-    case 0:
-        m_model->submitAll();
-        break;
-    case 1:
-        m_model->revertAll();
-        break;
-    default:
-        break;
+        QModelIndex index = m_model->index(selectRow, STACK_NUM);
+        int bookNum = m_model->data(index).toInt();
+
+        QString condition = QString::fromUtf8("编号 = %1").arg(bookNum);
+        m_model->removeSqlRow(condition);
+        QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("已删除!"),
+                                 QString::fromUtf8("确定"));
     }
+}
+
+// 刷新
+void Manager::refresh()
+{
+    m_model->select();
 }
