@@ -2,6 +2,7 @@
 #define WIDGET_H
 
 #include <QWidget>
+#include "timemanager.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Widget; }
@@ -12,15 +13,15 @@ class Widget : public QWidget
     Q_OBJECT
 
 public:
-    Widget(QWidget *parent = nullptr);
+    explicit Widget(QWidget *parent = nullptr);
     ~Widget();
 
 private:
     Ui::Widget *ui;
 
-    void connectConfig();    // 信号与槽的设置
+    TimeManager *m_timer;
 
-signals:
-    void sigLogin(const QString &info);
+    void connectConfig();    // 信号与槽的设置
+    void timeUpdate(const QString &time, const QString &tips);
 };
 #endif // WIDGET_H

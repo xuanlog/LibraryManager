@@ -88,3 +88,6 @@ LibraryManager/release/registered.o
 LibraryManager/release/sqltablemodel.o
 LibraryManager/release/stackroom.o
 LibraryManager/release/widget.o
+LibraryManager/debug/moc_timemanager.cpp
+LibraryManager/debug/moc_timemanager.o
+LibraryManager/debug/timemanager.o

@@ -8,7 +8,7 @@ class SqlTableModel : public QSqlTableModel
     Q_OBJECT
 
 public:
-    SqlTableModel(QObject *parent = nullptr);
+    explicit SqlTableModel(QObject *parent = nullptr);
     ~SqlTableModel();
 
     void setMultiTable(const QString &tableName);

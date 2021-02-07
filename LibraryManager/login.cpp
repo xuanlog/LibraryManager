@@ -23,6 +23,13 @@ void Login::initialization()
 {
     m_model = new SqlTableModel(this);
     m_model->setTable("userInfo");
+
+    QString account = ui->accountEdit->text();
+
+    if (!account.isEmpty())
+    {
+        userUpdate(account);
+    }
 }
 
 // 信号与槽的设置
@@ -30,6 +37,7 @@ void Login::connectConfig()
 {
     connect(ui->loginButton, &QPushButton::clicked, this, &Login::login);
     connect(ui->registeredButton, &QPushButton::clicked, this, &Login::moveToRegistered);
+    connect(ui->accountEdit, &QLineEdit::textChanged, this, &Login::userUpdate);
 }
 
 // 切换窗口
@@ -74,4 +82,21 @@ void Login::moveToRegistered()
     changeWidget(PAGE_REGISTERED);
 
     ui->passwordEdit->clear();
+}
+
+// 更新提示
+void Login::userUpdate(const QString &account)
+{
+    if (account == kManagerAccount)
+    {
+        ui->userLabel->setText(QString::fromUtf8("亲爱的管理员"));
+        return;
+    }
+
+    ui->userLabel->setText(QString::fromUtf8("亲爱的用户"));
+}
+
+void Login::tipsUpdate(const QString &tips)
+{
+    ui->tipsLabel->setText(tips);
 }

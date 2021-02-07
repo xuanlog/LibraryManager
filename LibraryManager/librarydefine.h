@@ -7,7 +7,7 @@
 
 #define MAX_BORROW 5
 
-const QString kVersion = "1.0.0";
+const QString kVersion = "1.0.1";
 const QString kManagerAccount = "admin";
 
 enum WIDGET_PAGE

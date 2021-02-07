@@ -16,6 +16,8 @@ public:
     explicit Login(QWidget *parent = nullptr);
     ~Login();
 
+    void tipsUpdate(const QString &tips);
+
 private:
     Ui::Login *ui;
 
@@ -34,6 +36,7 @@ signals:
 private slots:
     void login();    // 登录
     void moveToRegistered();    // 跳转注册页面
+    void userUpdate(const QString &account);    // 更新提示
 };
 
 #endif // LOGIN_H

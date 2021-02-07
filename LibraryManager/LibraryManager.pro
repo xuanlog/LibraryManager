@@ -26,6 +26,7 @@ SOURCES += \
     registered.cpp \
     sqltablemodel.cpp \
     stackroom.cpp \
+    timemanager.cpp \
     widget.cpp
 
 HEADERS += \
@@ -38,6 +39,7 @@ HEADERS += \
     registered.h \
     sqltablemodel.h \
     stackroom.h \
+    timemanager.h \
     widget.h
 
 FORMS += \

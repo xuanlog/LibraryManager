@@ -8,6 +8,8 @@ Widget::Widget(QWidget *parent)
 {
     ui->setupUi(this);
 
+    m_timer = new TimeManager(this);
+    m_timer->start();
     setWindowTitle(QString::fromUtf8("图书管理系统 v%1").arg(kVersion));
     connectConfig();
 }
@@ -29,4 +31,15 @@ void Widget::connectConfig()
     connect(ui->loginWidget, &Login::sigManager, ui->managerWidget, &Manager::refresh);
     connect(ui->loginWidget, &Login::sigManager, ui->readerWidget, &Reader::refresh);
     connect(ui->readerWidget, &Reader::sigDelete, ui->personalCenterWidget, &PersonalCenter::clearAccount);
+    connect(m_timer, &TimeManager::sigTipsUpdate, this, &Widget::timeUpdate, Qt::BlockingQueuedConnection);
+}
+
+void Widget::timeUpdate(const QString &time, const QString &tips)
+{
+    ui->timeLabel->setText(time);
+
+    if (!tips.isEmpty())    // 为空则不更新
+    {
+        ui->loginWidget->tipsUpdate(tips);
+    }
 }
