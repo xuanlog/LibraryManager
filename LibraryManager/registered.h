@@ -27,6 +27,9 @@ private:
 
     void changeWidget(int index);    // 切换窗口
 
+signals:
+    void sigRegist();
+
 private slots:
     void registered();    // 注册
     void back();    // 返回登录

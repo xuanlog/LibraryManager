@@ -2,6 +2,7 @@
 #include "ui_login.h"
 #include "librarydefine.h"
 #include <QStackedWidget>
+#include "md5.h"
 
 Login::Login(QWidget *parent) :
     QWidget(parent),
@@ -52,6 +53,10 @@ void Login::login()
 {
     QString account = ui->accountEdit->text();
     QString password = ui->passwordEdit->text();
+
+    // 加密
+    password = MD5::Encrypt(account + password);
+
     QString condition = QString::fromUtf8("账号 = '%1' AND 密码 = '%2'").arg(account).arg(password);
 
     if (!m_model->checkSqlData(condition))

@@ -5,11 +5,24 @@
 #include <QDebug>
 #include <QMessageBox>
 #include <QSqlQuery>
+#include "md5.h"
+#include <QFileDialog>
 
 void sqlConnection()
 {
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("library.db");
+    QString dbName = MD5::Encrypt("library.db");
+    QString path = QCoreApplication::applicationDirPath() + "/Data/";
+
+    QDir dir(path);
+
+    if (!dir.exists())
+    {
+        QDir().mkpath(path);
+    }
+
+    path += dbName;
+    db.setDatabaseName(path);
 
     if (!db.open())
     {
@@ -27,9 +40,12 @@ void sqlConnection()
     query.exec(QString::fromUtf8("INSERT INTO stackRoom VALUES(2, '西游记', '中国出版社', '吴承恩', 10)"));
     query.exec(QString::fromUtf8("INSERT INTO stackRoom VALUES(3, '红楼梦', '中国出版社', '曹雪芹', 20)"));
 
+    // 加密
+    QString password = MD5::Encrypt("admin123456");
+
     // 创建 userInfo 表
     query.exec(QString::fromUtf8("CREATE TABLE IF NOT EXISTS userInfo(账号 VARCHAR(20) PRIMARY KEY, 密码 VARCHAR(20), 已借书 INT, 共借书 INT)"));
-    query.exec(QString::fromUtf8("INSERT INTO userInfo VALUES('admin', '123456', 0, 0)"));
+    query.exec(QString::fromUtf8("INSERT INTO userInfo VALUES('admin', '%1', 0, 0)").arg(password));
 
     // 创建 personalCenter 表
     query.exec(QString::fromUtf8("CREATE TABLE IF NOT EXISTS personalCenter(借书时间 DATATIME, 还书时间 DATATIME, 编号 INT, 账号 VARCHAR(20), 状态 INT)"));

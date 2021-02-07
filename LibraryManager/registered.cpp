@@ -2,6 +2,7 @@
 #include "ui_registered.h"
 #include "librarydefine.h"
 #include <QStackedWidget>
+#include "md5.h"
 
 Registered::Registered(QWidget *parent) :
     QWidget(parent),
@@ -76,10 +77,13 @@ void Registered::registered()
         return;
     }
 
+    // 加密
+    password = MD5::Encrypt(account + password);
+
     // userInfo 表添加信息
     QString value = QString("'%1', '%2', 0, 0").arg(account).arg(password);
     m_model->insertSqlRow(value);
-
+    emit sigRegist();
     QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("注册成功!"),
                              QString::fromUtf8("确定"));
 

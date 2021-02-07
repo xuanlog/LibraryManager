@@ -91,3 +91,6 @@ LibraryManager/release/widget.o
 LibraryManager/debug/moc_timemanager.cpp
 LibraryManager/debug/moc_timemanager.o
 LibraryManager/debug/timemanager.o
+LibraryManager/debug/base64.o
+LibraryManager/debug/md5.o
+LibraryManager/debug/Data/D0F240DBC487E5A0

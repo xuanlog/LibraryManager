@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QCheckBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
@@ -48,6 +49,11 @@ public:
     QLineEdit *accountEdit;
     QLineEdit *passwordEdit;
     QSpacerItem *horizontalSpacer_2;
+    QWidget *widget_8;
+    QHBoxLayout *horizontalLayout_5;
+    QSpacerItem *horizontalSpacer_10;
+    QCheckBox *rememberCheckBox;
+    QSpacerItem *horizontalSpacer_9;
     QWidget *widget_5;
     QHBoxLayout *horizontalLayout_2;
     QSpacerItem *horizontalSpacer_3;
@@ -115,6 +121,7 @@ public:
         widget_3->setObjectName(QString::fromUtf8("widget_3"));
         horizontalLayout = new QHBoxLayout(widget_3);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        horizontalLayout->setContentsMargins(-1, -1, -1, 0);
         horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         horizontalLayout->addItem(horizontalSpacer);
@@ -176,6 +183,27 @@ public:
 
         verticalLayout_3->addWidget(widget_3);
 
+        widget_8 = new QWidget(Login);
+        widget_8->setObjectName(QString::fromUtf8("widget_8"));
+        horizontalLayout_5 = new QHBoxLayout(widget_8);
+        horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
+        horizontalLayout_5->setContentsMargins(-1, 0, -1, -1);
+        horizontalSpacer_10 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_5->addItem(horizontalSpacer_10);
+
+        rememberCheckBox = new QCheckBox(widget_8);
+        rememberCheckBox->setObjectName(QString::fromUtf8("rememberCheckBox"));
+
+        horizontalLayout_5->addWidget(rememberCheckBox);
+
+        horizontalSpacer_9 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_5->addItem(horizontalSpacer_9);
+
+
+        verticalLayout_3->addWidget(widget_8);
+
         widget_5 = new QWidget(Login);
         widget_5->setObjectName(QString::fromUtf8("widget_5"));
         horizontalLayout_2 = new QHBoxLayout(widget_5);
@@ -229,6 +257,7 @@ public:
         accountEdit->setText(QString());
         accountEdit->setPlaceholderText(QCoreApplication::translate("Login", "\350\257\267\350\276\223\345\205\245\350\264\246\345\217\267", nullptr));
         passwordEdit->setPlaceholderText(QCoreApplication::translate("Login", "\350\257\267\350\276\223\345\205\245\345\257\206\347\240\201", nullptr));
+        rememberCheckBox->setText(QCoreApplication::translate("Login", "\350\256\260\344\275\217\345\257\206\347\240\201", nullptr));
         loginButton->setText(QCoreApplication::translate("Login", "\347\231\273\345\275\225", nullptr));
         registeredButton->setText(QCoreApplication::translate("Login", "\346\263\250\345\206\214", nullptr));
     } // retranslateUi

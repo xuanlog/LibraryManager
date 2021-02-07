@@ -104,24 +104,24 @@ void StackRoom::borrowBook()
         return;
     }
 
-    // 获取书籍编号
-    index = m_model->index(selectRow, STACK_NUM);
-    QString data = m_model->data(index).toString();
-    QString condition = QString::fromUtf8("编号 = %1 AND 账号 = '%2'").arg(data).arg(m_account);
-
-    if (m_model->checkSqlData("personalCenter", condition))
-    {
-        QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("请不要重复借阅!"),
-                                 QString::fromUtf8("确定"));
-        return;
-    }
-
-    condition = QString::fromUtf8("账号 = '%1' AND 已借书 = %2").arg(m_account).arg(MAX_BORROW);
+    QString condition = QString::fromUtf8("账号 = '%1' AND 已借书 = %2").arg(m_account).arg(MAX_BORROW);
 
     if (m_model->checkSqlData("userInfo", condition))
     {
         QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("借书上限为 %1 本!")
                                  .arg(MAX_BORROW), QString::fromUtf8("确定"));
+        return;
+    }
+
+    // 获取书籍编号
+    index = m_model->index(selectRow, STACK_NUM);
+    QString data = m_model->data(index).toString();
+    condition = QString::fromUtf8("编号 = %1 AND 账号 = '%2'").arg(data).arg(m_account);
+
+    if (m_model->checkSqlData("personalCenter", condition))
+    {
+        QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("请不要重复借阅!"),
+                                 QString::fromUtf8("确定"));
         return;
     }
 

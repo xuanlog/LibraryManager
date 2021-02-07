@@ -17,9 +17,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    base64.cpp \
     login.cpp \
     main.cpp \
     manager.cpp \
+    md5.cpp \
     menubar.cpp \
     personalcenter.cpp \
     reader.cpp \
@@ -30,9 +32,11 @@ SOURCES += \
     widget.cpp
 
 HEADERS += \
+    base64.h \
     librarydefine.h \
     login.h \
     manager.h \
+    md5.h \
     menubar.h \
     personalcenter.h \
     reader.h \

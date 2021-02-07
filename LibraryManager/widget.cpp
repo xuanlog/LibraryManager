@@ -24,13 +24,19 @@ void Widget::connectConfig()
 {
     connect(ui->stackRoomWidget, &StackRoom::sigBorrow, ui->personalCenterWidget, &PersonalCenter::addBook);
     connect(ui->stackRoomWidget, &StackRoom::sigReturn, ui->readerWidget, &Reader::bookUpdate);
+
     connect(ui->personalCenterWidget, &PersonalCenter::sigReturn, ui->stackRoomWidget, &StackRoom::bookUpdate);
     connect(ui->personalCenterWidget, &PersonalCenter::sigBorrow, ui->readerWidget, &Reader::bookUpdate);
+
     connect(ui->loginWidget, &Login::sigLogin, ui->stackRoomWidget, &StackRoom::refresh);
     connect(ui->loginWidget, &Login::sigLogin, ui->personalCenterWidget, &PersonalCenter::refresh);
     connect(ui->loginWidget, &Login::sigManager, ui->managerWidget, &Manager::refresh);
     connect(ui->loginWidget, &Login::sigManager, ui->readerWidget, &Reader::refresh);
+
     connect(ui->readerWidget, &Reader::sigDelete, ui->personalCenterWidget, &PersonalCenter::clearAccount);
+
+    connect(ui->registeredWidget, &Registered::sigRegist, ui->readerWidget, &Reader::refresh);
+
     connect(m_timer, &TimeManager::sigTipsUpdate, this, &Widget::timeUpdate, Qt::BlockingQueuedConnection);
 }
 
