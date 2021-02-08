@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "sqltablemodel.h"
+#include <QTimer>
 
 namespace Ui {
 class Login;
@@ -22,6 +23,7 @@ private:
     Ui::Login *ui;
 
     SqlTableModel *m_model;
+    QTimer *m_timer;
 
     void initialization();    // 初始化
 
@@ -39,6 +41,9 @@ private slots:
     void login();    // 登录
     void moveToRegistered();    // 跳转注册页面
     void userUpdate(const QString &account);    // 更新提示
+    void autoUpdate(bool isChecked);
+    void rememberUpdate(bool isChecked);
+    void autoLogin();
 };
 
 #endif // LOGIN_H

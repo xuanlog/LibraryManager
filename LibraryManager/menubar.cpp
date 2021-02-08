@@ -2,6 +2,7 @@
 #include "ui_menubar.h"
 #include <QStackedWidget>
 #include "librarydefine.h"
+#include "filemanager.h"
 
 MenuBar::MenuBar(QWidget *parent) :
     QWidget(parent),
@@ -68,6 +69,7 @@ void MenuBar::moveToLogin()
     if (ret == 0)
     {
         changeWidget(PAGE_LOGIN);
+        FileManager::write("INFO/AutoFlag", "false");
     }
 }
 

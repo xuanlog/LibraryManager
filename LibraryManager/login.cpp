@@ -27,6 +27,7 @@ void Login::initialization()
 {
     m_model = new SqlTableModel(this);
     m_model->setTable("userInfo");
+    m_timer = new QTimer(this);
 }
 
 // 信号与槽的设置
@@ -35,6 +36,9 @@ void Login::connectConfig()
     connect(ui->loginButton, &QPushButton::clicked, this, &Login::login);
     connect(ui->registeredButton, &QPushButton::clicked, this, &Login::moveToRegistered);
     connect(ui->accountEdit, &QLineEdit::textChanged, this, &Login::userUpdate);
+    connect(ui->autoCheckBox, &QCheckBox::clicked, this, &Login::autoUpdate);
+    connect(ui->rememberCheckBox, &QCheckBox::clicked, this, &Login::rememberUpdate);
+    connect(m_timer, &QTimer::timeout, this, &Login::autoLogin);
 }
 
 void Login::initData()
@@ -43,13 +47,30 @@ void Login::initData()
     QString isRemeber = FileManager::read("INFO/RememberFlag");
     ui->accountEdit->setText(account);
 
-    if (isRemeber == "true")
+    if (isRemeber == "false")
     {
-        QString password = FileManager::read("INFO/Password");
-        password = Base64::Decrypt(password);    // 解密
-        ui->rememberCheckBox->setChecked(true);
-        ui->passwordEdit->setText(password);
+        return;
     }
+
+    QString password = FileManager::read("INFO/Password");
+    password = Base64::Decrypt(password);    // 解密
+    ui->rememberCheckBox->setChecked(true);
+    ui->passwordEdit->setText(password);
+
+    // 自动登录
+    QString isAuto = FileManager::read("INFO/AutoFlag");
+
+    if (isAuto == "true")
+    {
+        ui->autoCheckBox->setChecked(true);
+        m_timer->start(500);
+    }
+}
+
+void Login::autoLogin()
+{
+    m_timer->stop();
+    login();
 }
 
 // 切换窗口
@@ -85,21 +106,22 @@ void Login::login()
         changeWidget(PAGE_PERSONAL);
     }
 
+    ui->autoCheckBox->setChecked(false);
+
     // 更新用户信息存储
     FileManager::write("INFO/Account", account);
 
-    if (ui->rememberCheckBox->isChecked())    // 记住密码
-    {
-        QString passwordBase64 = Base64::Encrypt(password);
-        FileManager::write("INFO/Password", passwordBase64);
-        FileManager::write("INFO/RememberFlag", "true");
-    }
-    else    // 不记住密码
+    if (!ui->rememberCheckBox->isChecked())    // 不记住密码
     {
         FileManager::write("INFO/RememberFlag", "false");
         FileManager::remove("INFO/Password");
         ui->passwordEdit->clear();
+        return;
     }
+
+    QString passwordBase64 = Base64::Encrypt(password);
+    FileManager::write("INFO/Password", passwordBase64);
+    FileManager::write("INFO/RememberFlag", "true");
 }
 
 // 跳转注册页面
@@ -126,10 +148,30 @@ void Login::userUpdate(const QString &account)
     {
         ui->passwordEdit->clear();
         ui->rememberCheckBox->setChecked(false);
+        ui->autoCheckBox->setChecked(false);
         return;
     }
 
     initData();
+}
+
+void Login::autoUpdate(bool isChecked)
+{
+    QString isAuto = isChecked ? "true" : "false";
+    FileManager::write("INFO/AutoFlag", isAuto);
+
+    if (isChecked)
+    {
+        ui->rememberCheckBox->setChecked(isChecked);
+    }
+}
+
+void Login::rememberUpdate(bool isChecked)
+{
+    if (!isChecked)
+    {
+        ui->autoCheckBox->setChecked(isChecked);
+    }
 }
 
 void Login::tipsUpdate(const QString &tips)
