@@ -8,7 +8,7 @@
 #define MAX_BORROW 5
 #define MD5_LENGTH 16
 
-const QString kVersion = "1.0.2";
+const QString kVersion = "1.0.3";
 const QString kManagerAccount = "admin";
 
 enum WIDGET_PAGE
