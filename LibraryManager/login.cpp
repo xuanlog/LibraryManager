@@ -106,8 +106,6 @@ void Login::login()
         changeWidget(PAGE_PERSONAL);
     }
 
-    ui->autoCheckBox->setChecked(false);
-
     // 更新用户信息存储
     FileManager::write("INFO/Account", account);
 
@@ -122,6 +120,12 @@ void Login::login()
     QString passwordBase64 = Base64::Encrypt(password);
     FileManager::write("INFO/Password", passwordBase64);
     FileManager::write("INFO/RememberFlag", "true");
+
+    if (ui->autoCheckBox->isChecked())
+    {
+        ui->autoCheckBox->setChecked(false);
+        FileManager::write("INFO/AutoFlag", "true");
+    }
 }
 
 // 跳转注册页面
@@ -157,9 +161,6 @@ void Login::userUpdate(const QString &account)
 
 void Login::autoUpdate(bool isChecked)
 {
-    QString isAuto = isChecked ? "true" : "false";
-    FileManager::write("INFO/AutoFlag", isAuto);
-
     if (isChecked)
     {
         ui->rememberCheckBox->setChecked(isChecked);
