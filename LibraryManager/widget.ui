@@ -17,6 +17,7 @@
    <item>
     <widget class="QStackedWidget" name="stackedWidget">
      <widget class="Login" name="loginWidget"/>
+     <widget class="ResetPassword" name="resetWidget"/>
      <widget class="Registered" name="registeredWidget"/>
      <widget class="PersonalCenter" name="personalCenterWidget"/>
      <widget class="StackRoom" name="stackRoomWidget"/>
@@ -94,6 +95,12 @@
    <class>Reader</class>
    <extends>QWidget</extends>
    <header>reader.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ResetPassword</class>
+   <extends>QWidget</extends>
+   <header>resetpassword.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

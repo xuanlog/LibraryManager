@@ -27,6 +27,7 @@ SOURCES += \
     personalcenter.cpp \
     reader.cpp \
     registered.cpp \
+    resetpassword.cpp \
     sqltablemodel.cpp \
     stackroom.cpp \
     timemanager.cpp \
@@ -43,6 +44,7 @@ HEADERS += \
     personalcenter.h \
     reader.h \
     registered.h \
+    resetpassword.h \
     sqltablemodel.h \
     stackroom.h \
     timemanager.h \
@@ -55,6 +57,7 @@ FORMS += \
     personalcenter.ui \
     reader.ui \
     registered.ui \
+    resetpassword.ui \
     stackroom.ui \
     widget.ui
 

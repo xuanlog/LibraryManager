@@ -14,6 +14,7 @@ const QString kManagerAccount = "admin";
 enum WIDGET_PAGE
 {
     PAGE_LOGIN = 0,
+    PAGE_RESET,
     PAGE_REGISTERED,
     PAGE_PERSONAL,
     PAGE_STACK_ROOM,

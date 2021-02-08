@@ -35,6 +35,7 @@ void Login::connectConfig()
 {
     connect(ui->loginButton, &QPushButton::clicked, this, &Login::login);
     connect(ui->registeredButton, &QPushButton::clicked, this, &Login::moveToRegistered);
+    connect(ui->resetButton, &QPushButton::clicked, this, &Login::moveToReset);
     connect(ui->accountEdit, &QLineEdit::textChanged, this, &Login::userUpdate);
     connect(ui->autoCheckBox, &QCheckBox::clicked, this, &Login::autoUpdate);
     connect(ui->rememberCheckBox, &QCheckBox::clicked, this, &Login::rememberUpdate);
@@ -132,6 +133,11 @@ void Login::login()
 void Login::moveToRegistered()
 {
     changeWidget(PAGE_REGISTERED);
+}
+
+void Login::moveToReset()
+{
+    changeWidget(PAGE_RESET);
 }
 
 // 更新提示

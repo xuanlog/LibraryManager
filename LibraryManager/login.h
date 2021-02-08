@@ -40,6 +40,7 @@ signals:
 private slots:
     void login();    // 登录
     void moveToRegistered();    // 跳转注册页面
+    void moveToReset();
     void userUpdate(const QString &account);    // 更新提示
     void autoUpdate(bool isChecked);
     void rememberUpdate(bool isChecked);

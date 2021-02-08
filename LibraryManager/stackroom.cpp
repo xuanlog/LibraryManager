@@ -41,6 +41,7 @@ void StackRoom::connectConfig()
      */
     connect(ui->queryTypeComboBox, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
             this, &StackRoom::changeType);
+
     connect(ui->queryEdit, &QLineEdit::textChanged, this, &StackRoom::queryBook);
     connect(ui->borrowButton, &QPushButton::clicked, this, &StackRoom::borrowBook);
 }
