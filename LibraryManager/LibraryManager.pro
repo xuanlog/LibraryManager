@@ -18,6 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     base64.cpp \
+    filemanager.cpp \
     login.cpp \
     main.cpp \
     manager.cpp \
@@ -33,6 +34,7 @@ SOURCES += \
 
 HEADERS += \
     base64.h \
+    filemanager.h \
     librarydefine.h \
     login.h \
     manager.h \

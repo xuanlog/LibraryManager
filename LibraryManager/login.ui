@@ -260,9 +260,23 @@
        </spacer>
       </item>
       <item>
+       <widget class="QCheckBox" name="autoCheckBox">
+        <property name="text">
+         <string>自动登录</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QCheckBox" name="rememberCheckBox">
         <property name="text">
          <string>记住密码</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="resetButton">
+        <property name="text">
+         <string>忘记密码</string>
         </property>
        </widget>
       </item>

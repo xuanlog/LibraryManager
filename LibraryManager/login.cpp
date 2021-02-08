@@ -3,6 +3,8 @@
 #include "librarydefine.h"
 #include <QStackedWidget>
 #include "md5.h"
+#include "base64.h"
+#include "filemanager.h"
 
 Login::Login(QWidget *parent) :
     QWidget(parent),
@@ -12,6 +14,7 @@ Login::Login(QWidget *parent) :
 
     initialization();
     connectConfig();
+    initData();
 }
 
 Login::~Login()
@@ -24,13 +27,6 @@ void Login::initialization()
 {
     m_model = new SqlTableModel(this);
     m_model->setTable("userInfo");
-
-    QString account = ui->accountEdit->text();
-
-    if (!account.isEmpty())
-    {
-        userUpdate(account);
-    }
 }
 
 // 信号与槽的设置
@@ -39,6 +35,21 @@ void Login::connectConfig()
     connect(ui->loginButton, &QPushButton::clicked, this, &Login::login);
     connect(ui->registeredButton, &QPushButton::clicked, this, &Login::moveToRegistered);
     connect(ui->accountEdit, &QLineEdit::textChanged, this, &Login::userUpdate);
+}
+
+void Login::initData()
+{
+    QString account = FileManager::read("INFO/Account");
+    QString isRemeber = FileManager::read("INFO/RememberFlag");
+    ui->accountEdit->setText(account);
+
+    if (isRemeber == "true")
+    {
+        QString password = FileManager::read("INFO/Password");
+        password = Base64::Decrypt(password);    // 解密
+        ui->rememberCheckBox->setChecked(true);
+        ui->passwordEdit->setText(password);
+    }
 }
 
 // 切换窗口
@@ -53,11 +64,8 @@ void Login::login()
 {
     QString account = ui->accountEdit->text();
     QString password = ui->passwordEdit->text();
-
-    // 加密
-    password = MD5::Encrypt(account + password);
-
-    QString condition = QString::fromUtf8("账号 = '%1' AND 密码 = '%2'").arg(account).arg(password);
+    QString passwordMD5 = MD5::Encrypt(account + password);
+    QString condition = QString::fromUtf8("账号 = '%1' AND 密码 = '%2'").arg(account).arg(passwordMD5);
 
     if (!m_model->checkSqlData(condition))
     {
@@ -77,16 +85,27 @@ void Login::login()
         changeWidget(PAGE_PERSONAL);
     }
 
-    // 登陆成功后清除登录信息
-    ui->passwordEdit->clear();
+    // 更新用户信息存储
+    FileManager::write("INFO/Account", account);
+
+    if (ui->rememberCheckBox->isChecked())    // 记住密码
+    {
+        QString passwordBase64 = Base64::Encrypt(password);
+        FileManager::write("INFO/Password", passwordBase64);
+        FileManager::write("INFO/RememberFlag", "true");
+    }
+    else    // 不记住密码
+    {
+        FileManager::write("INFO/RememberFlag", "false");
+        FileManager::remove("INFO/Password");
+        ui->passwordEdit->clear();
+    }
 }
 
 // 跳转注册页面
 void Login::moveToRegistered()
 {
     changeWidget(PAGE_REGISTERED);
-
-    ui->passwordEdit->clear();
 }
 
 // 更新提示
@@ -99,6 +118,18 @@ void Login::userUpdate(const QString &account)
     }
 
     ui->userLabel->setText(QString::fromUtf8("亲爱的用户"));
+
+    // 账号与记住的不匹配则清除密码及勾选，如果相同，则读取文件进行信息的恢复
+    QString remember = FileManager::read("INFO/Account");
+
+    if (account != remember)
+    {
+        ui->passwordEdit->clear();
+        ui->rememberCheckBox->setChecked(false);
+        return;
+    }
+
+    initData();
 }
 
 void Login::tipsUpdate(const QString &tips)

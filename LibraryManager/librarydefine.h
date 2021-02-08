@@ -6,6 +6,7 @@
 #include <QDebug>
 
 #define MAX_BORROW 5
+#define MD5_LENGTH 16
 
 const QString kVersion = "1.0.1";
 const QString kManagerAccount = "admin";

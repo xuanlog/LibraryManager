@@ -9,7 +9,7 @@ QString Base64::Encrypt(const QString &text)
 QString Base64::Decrypt(const QString &text)
 {
     QString ret = QByteArray::fromHex(text.toUtf8());
-    ret = QByteArray::fromBase64(text.toUtf8());
+    ret = QByteArray::fromBase64(ret.toUtf8());
     return ret;
 }
 

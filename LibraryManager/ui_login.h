@@ -52,7 +52,9 @@ public:
     QWidget *widget_8;
     QHBoxLayout *horizontalLayout_5;
     QSpacerItem *horizontalSpacer_10;
+    QCheckBox *autoCheckBox;
     QCheckBox *rememberCheckBox;
+    QPushButton *resetButton;
     QSpacerItem *horizontalSpacer_9;
     QWidget *widget_5;
     QHBoxLayout *horizontalLayout_2;
@@ -192,10 +194,20 @@ public:
 
         horizontalLayout_5->addItem(horizontalSpacer_10);
 
+        autoCheckBox = new QCheckBox(widget_8);
+        autoCheckBox->setObjectName(QString::fromUtf8("autoCheckBox"));
+
+        horizontalLayout_5->addWidget(autoCheckBox);
+
         rememberCheckBox = new QCheckBox(widget_8);
         rememberCheckBox->setObjectName(QString::fromUtf8("rememberCheckBox"));
 
         horizontalLayout_5->addWidget(rememberCheckBox);
+
+        resetButton = new QPushButton(widget_8);
+        resetButton->setObjectName(QString::fromUtf8("resetButton"));
+
+        horizontalLayout_5->addWidget(resetButton);
 
         horizontalSpacer_9 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
@@ -257,7 +269,9 @@ public:
         accountEdit->setText(QString());
         accountEdit->setPlaceholderText(QCoreApplication::translate("Login", "\350\257\267\350\276\223\345\205\245\350\264\246\345\217\267", nullptr));
         passwordEdit->setPlaceholderText(QCoreApplication::translate("Login", "\350\257\267\350\276\223\345\205\245\345\257\206\347\240\201", nullptr));
+        autoCheckBox->setText(QCoreApplication::translate("Login", "\350\207\252\345\212\250\347\231\273\345\275\225", nullptr));
         rememberCheckBox->setText(QCoreApplication::translate("Login", "\350\256\260\344\275\217\345\257\206\347\240\201", nullptr));
+        resetButton->setText(QCoreApplication::translate("Login", "\345\277\230\350\256\260\345\257\206\347\240\201", nullptr));
         loginButton->setText(QCoreApplication::translate("Login", "\347\231\273\345\275\225", nullptr));
         registeredButton->setText(QCoreApplication::translate("Login", "\346\263\250\345\206\214", nullptr));
     } // retranslateUi
