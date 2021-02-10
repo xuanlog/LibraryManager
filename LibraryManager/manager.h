@@ -23,6 +23,7 @@ private:
     bool m_isHide;    // 窗口显示标志
 
     void initialization();    // 初始化
+    void initStyle();
     void connectConfig();    // 信号与槽的设置
 
 public slots:

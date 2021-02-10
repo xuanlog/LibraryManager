@@ -66,7 +66,7 @@ void MenuBar::moveToLogin()
     int ret = QMessageBox::question(this, QString::fromUtf8("提示"), QString::fromUtf8("确定退出登录?"),
                                     QString::fromUtf8("确定"), QString::fromUtf8("取消"));
 
-    if (ret == 0)
+    if (ret == SELECT_OK)
     {
         changeWidget(PAGE_LOGIN);
         FileManager::write("INFO/AutoFlag", "false");

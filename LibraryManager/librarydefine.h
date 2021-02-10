@@ -7,6 +7,7 @@
 
 #define MAX_BORROW 5
 #define MD5_LENGTH 16
+#define MIN_LENGTH 6
 
 const QString kVersion = "1.0.3";
 const QString kManagerAccount = "admin";
@@ -54,6 +55,12 @@ enum STATUS
     STATUS_NORMAL = 0,
     STATUS_REBORROW,
     STATUS_OVERDUE
+};
+
+enum SELECT_FLAG
+{
+    SELECT_OK = 0,
+    SELECT_CANCEL
 };
 
 #endif // LIBRARYDEFINE_H

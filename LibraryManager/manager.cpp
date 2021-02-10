@@ -1,6 +1,7 @@
 #include "manager.h"
 #include "ui_manager.h"
 #include "librarydefine.h"
+#include <QAction>
 
 Manager::Manager(QWidget *parent) :
     QWidget(parent),
@@ -9,12 +10,62 @@ Manager::Manager(QWidget *parent) :
     ui->setupUi(this);
 
     initialization();
+    initStyle();
     connectConfig();
 }
 
 Manager::~Manager()
 {
     delete ui;
+}
+
+void Manager::initStyle()
+{
+    // 查询
+    QAction *queryAction = new QAction(this);
+    queryAction->setIcon(QIcon(":/Images/clear.png"));
+    ui->queryEdit->addAction(queryAction, QLineEdit::TrailingPosition);
+    connect(queryAction, &QAction::triggered, this, &Manager::changeType);
+
+    // 编号
+    QAction *numAction = new QAction(this);
+    numAction->setIcon(QIcon(":/Images/clear.png"));
+    ui->numEdit->addAction(numAction, QLineEdit::TrailingPosition);
+    connect(numAction, &QAction::triggered, this, [=](){
+        ui->numEdit->clear();
+    });
+
+    // 书名
+    QAction *nameAction = new QAction(this);
+    nameAction->setIcon(QIcon(":/Images/clear.png"));
+    ui->nameEdit->addAction(nameAction, QLineEdit::TrailingPosition);
+    connect(nameAction, &QAction::triggered, this, [=](){
+        ui->nameEdit->clear();
+    });
+
+    // 作者
+    QAction *authorAction = new QAction(this);
+    authorAction->setIcon(QIcon(":/Images/clear.png"));
+    ui->authorEdit->addAction(authorAction, QLineEdit::TrailingPosition);
+    connect(authorAction, &QAction::triggered, this, [=](){
+        ui->authorEdit->clear();
+    });
+
+    // 出版社
+    QAction *publishAction = new QAction(this);
+    publishAction->setIcon(QIcon(":/Images/clear.png"));
+    ui->publishEdit->addAction(publishAction, QLineEdit::TrailingPosition);
+    connect(publishAction, &QAction::triggered, this, [=](){
+        ui->publishEdit->clear();
+    });
+
+    // 库存
+    QAction *inventoryAction = new QAction(this);
+    inventoryAction->setIcon(QIcon(":/Images/clear.png"));
+    ui->inventoryEdit->addAction(inventoryAction, QLineEdit::TrailingPosition);
+    connect(inventoryAction, &QAction::triggered, this, [=](){
+        ui->inventoryEdit->clear();
+    });
 }
 
 // 初始化
@@ -121,6 +172,13 @@ void Manager::addBook()
     m_model->insertSqlRow(value);
     QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("添加成功!"),
                              QString::fromUtf8("确定"));
+
+    // 清空信息
+    ui->numEdit->clear();
+    ui->nameEdit->clear();
+    ui->publishEdit->clear();
+    ui->authorEdit->clear();
+    ui->inventoryEdit->clear();
 }
 
 // 删除书籍
@@ -138,7 +196,7 @@ void Manager::deleteBook()
     int ret = QMessageBox::question(this, QString::fromUtf8("提示"), QString::fromUtf8("确认删除该书籍?"),
                                     QString::fromUtf8("确定"), QString::fromUtf8("取消"));
 
-    if (ret == 0)    // 删除书籍
+    if (ret == SELECT_OK)    // 删除书籍
     {
         QModelIndex index = m_model->index(selectRow, STACK_NUM);
         int bookNum = m_model->data(index).toInt();
@@ -154,4 +212,6 @@ void Manager::deleteBook()
 void Manager::refresh()
 {
     m_model->select();
+    ui->addWidget->hide();
+    ui->queryTypeComboBox->setCurrentIndex(0);
 }

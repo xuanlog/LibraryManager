@@ -23,6 +23,8 @@ private:
 
     void initialization();    // 初始化
 
+    void initStyle();
+
     void connectConfig();    // 信号与槽的设置
 
     void changeWidget(int index);    // 切换窗口

@@ -13,6 +13,121 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QLabel,
+QTableView,
+QComboBox
+{
+	border: none;
+	color: #1296db;
+	font: 14px &quot;微软雅黑&quot;;
+}
+
+QLabel:hover
+{
+	color: #ffffff;
+}
+
+QTableView:item:selected
+{
+	color: #1296db;
+	background: qlineargradient(spread: pad, x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #def0fe, stop: 1 #c0def6);
+}
+
+QTableView:item:hover
+{
+	background: qlineargradient(spread: pad, x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #f2f9ff, stop: 1 #daefff);
+}
+
+QTableView:item
+{
+	padding: 5px;
+	margin: 0px;
+}
+
+QScrollBar:vertical
+{
+	padding-top: 15px;
+	padding-bottom: 15px;
+	background-color: rgba(0, 0, 0, 0);
+}
+
+QScrollBar:add-line:vertical
+{
+	height: 15px;
+	width: 15px;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
+	border-image: url(:/Images/down.png);
+}
+
+QScrollBar:add-line:vertical:pressed
+{
+	height: 15px;
+	width: 15px;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
+	border-image: url(:/Images/down_pre.png);
+}
+
+QScrollBar:sub-line:vertical
+{
+	height: 15px;
+	width: 15px;
+	subcontrol-position: top;
+	subcontrol-origin: margin;
+	border-image: url(:/Images/up.png);
+}
+
+QScrollBar:sub-line:vertical:pressed
+{
+	height: 15px;
+	width: 15px;
+	subcontrol-position: top;
+	subcontrol-origin: margin;
+	border-image: url(:/Images/up_pre.png);
+}
+
+QScrollBar:handle:vertical
+{
+	background: #1296db;
+	width: 15px;
+}
+
+QScrollBar:handle:vertical:hover
+{
+	width: 15px;
+	background: #00aaff;
+}
+
+QLineEdit
+{
+	border: none;
+	color: #000000;
+	font: 75 14px &quot;微软雅黑&quot;;
+	border-radius: 5px;
+	selection-background-color: #def0fe;
+	selection-color: #1296db;
+}
+
+QComboBox
+{
+	border-radius: 3px;
+}
+
+QComboBox::drop-down
+{	
+	border-left-width: 1px;
+	border-left-style: solid;	
+	border-bottom-right-radius: 3px;
+	border-left-color: #1296db;
+}
+
+QComboBox:down-arrow
+{
+	image: url(:/Images/down.png);
+}</string>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="MenuBar" name="widget_4" native="true"/>
@@ -50,6 +165,12 @@
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: #000000;</string>
+     </property>
      <property name="verticalScrollBarPolicy">
       <enum>Qt::ScrollBarAsNeeded</enum>
      </property>
@@ -80,6 +201,19 @@
     <widget class="QWidget" name="widget" native="true">
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
        <widget class="QLabel" name="queryTypeLabel">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -99,6 +233,9 @@
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
         </property>
         <item>
          <property name="text">
@@ -128,38 +265,6 @@
        </widget>
       </item>
       <item>
-       <spacer name="horizontalSpacer_2">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item>
-    <widget class="QWidget" name="widget_2" native="true">
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
-      <item>
-       <widget class="QLabel" name="queryContentLabel">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>查询内容</string>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="QLineEdit" name="queryEdit">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
@@ -173,23 +278,16 @@
           <height>16777215</height>
          </size>
         </property>
+        <property name="focusPolicy">
+         <enum>Qt::StrongFocus</enum>
+        </property>
+        <property name="placeholderText">
+         <string>请输入查询信息</string>
+        </property>
         <property name="clearButtonEnabled">
-         <bool>true</bool>
+         <bool>false</bool>
         </property>
        </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer_3">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
       </item>
      </layout>
     </widget>
@@ -205,6 +303,23 @@
       </property>
       <item>
        <widget class="QPushButton" name="addButton">
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton 
+{
+	background-color: rgba(18, 150, 219, 0.7);
+    border-radius: 4px;  
+	color: #ffffff;
+	font: 14px &quot;微软雅黑&quot;;
+}  
+
+QPushButton:pressed
+{
+	background-color: #00aaff;
+}</string>
+        </property>
         <property name="text">
          <string>添加书籍</string>
         </property>
@@ -212,6 +327,23 @@
       </item>
       <item>
        <widget class="QPushButton" name="deleteButton">
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton 
+{
+	background-color: rgba(18, 150, 219, 0.7);
+    border-radius: 4px;  
+	color: #ffffff;
+	font: 14px &quot;微软雅黑&quot;;
+}  
+
+QPushButton:pressed
+{
+	background-color: #00aaff;
+}</string>
+        </property>
         <property name="text">
          <string>删除书籍</string>
         </property>
@@ -273,6 +405,9 @@
              <height>0</height>
             </size>
            </property>
+           <property name="focusPolicy">
+            <enum>Qt::StrongFocus</enum>
+           </property>
            <property name="clearButtonEnabled">
             <bool>true</bool>
            </property>
@@ -299,6 +434,9 @@
              <height>0</height>
             </size>
            </property>
+           <property name="focusPolicy">
+            <enum>Qt::StrongFocus</enum>
+           </property>
            <property name="clearButtonEnabled">
             <bool>true</bool>
            </property>
@@ -324,6 +462,9 @@
              <width>150</width>
              <height>0</height>
             </size>
+           </property>
+           <property name="focusPolicy">
+            <enum>Qt::StrongFocus</enum>
            </property>
            <property name="clearButtonEnabled">
             <bool>true</bool>
@@ -383,6 +524,9 @@
              <height>0</height>
             </size>
            </property>
+           <property name="focusPolicy">
+            <enum>Qt::StrongFocus</enum>
+           </property>
            <property name="clearButtonEnabled">
             <bool>true</bool>
            </property>
@@ -408,6 +552,9 @@
              <width>150</width>
              <height>0</height>
             </size>
+           </property>
+           <property name="focusPolicy">
+            <enum>Qt::StrongFocus</enum>
            </property>
            <property name="clearButtonEnabled">
             <bool>true</bool>
@@ -448,6 +595,29 @@
          </item>
          <item>
           <widget class="QPushButton" name="confirmButton">
+           <property name="minimumSize">
+            <size>
+             <width>75</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton 
+{
+	background-color: rgba(18, 150, 219, 0.7);
+    border-radius: 4px;  
+	color: #ffffff;
+	font: 14px &quot;微软雅黑&quot;;
+}  
+
+QPushButton:pressed
+{
+	background-color: #00aaff;
+}</string>
+           </property>
            <property name="text">
             <string>添加</string>
            </property>

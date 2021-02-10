@@ -31,6 +31,7 @@ void TimeManager::run()
     QTime twentyThreeClock = QTime(23, 0);
     QString tips = "";
     QString curTips = "";
+    QString image = "";
 
     // 用是否请求停止线程作为条件判断是否结束循环
     while (!QThread::isInterruptionRequested())
@@ -40,34 +41,42 @@ void TimeManager::run()
         if (time > sixClock && time <= eightClock)
         {
             tips = QString::fromUtf8("早上好");
+            image = "bg001";
         }
         else if (time > eightClock && time <= elevenClock)
         {
             tips = QString::fromUtf8("上午好");
+            image = "bg002";
         }
         else if (time > elevenClock && time <= thirteenClock)
         {
             tips = QString::fromUtf8("中午好");
+            image = "bg003";
         }
         else if (time > thirteenClock && time <= seventeenClock)
         {
             tips = QString::fromUtf8("下午好");
+            image = "bg004";
         }
         else if (time > seventeenClock && time <= nineteenClock)
         {
             tips = QString::fromUtf8("傍晚好");
+            image = "bg005";
         }
         else if (time > nineteenClock && time <= twentyThreeClock)
         {
             tips = QString::fromUtf8("晚上好");
+            image = "bg006";
         }
         else if (time > twentyThreeClock && time <= threeClock)
         {
             tips = QString::fromUtf8("深夜好");
+            image = "bg007";
         }
         else if (time > threeClock && time <= sixClock)
         {
             tips = QString::fromUtf8("凌晨好");
+            image = "bg008";
         }
 
         // 获取时间
@@ -77,7 +86,7 @@ void TimeManager::run()
         if (curTips != tips)
         {
             curTips = tips;
-            emit sigTipsUpdate(dateTime, tips);
+            emit sigTipsUpdate(dateTime, tips, image);
         }
         else
         {

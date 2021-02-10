@@ -13,7 +13,100 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QLabel,
+QCheckBox,
+QPushButton 
+{
+	border: none;
+	color: #1296db;
+	font: 14px &quot;微软雅黑&quot;;
+}
+
+QLabel:hover,
+QCheckBox:hover,
+QPushButton:hover
+{
+	color: #ffffff;
+}
+
+QCheckBox:indicator
+{
+	width: 20px;
+	height: 20px;
+}
+
+QCheckBox:indicator:unchecked
+{
+	image: url(:/Images/uncheck.png);
+}
+
+QCheckBox:indicator:checked
+{ 
+	image: url(:/Images/check.png);
+}
+
+QLineEdit
+{
+	border: none;
+	color: #000000;
+	font: 75 14px &quot;微软雅黑&quot;;
+	border-radius: 5px;
+	selection-background-color: #def0fe;
+	selection-color: #1296db;
+}
+
+QPushButton:pressed
+{
+	color: #00aaff;
+}</string>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">
+   <property name="bottomMargin">
+    <number>50</number>
+   </property>
+   <item>
+    <widget class="QWidget" name="widget" native="true">
+     <layout class="QHBoxLayout" name="horizontalLayout_6">
+      <item>
+       <spacer name="horizontalSpacer_11">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_3">
+        <property name="styleSheet">
+         <string notr="true">font: 25px &quot;微软雅黑&quot;;</string>
+        </property>
+        <property name="text">
+         <string>登录</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_12">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </widget>
+   </item>
    <item>
     <spacer name="verticalSpacer_2">
      <property name="orientation">
@@ -131,26 +224,6 @@
        </spacer>
       </item>
       <item>
-       <widget class="QWidget" name="widget" native="true">
-        <layout class="QVBoxLayout" name="verticalLayout">
-         <item>
-          <widget class="QLabel" name="accountLabel">
-           <property name="text">
-            <string>账 号:</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="passwordLabel">
-           <property name="text">
-            <string>密 码:</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item>
        <widget class="QWidget" name="widget_2" native="true">
         <layout class="QVBoxLayout" name="verticalLayout_2">
          <item>
@@ -163,7 +236,7 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>200</width>
+             <width>230</width>
              <height>0</height>
             </size>
            </property>
@@ -172,6 +245,9 @@
              <width>16777215</width>
              <height>16777215</height>
             </size>
+           </property>
+           <property name="focusPolicy">
+            <enum>Qt::StrongFocus</enum>
            </property>
            <property name="text">
             <string/>
@@ -183,7 +259,7 @@
             <string>请输入账号</string>
            </property>
            <property name="clearButtonEnabled">
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
           </widget>
          </item>
@@ -197,7 +273,7 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>200</width>
+             <width>230</width>
              <height>0</height>
             </size>
            </property>
@@ -206,6 +282,9 @@
              <width>16777215</width>
              <height>16777215</height>
             </size>
+           </property>
+           <property name="focusPolicy">
+            <enum>Qt::StrongFocus</enum>
            </property>
            <property name="maxLength">
             <number>20</number>
@@ -217,7 +296,7 @@
             <string>请输入密码</string>
            </property>
            <property name="clearButtonEnabled">
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
           </widget>
          </item>
@@ -261,20 +340,67 @@
       </item>
       <item>
        <widget class="QCheckBox" name="autoCheckBox">
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
         <property name="text">
          <string>自动登录</string>
         </property>
        </widget>
       </item>
       <item>
+       <widget class="QLabel" name="label_2">
+        <property name="minimumSize">
+         <size>
+          <width>10</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>10</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QCheckBox" name="rememberCheckBox">
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
         <property name="text">
          <string>记住密码</string>
         </property>
        </widget>
       </item>
       <item>
+       <widget class="QLabel" name="label">
+        <property name="minimumSize">
+         <size>
+          <width>10</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>10</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QPushButton" name="resetButton">
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
         <property name="text">
          <string>忘记密码</string>
         </property>
@@ -320,15 +446,59 @@
          </property>
          <item>
           <widget class="QPushButton" name="loginButton">
+           <property name="minimumSize">
+            <size>
+             <width>75</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton 
+{
+	background-color: rgba(18, 150, 219, 0.7);
+    border-radius: 4px;  
+	color: #ffffff;
+	font: 14px &quot;微软雅黑&quot;;
+}  
+
+QPushButton:pressed
+{
+	background-color: #00aaff;
+}</string>
+           </property>
            <property name="text">
             <string>登录</string>
+           </property>
+           <property name="autoDefault">
+            <bool>false</bool>
+           </property>
+           <property name="default">
+            <bool>false</bool>
+           </property>
+           <property name="flat">
+            <bool>false</bool>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QPushButton" name="registeredButton">
+           <property name="minimumSize">
+            <size>
+             <width>75</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
            <property name="text">
             <string>注册</string>
+           </property>
+           <property name="flat">
+            <bool>false</bool>
            </property>
           </widget>
          </item>

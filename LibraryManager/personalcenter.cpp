@@ -110,7 +110,7 @@ void PersonalCenter::returnBook()
     int ret = QMessageBox::question(this, QString::fromUtf8("提示"), QString::fromUtf8("确认归还该书籍?"),
                                     QString::fromUtf8("确定"), QString::fromUtf8("取消"));
 
-    if (ret == 0)
+    if (ret == SELECT_OK)
     {
         QModelIndex index = m_model->index(selectRow, PERSONAL_NUM);
         int bookNum = m_model->data(index).toInt();

@@ -53,7 +53,7 @@ void Reader::deleteAccount()
     int ret = QMessageBox::question(this, QString::fromUtf8("提示"), QString::fromUtf8("操作不可逆，是否继续?"),
                                     QString::fromUtf8("确定"), QString::fromUtf8("取消"));
 
-    if (ret == 0)    // 确定删除
+    if (ret == SELECT_OK)    // 确定删除
     {
         QModelIndex index = m_model->index(selectRow, USER_ACCOUNT);
         QString account = m_model->data(index).toString();

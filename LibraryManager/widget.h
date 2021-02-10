@@ -16,12 +16,17 @@ public:
     explicit Widget(QWidget *parent = nullptr);
     ~Widget();
 
+protected:
+    bool nativeEvent(const QByteArray &eventType, void *message, long *result);
+
 private:
     Ui::Widget *ui;
 
     TimeManager *m_timer;
 
     void connectConfig();    // 信号与槽的设置
-    void timeUpdate(const QString &time, const QString &tips);
+
+private slots:
+    void timeUpdate(const QString &time, const QString &tips, const QString &image);
 };
 #endif // WIDGET_H

@@ -34,14 +34,10 @@ public:
     QTableView *bookInfoView;
     QWidget *widget;
     QHBoxLayout *horizontalLayout;
+    QSpacerItem *horizontalSpacer_2;
     QLabel *queryTypeLabel;
     QComboBox *queryTypeComboBox;
-    QSpacerItem *horizontalSpacer_2;
-    QWidget *widget_2;
-    QHBoxLayout *horizontalLayout_2;
-    QLabel *queryContentLabel;
     QLineEdit *queryEdit;
-    QSpacerItem *horizontalSpacer_3;
     QWidget *widget_3;
     QHBoxLayout *horizontalLayout_3;
     QPushButton *addButton;
@@ -79,6 +75,121 @@ public:
         if (Manager->objectName().isEmpty())
             Manager->setObjectName(QString::fromUtf8("Manager"));
         Manager->resize(851, 545);
+        Manager->setStyleSheet(QString::fromUtf8("QLabel,\n"
+"QTableView,\n"
+"QComboBox\n"
+"{\n"
+"	border: none;\n"
+"	color: #1296db;\n"
+"	font: 14px \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"}\n"
+"\n"
+"QLabel:hover\n"
+"{\n"
+"	color: #ffffff;\n"
+"}\n"
+"\n"
+"QTableView:item:selected\n"
+"{\n"
+"	color: #1296db;\n"
+"	background: qlineargradient(spread: pad, x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #def0fe, stop: 1 #c0def6);\n"
+"}\n"
+"\n"
+"QTableView:item:hover\n"
+"{\n"
+"	background: qlineargradient(spread: pad, x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #f2f9ff, stop: 1 #daefff);\n"
+"}\n"
+"\n"
+"QTableView:item\n"
+"{\n"
+"	padding: 5px;\n"
+"	margin: 0px;\n"
+"}\n"
+"\n"
+"QScrollBar:vertical\n"
+"{\n"
+"	padding-top: 15px;\n"
+"	padding-bottom: 15px;\n"
+"	background-color: rgba(0, 0, 0, 0);\n"
+"}\n"
+"\n"
+"QScrollBar:add-line:vertical\n"
+"{\n"
+"	height: 15px;\n"
+"	width: 15px;\n"
+"	subcontrol-position: bottom;\n"
+"	subcontrol-origin: margin;\n"
+"	border-image: url(:/Images/down.png);\n"
+"}\n"
+"\n"
+"QScrollBar:add-line:vertical:pressed\n"
+"{\n"
+"	height: 15px;\n"
+"	wid"
+                        "th: 15px;\n"
+"	subcontrol-position: bottom;\n"
+"	subcontrol-origin: margin;\n"
+"	border-image: url(:/Images/down_pre.png);\n"
+"}\n"
+"\n"
+"QScrollBar:sub-line:vertical\n"
+"{\n"
+"	height: 15px;\n"
+"	width: 15px;\n"
+"	subcontrol-position: top;\n"
+"	subcontrol-origin: margin;\n"
+"	border-image: url(:/Images/up.png);\n"
+"}\n"
+"\n"
+"QScrollBar:sub-line:vertical:pressed\n"
+"{\n"
+"	height: 15px;\n"
+"	width: 15px;\n"
+"	subcontrol-position: top;\n"
+"	subcontrol-origin: margin;\n"
+"	border-image: url(:/Images/up_pre.png);\n"
+"}\n"
+"\n"
+"QScrollBar:handle:vertical\n"
+"{\n"
+"	background: #1296db;\n"
+"	width: 15px;\n"
+"}\n"
+"\n"
+"QScrollBar:handle:vertical:hover\n"
+"{\n"
+"	width: 15px;\n"
+"	background: #00aaff;\n"
+"}\n"
+"\n"
+"QLineEdit\n"
+"{\n"
+"	border: none;\n"
+"	color: #000000;\n"
+"	font: 75 14px \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"	border-radius: 5px;\n"
+"	selection-background-color: #def0fe;\n"
+"	selection-color: #1296db;\n"
+"}\n"
+"\n"
+"QComboBox\n"
+"{\n"
+"	border-radius: 3px;\n"
+"}\n"
+"\n"
+"QComb"
+                        "oBox::drop-down\n"
+"{	\n"
+"	border-left-width: 1px;\n"
+"	border-left-style: solid;	\n"
+"	border-bottom-right-radius: 3px;\n"
+"	border-left-color: #1296db;\n"
+"}\n"
+"\n"
+"QComboBox:down-arrow\n"
+"{\n"
+"	image: url(:/Images/down.png);\n"
+"}"));
         verticalLayout = new QVBoxLayout(Manager);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         widget_4 = new MenuBar(Manager);
@@ -102,6 +213,8 @@ public:
         bookInfoView->setObjectName(QString::fromUtf8("bookInfoView"));
         sizePolicy.setHeightForWidth(bookInfoView->sizePolicy().hasHeightForWidth());
         bookInfoView->setSizePolicy(sizePolicy);
+        bookInfoView->setFocusPolicy(Qt::NoFocus);
+        bookInfoView->setStyleSheet(QString::fromUtf8("color: #000000;"));
         bookInfoView->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
         bookInfoView->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
         bookInfoView->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -117,6 +230,10 @@ public:
         widget->setObjectName(QString::fromUtf8("widget"));
         horizontalLayout = new QHBoxLayout(widget);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout->addItem(horizontalSpacer_2);
+
         queryTypeLabel = new QLabel(widget);
         queryTypeLabel->setObjectName(QString::fromUtf8("queryTypeLabel"));
         sizePolicy.setHeightForWidth(queryTypeLabel->sizePolicy().hasHeightForWidth());
@@ -133,28 +250,11 @@ public:
         queryTypeComboBox->setObjectName(QString::fromUtf8("queryTypeComboBox"));
         sizePolicy.setHeightForWidth(queryTypeComboBox->sizePolicy().hasHeightForWidth());
         queryTypeComboBox->setSizePolicy(sizePolicy);
+        queryTypeComboBox->setFocusPolicy(Qt::NoFocus);
 
         horizontalLayout->addWidget(queryTypeComboBox);
 
-        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout->addItem(horizontalSpacer_2);
-
-
-        verticalLayout->addWidget(widget);
-
-        widget_2 = new QWidget(Manager);
-        widget_2->setObjectName(QString::fromUtf8("widget_2"));
-        horizontalLayout_2 = new QHBoxLayout(widget_2);
-        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
-        queryContentLabel = new QLabel(widget_2);
-        queryContentLabel->setObjectName(QString::fromUtf8("queryContentLabel"));
-        sizePolicy.setHeightForWidth(queryContentLabel->sizePolicy().hasHeightForWidth());
-        queryContentLabel->setSizePolicy(sizePolicy);
-
-        horizontalLayout_2->addWidget(queryContentLabel);
-
-        queryEdit = new QLineEdit(widget_2);
+        queryEdit = new QLineEdit(widget);
         queryEdit->setObjectName(QString::fromUtf8("queryEdit"));
         QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Preferred);
         sizePolicy1.setHorizontalStretch(0);
@@ -162,16 +262,13 @@ public:
         sizePolicy1.setHeightForWidth(queryEdit->sizePolicy().hasHeightForWidth());
         queryEdit->setSizePolicy(sizePolicy1);
         queryEdit->setMaximumSize(QSize(320, 16777215));
-        queryEdit->setClearButtonEnabled(true);
+        queryEdit->setFocusPolicy(Qt::StrongFocus);
+        queryEdit->setClearButtonEnabled(false);
 
-        horizontalLayout_2->addWidget(queryEdit);
-
-        horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout_2->addItem(horizontalSpacer_3);
+        horizontalLayout->addWidget(queryEdit);
 
 
-        verticalLayout->addWidget(widget_2);
+        verticalLayout->addWidget(widget);
 
         widget_3 = new QWidget(Manager);
         widget_3->setObjectName(QString::fromUtf8("widget_3"));
@@ -180,11 +277,37 @@ public:
         horizontalLayout_3->setContentsMargins(9, -1, 9, -1);
         addButton = new QPushButton(widget_3);
         addButton->setObjectName(QString::fromUtf8("addButton"));
+        addButton->setFocusPolicy(Qt::NoFocus);
+        addButton->setStyleSheet(QString::fromUtf8("QPushButton \n"
+"{\n"
+"	background-color: rgba(18, 150, 219, 0.7);\n"
+"    border-radius: 4px;  \n"
+"	color: #ffffff;\n"
+"	font: 14px \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"}  \n"
+"\n"
+"QPushButton:pressed\n"
+"{\n"
+"	background-color: #00aaff;\n"
+"}"));
 
         horizontalLayout_3->addWidget(addButton);
 
         deleteButton = new QPushButton(widget_3);
         deleteButton->setObjectName(QString::fromUtf8("deleteButton"));
+        deleteButton->setFocusPolicy(Qt::NoFocus);
+        deleteButton->setStyleSheet(QString::fromUtf8("QPushButton \n"
+"{\n"
+"	background-color: rgba(18, 150, 219, 0.7);\n"
+"    border-radius: 4px;  \n"
+"	color: #ffffff;\n"
+"	font: 14px \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"}  \n"
+"\n"
+"QPushButton:pressed\n"
+"{\n"
+"	background-color: #00aaff;\n"
+"}"));
 
         horizontalLayout_3->addWidget(deleteButton);
 
@@ -220,6 +343,7 @@ public:
         sizePolicy2.setHeightForWidth(numEdit->sizePolicy().hasHeightForWidth());
         numEdit->setSizePolicy(sizePolicy2);
         numEdit->setMinimumSize(QSize(150, 0));
+        numEdit->setFocusPolicy(Qt::StrongFocus);
         numEdit->setClearButtonEnabled(true);
 
         horizontalLayout_4->addWidget(numEdit);
@@ -234,6 +358,7 @@ public:
         sizePolicy2.setHeightForWidth(nameEdit->sizePolicy().hasHeightForWidth());
         nameEdit->setSizePolicy(sizePolicy2);
         nameEdit->setMinimumSize(QSize(150, 0));
+        nameEdit->setFocusPolicy(Qt::StrongFocus);
         nameEdit->setClearButtonEnabled(true);
 
         horizontalLayout_4->addWidget(nameEdit);
@@ -248,6 +373,7 @@ public:
         sizePolicy2.setHeightForWidth(publishEdit->sizePolicy().hasHeightForWidth());
         publishEdit->setSizePolicy(sizePolicy2);
         publishEdit->setMinimumSize(QSize(150, 0));
+        publishEdit->setFocusPolicy(Qt::StrongFocus);
         publishEdit->setClearButtonEnabled(true);
 
         horizontalLayout_4->addWidget(publishEdit);
@@ -277,6 +403,7 @@ public:
         sizePolicy2.setHeightForWidth(authorEdit->sizePolicy().hasHeightForWidth());
         authorEdit->setSizePolicy(sizePolicy2);
         authorEdit->setMinimumSize(QSize(150, 0));
+        authorEdit->setFocusPolicy(Qt::StrongFocus);
         authorEdit->setClearButtonEnabled(true);
 
         horizontalLayout_5->addWidget(authorEdit);
@@ -291,6 +418,7 @@ public:
         sizePolicy2.setHeightForWidth(inventoryEdit->sizePolicy().hasHeightForWidth());
         inventoryEdit->setSizePolicy(sizePolicy2);
         inventoryEdit->setMinimumSize(QSize(150, 0));
+        inventoryEdit->setFocusPolicy(Qt::StrongFocus);
         inventoryEdit->setClearButtonEnabled(true);
 
         horizontalLayout_5->addWidget(inventoryEdit);
@@ -312,6 +440,20 @@ public:
 
         confirmButton = new QPushButton(widget_5);
         confirmButton->setObjectName(QString::fromUtf8("confirmButton"));
+        confirmButton->setMinimumSize(QSize(75, 0));
+        confirmButton->setFocusPolicy(Qt::NoFocus);
+        confirmButton->setStyleSheet(QString::fromUtf8("QPushButton \n"
+"{\n"
+"	background-color: rgba(18, 150, 219, 0.7);\n"
+"    border-radius: 4px;  \n"
+"	color: #ffffff;\n"
+"	font: 14px \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"}  \n"
+"\n"
+"QPushButton:pressed\n"
+"{\n"
+"	background-color: #00aaff;\n"
+"}"));
 
         horizontalLayout_6->addWidget(confirmButton);
 
@@ -346,7 +488,7 @@ public:
         queryTypeComboBox->setItemText(3, QCoreApplication::translate("Manager", "\344\275\234\350\200\205", nullptr));
         queryTypeComboBox->setItemText(4, QCoreApplication::translate("Manager", "\345\272\223\345\255\230", nullptr));
 
-        queryContentLabel->setText(QCoreApplication::translate("Manager", "\346\237\245\350\257\242\345\206\205\345\256\271", nullptr));
+        queryEdit->setPlaceholderText(QCoreApplication::translate("Manager", "\350\257\267\350\276\223\345\205\245\346\237\245\350\257\242\344\277\241\346\201\257", nullptr));
         addButton->setText(QCoreApplication::translate("Manager", "\346\267\273\345\212\240\344\271\246\347\261\215", nullptr));
         deleteButton->setText(QCoreApplication::translate("Manager", "\345\210\240\351\231\244\344\271\246\347\261\215", nullptr));
         numLabel->setText(QCoreApplication::translate("Manager", "\347\274\226\345\217\267:", nullptr));

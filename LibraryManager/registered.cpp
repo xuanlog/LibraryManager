@@ -3,6 +3,7 @@
 #include "librarydefine.h"
 #include <QStackedWidget>
 #include "md5.h"
+#include <QAction>
 
 Registered::Registered(QWidget *parent) :
     QWidget(parent),
@@ -11,12 +12,52 @@ Registered::Registered(QWidget *parent) :
     ui->setupUi(this);
 
     initialization();
+    initStyle();
     connectConfig();
 }
 
 Registered::~Registered()
 {
     delete ui;
+}
+
+void Registered::initStyle()
+{
+    // 账号
+    QAction *accountLead = new QAction(this);
+    accountLead->setIcon(QIcon(":/Images/account.png"));
+    ui->accountEdit->addAction(accountLead, QLineEdit::LeadingPosition);
+
+    QAction *accountTrail = new QAction(this);
+    accountTrail->setIcon(QIcon(":/Images/clear.png"));
+    ui->accountEdit->addAction(accountTrail, QLineEdit::TrailingPosition);
+    connect(accountTrail, &QAction::triggered, this, [=](){
+        ui->accountEdit->clear();
+    });
+
+    // 密码
+    QAction *passwordLead = new QAction(this);
+    passwordLead->setIcon(QIcon(":/Images/password.png"));
+    ui->passwordEdit->addAction(passwordLead, QLineEdit::LeadingPosition);
+
+    QAction *passwordTrail = new QAction(this);
+    passwordTrail->setIcon(QIcon(":/Images/clear.png"));
+    ui->passwordEdit->addAction(passwordTrail, QLineEdit::TrailingPosition);
+    connect(passwordTrail, &QAction::triggered, this, [=](){
+        ui->passwordEdit->clear();
+    });
+
+    // 确认
+    QAction *confirmLead = new QAction(this);
+    confirmLead->setIcon(QIcon(":/Images/password.png"));
+    ui->confirmEdit->addAction(confirmLead, QLineEdit::LeadingPosition);
+
+    QAction *confirmTrail = new QAction(this);
+    confirmTrail->setIcon(QIcon(":/Images/clear.png"));
+    ui->confirmEdit->addAction(confirmTrail, QLineEdit::TrailingPosition);
+    connect(confirmTrail, &QAction::triggered, this, [=](){
+        ui->confirmEdit->clear();
+    });
 }
 
 // 初始化
@@ -54,7 +95,7 @@ void Registered::registered()
         return;
     }
 
-    if (account.length() < 6 || password.length() < 6)
+    if (account.length() < MIN_LENGTH || password.length() < MIN_LENGTH)
     {
         QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("账号或密码过短!"),
                                  QString::fromUtf8("确定"));

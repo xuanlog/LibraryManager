@@ -29,15 +29,13 @@ public:
     QHBoxLayout *horizontalLayout_3;
     QPushButton *backButton;
     QSpacerItem *horizontalSpacer_5;
+    QLabel *label;
+    QSpacerItem *horizontalSpacer_6;
+    QLabel *label_2;
     QSpacerItem *verticalSpacer_2;
     QWidget *widget_3;
     QHBoxLayout *horizontalLayout;
     QSpacerItem *horizontalSpacer;
-    QWidget *widget;
-    QVBoxLayout *verticalLayout;
-    QLabel *accountLabel;
-    QLabel *passwordLabel;
-    QLabel *confirmLabel;
     QWidget *widget_2;
     QVBoxLayout *verticalLayout_2;
     QLineEdit *accountEdit;
@@ -55,7 +53,28 @@ public:
     {
         if (ResetPassword->objectName().isEmpty())
             ResetPassword->setObjectName(QString::fromUtf8("ResetPassword"));
-        ResetPassword->resize(651, 504);
+        ResetPassword->resize(729, 590);
+        ResetPassword->setStyleSheet(QString::fromUtf8("QLabel\n"
+"{\n"
+"	border: none;\n"
+"	color: #1296db;\n"
+"	font: 14px \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"}\n"
+"\n"
+"QLabel:hover\n"
+"{\n"
+"	color: #ffffff;\n"
+"}\n"
+"\n"
+"QLineEdit\n"
+"{\n"
+"	border: none;\n"
+"	color: #000000;\n"
+"	font: 75 14px \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"	border-radius: 5px;\n"
+"	selection-background-color: #def0fe;\n"
+"	selection-color: #1296db;\n"
+"}"));
         verticalLayout_3 = new QVBoxLayout(ResetPassword);
         verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
         verticalLayout_3->setContentsMargins(-1, -1, -1, 50);
@@ -65,12 +84,48 @@ public:
         horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
         backButton = new QPushButton(widget_5);
         backButton->setObjectName(QString::fromUtf8("backButton"));
+        backButton->setMinimumSize(QSize(32, 32));
+        backButton->setFocusPolicy(Qt::NoFocus);
+        backButton->setStyleSheet(QString::fromUtf8("QPushButton\n"
+"{\n"
+"	border-image: url(:/Images/back.png);\n"
+"}\n"
+"\n"
+"QPushButton:hover\n"
+"{\n"
+"	border-image: url(:/Images/back_hover.png);\n"
+"}\n"
+"\n"
+"QPushButton:pressed\n"
+"{\n"
+"	border-image: url(:/Images/back_pre.png);\n"
+"}\n"
+"\n"
+"\n"
+""));
+        backButton->setFlat(true);
 
         horizontalLayout_3->addWidget(backButton);
 
         horizontalSpacer_5 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         horizontalLayout_3->addItem(horizontalSpacer_5);
+
+        label = new QLabel(widget_5);
+        label->setObjectName(QString::fromUtf8("label"));
+        label->setStyleSheet(QString::fromUtf8("font: 25px \"\345\276\256\350\275\257\351\233\205\351\273\221\";"));
+
+        horizontalLayout_3->addWidget(label);
+
+        horizontalSpacer_6 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_3->addItem(horizontalSpacer_6);
+
+        label_2 = new QLabel(widget_5);
+        label_2->setObjectName(QString::fromUtf8("label_2"));
+        label_2->setMinimumSize(QSize(32, 32));
+
+        horizontalLayout_3->addWidget(label_2);
 
 
         verticalLayout_3->addWidget(widget_5);
@@ -87,28 +142,6 @@ public:
 
         horizontalLayout->addItem(horizontalSpacer);
 
-        widget = new QWidget(widget_3);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        verticalLayout = new QVBoxLayout(widget);
-        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
-        accountLabel = new QLabel(widget);
-        accountLabel->setObjectName(QString::fromUtf8("accountLabel"));
-
-        verticalLayout->addWidget(accountLabel);
-
-        passwordLabel = new QLabel(widget);
-        passwordLabel->setObjectName(QString::fromUtf8("passwordLabel"));
-
-        verticalLayout->addWidget(passwordLabel);
-
-        confirmLabel = new QLabel(widget);
-        confirmLabel->setObjectName(QString::fromUtf8("confirmLabel"));
-
-        verticalLayout->addWidget(confirmLabel);
-
-
-        horizontalLayout->addWidget(widget);
-
         widget_2 = new QWidget(widget_3);
         widget_2->setObjectName(QString::fromUtf8("widget_2"));
         verticalLayout_2 = new QVBoxLayout(widget_2);
@@ -120,10 +153,11 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(accountEdit->sizePolicy().hasHeightForWidth());
         accountEdit->setSizePolicy(sizePolicy);
-        accountEdit->setMinimumSize(QSize(200, 0));
+        accountEdit->setMinimumSize(QSize(230, 0));
         accountEdit->setMaximumSize(QSize(16777215, 16777215));
+        accountEdit->setFocusPolicy(Qt::StrongFocus);
         accountEdit->setMaxLength(20);
-        accountEdit->setClearButtonEnabled(true);
+        accountEdit->setClearButtonEnabled(false);
 
         verticalLayout_2->addWidget(accountEdit);
 
@@ -131,11 +165,12 @@ public:
         passwordEdit->setObjectName(QString::fromUtf8("passwordEdit"));
         sizePolicy.setHeightForWidth(passwordEdit->sizePolicy().hasHeightForWidth());
         passwordEdit->setSizePolicy(sizePolicy);
-        passwordEdit->setMinimumSize(QSize(200, 0));
+        passwordEdit->setMinimumSize(QSize(230, 0));
         passwordEdit->setMaximumSize(QSize(16777215, 16777215));
+        passwordEdit->setFocusPolicy(Qt::StrongFocus);
         passwordEdit->setMaxLength(20);
         passwordEdit->setEchoMode(QLineEdit::Password);
-        passwordEdit->setClearButtonEnabled(true);
+        passwordEdit->setClearButtonEnabled(false);
 
         verticalLayout_2->addWidget(passwordEdit);
 
@@ -143,11 +178,12 @@ public:
         confirmEdit->setObjectName(QString::fromUtf8("confirmEdit"));
         sizePolicy.setHeightForWidth(confirmEdit->sizePolicy().hasHeightForWidth());
         confirmEdit->setSizePolicy(sizePolicy);
-        confirmEdit->setMinimumSize(QSize(200, 0));
+        confirmEdit->setMinimumSize(QSize(230, 0));
         confirmEdit->setMaximumSize(QSize(16777215, 16777215));
+        confirmEdit->setFocusPolicy(Qt::StrongFocus);
         confirmEdit->setMaxLength(20);
         confirmEdit->setEchoMode(QLineEdit::Password);
-        confirmEdit->setClearButtonEnabled(true);
+        confirmEdit->setClearButtonEnabled(false);
 
         verticalLayout_2->addWidget(confirmEdit);
 
@@ -171,6 +207,20 @@ public:
 
         confirmButton = new QPushButton(widget_4);
         confirmButton->setObjectName(QString::fromUtf8("confirmButton"));
+        confirmButton->setMinimumSize(QSize(75, 0));
+        confirmButton->setFocusPolicy(Qt::NoFocus);
+        confirmButton->setStyleSheet(QString::fromUtf8("QPushButton \n"
+"{\n"
+"	background-color: rgba(18, 150, 219, 0.7);\n"
+"    border-radius: 4px;  \n"
+"	color: #ffffff;\n"
+"	font: 14px \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"}  \n"
+"\n"
+"QPushButton:pressed\n"
+"{\n"
+"	background-color: #00aaff;\n"
+"}"));
 
         horizontalLayout_2->addWidget(confirmButton);
 
@@ -194,10 +244,9 @@ public:
     void retranslateUi(QWidget *ResetPassword)
     {
         ResetPassword->setWindowTitle(QCoreApplication::translate("ResetPassword", "Form", nullptr));
-        backButton->setText(QCoreApplication::translate("ResetPassword", "\350\277\224\345\233\236\347\231\273\345\275\225", nullptr));
-        accountLabel->setText(QCoreApplication::translate("ResetPassword", "\350\264\246    \345\217\267:", nullptr));
-        passwordLabel->setText(QCoreApplication::translate("ResetPassword", "\346\226\260 \345\257\206 \347\240\201:", nullptr));
-        confirmLabel->setText(QCoreApplication::translate("ResetPassword", "\347\241\256\350\256\244\345\257\206\347\240\201:", nullptr));
+        backButton->setText(QString());
+        label->setText(QCoreApplication::translate("ResetPassword", "\351\207\215\347\275\256\345\257\206\347\240\201", nullptr));
+        label_2->setText(QString());
         accountEdit->setPlaceholderText(QCoreApplication::translate("ResetPassword", "\350\257\267\350\276\223\345\205\245\350\264\246\345\217\267", nullptr));
         passwordEdit->setPlaceholderText(QCoreApplication::translate("ResetPassword", "\350\257\267\350\276\223\345\205\245\345\257\206\347\240\201", nullptr));
         confirmEdit->setPlaceholderText(QCoreApplication::translate("ResetPassword", "\350\257\267\345\206\215\346\254\241\350\276\223\345\205\245\345\257\206\347\240\201", nullptr));

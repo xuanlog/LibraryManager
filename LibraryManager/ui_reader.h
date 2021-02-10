@@ -39,6 +39,91 @@ public:
         if (Reader->objectName().isEmpty())
             Reader->setObjectName(QString::fromUtf8("Reader"));
         Reader->resize(787, 572);
+        Reader->setStyleSheet(QString::fromUtf8("QLabel,\n"
+"QTableView\n"
+"{\n"
+"	border: none;\n"
+"	color: #1296db;\n"
+"	font: 14px \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"}\n"
+"\n"
+"QLabel:hover\n"
+"{\n"
+"	color: #ffffff;\n"
+"}\n"
+"\n"
+"QTableView:item:selected\n"
+"{\n"
+"	color: #1296db;\n"
+"	background: qlineargradient(spread: pad, x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #def0fe, stop: 1 #c0def6);\n"
+"}\n"
+"\n"
+"QTableView:item:hover\n"
+"{\n"
+"	background: qlineargradient(spread: pad, x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #f2f9ff, stop: 1 #daefff);\n"
+"}\n"
+"\n"
+"QTableView:item\n"
+"{\n"
+"	padding: 5px;\n"
+"	margin: 0px;\n"
+"}\n"
+"\n"
+"QScrollBar:vertical\n"
+"{\n"
+"	padding-top: 15px;\n"
+"	padding-bottom: 15px;\n"
+"	background-color: rgba(0, 0, 0, 0);\n"
+"}\n"
+"\n"
+"QScrollBar:add-line:vertical\n"
+"{\n"
+"	height: 15px;\n"
+"	width: 15px;\n"
+"	subcontrol-position: bottom;\n"
+"	subcontrol-origin: margin;\n"
+"	border-image: url(:/Images/down.png);\n"
+"}\n"
+"\n"
+"QScrollBar:add-line:vertical:pressed\n"
+"{\n"
+"	height: 15px;\n"
+"	width: 15px;\n"
+"	"
+                        "subcontrol-position: bottom;\n"
+"	subcontrol-origin: margin;\n"
+"	border-image: url(:/Images/down_pre.png);\n"
+"}\n"
+"\n"
+"QScrollBar:sub-line:vertical\n"
+"{\n"
+"	height: 15px;\n"
+"	width: 15px;\n"
+"	subcontrol-position: top;\n"
+"	subcontrol-origin: margin;\n"
+"	border-image: url(:/Images/up.png);\n"
+"}\n"
+"\n"
+"QScrollBar:sub-line:vertical:pressed\n"
+"{\n"
+"	height: 15px;\n"
+"	width: 15px;\n"
+"	subcontrol-position: top;\n"
+"	subcontrol-origin: margin;\n"
+"	border-image: url(:/Images/up_pre.png);\n"
+"}\n"
+"\n"
+"QScrollBar:handle:vertical\n"
+"{\n"
+"	background: #1296db;\n"
+"	width: 15px;\n"
+"}\n"
+"\n"
+"QScrollBar:handle:vertical:hover\n"
+"{\n"
+"	width: 15px;\n"
+"	background: #00aaff;\n"
+"}"));
         verticalLayout = new QVBoxLayout(Reader);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         widget_2 = new MenuBar(Reader);
@@ -48,6 +133,8 @@ public:
 
         readerView = new QTableView(Reader);
         readerView->setObjectName(QString::fromUtf8("readerView"));
+        readerView->setFocusPolicy(Qt::NoFocus);
+        readerView->setStyleSheet(QString::fromUtf8("color: #000000;"));
         readerView->setEditTriggers(QAbstractItemView::NoEditTriggers);
         readerView->setSelectionMode(QAbstractItemView::SingleSelection);
         readerView->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -65,6 +152,19 @@ public:
 
         deleteButton = new QPushButton(widget);
         deleteButton->setObjectName(QString::fromUtf8("deleteButton"));
+        deleteButton->setFocusPolicy(Qt::NoFocus);
+        deleteButton->setStyleSheet(QString::fromUtf8("QPushButton \n"
+"{\n"
+"	background-color: rgba(18, 150, 219, 0.7);\n"
+"    border-radius: 4px;  \n"
+"	color: #ffffff;\n"
+"	font: 14px \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"}  \n"
+"\n"
+"QPushButton:pressed\n"
+"{\n"
+"	background-color: #00aaff;\n"
+"}"));
 
         horizontalLayout->addWidget(deleteButton);
 

@@ -100,3 +100,8 @@ LibraryManager/debug/Data/6DAC7A1356EE1C5F
 LibraryManager/debug/moc_resetpassword.cpp
 LibraryManager/debug/moc_resetpassword.o
 LibraryManager/debug/resetpassword.o
+LibraryManager/debug/moc_titlebar.cpp
+LibraryManager/debug/moc_titlebar.o
+LibraryManager/debug/qrc_library.cpp
+LibraryManager/debug/qrc_library.o
+LibraryManager/debug/titlebar.o

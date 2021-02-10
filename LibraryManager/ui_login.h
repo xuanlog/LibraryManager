@@ -26,6 +26,11 @@ class Ui_Login
 {
 public:
     QVBoxLayout *verticalLayout_3;
+    QWidget *widget;
+    QHBoxLayout *horizontalLayout_6;
+    QSpacerItem *horizontalSpacer_11;
+    QLabel *label_3;
+    QSpacerItem *horizontalSpacer_12;
     QSpacerItem *verticalSpacer_2;
     QWidget *widget_6;
     QHBoxLayout *horizontalLayout_3;
@@ -40,10 +45,6 @@ public:
     QWidget *widget_3;
     QHBoxLayout *horizontalLayout;
     QSpacerItem *horizontalSpacer;
-    QWidget *widget;
-    QVBoxLayout *verticalLayout;
-    QLabel *accountLabel;
-    QLabel *passwordLabel;
     QWidget *widget_2;
     QVBoxLayout *verticalLayout_2;
     QLineEdit *accountEdit;
@@ -53,7 +54,9 @@ public:
     QHBoxLayout *horizontalLayout_5;
     QSpacerItem *horizontalSpacer_10;
     QCheckBox *autoCheckBox;
+    QLabel *label_2;
     QCheckBox *rememberCheckBox;
+    QLabel *label;
     QPushButton *resetButton;
     QSpacerItem *horizontalSpacer_9;
     QWidget *widget_5;
@@ -71,8 +74,76 @@ public:
         if (Login->objectName().isEmpty())
             Login->setObjectName(QString::fromUtf8("Login"));
         Login->resize(819, 591);
+        Login->setStyleSheet(QString::fromUtf8("QLabel,\n"
+"QCheckBox,\n"
+"QPushButton \n"
+"{\n"
+"	border: none;\n"
+"	color: #1296db;\n"
+"	font: 14px \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"}\n"
+"\n"
+"QLabel:hover,\n"
+"QCheckBox:hover,\n"
+"QPushButton:hover\n"
+"{\n"
+"	color: #ffffff;\n"
+"}\n"
+"\n"
+"QCheckBox:indicator\n"
+"{\n"
+"	width: 20px;\n"
+"	height: 20px;\n"
+"}\n"
+"\n"
+"QCheckBox:indicator:unchecked\n"
+"{\n"
+"	image: url(:/Images/uncheck.png);\n"
+"}\n"
+"\n"
+"QCheckBox:indicator:checked\n"
+"{ \n"
+"	image: url(:/Images/check.png);\n"
+"}\n"
+"\n"
+"QLineEdit\n"
+"{\n"
+"	border: none;\n"
+"	color: #000000;\n"
+"	font: 75 14px \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"	border-radius: 5px;\n"
+"	selection-background-color: #def0fe;\n"
+"	selection-color: #1296db;\n"
+"}\n"
+"\n"
+"QPushButton:pressed\n"
+"{\n"
+"	color: #00aaff;\n"
+"}"));
         verticalLayout_3 = new QVBoxLayout(Login);
         verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
+        verticalLayout_3->setContentsMargins(-1, -1, -1, 50);
+        widget = new QWidget(Login);
+        widget->setObjectName(QString::fromUtf8("widget"));
+        horizontalLayout_6 = new QHBoxLayout(widget);
+        horizontalLayout_6->setObjectName(QString::fromUtf8("horizontalLayout_6"));
+        horizontalSpacer_11 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_6->addItem(horizontalSpacer_11);
+
+        label_3 = new QLabel(widget);
+        label_3->setObjectName(QString::fromUtf8("label_3"));
+        label_3->setStyleSheet(QString::fromUtf8("font: 25px \"\345\276\256\350\275\257\351\233\205\351\273\221\";"));
+
+        horizontalLayout_6->addWidget(label_3);
+
+        horizontalSpacer_12 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_6->addItem(horizontalSpacer_12);
+
+
+        verticalLayout_3->addWidget(widget);
+
         verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
         verticalLayout_3->addItem(verticalSpacer_2);
@@ -128,23 +199,6 @@ public:
 
         horizontalLayout->addItem(horizontalSpacer);
 
-        widget = new QWidget(widget_3);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        verticalLayout = new QVBoxLayout(widget);
-        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
-        accountLabel = new QLabel(widget);
-        accountLabel->setObjectName(QString::fromUtf8("accountLabel"));
-
-        verticalLayout->addWidget(accountLabel);
-
-        passwordLabel = new QLabel(widget);
-        passwordLabel->setObjectName(QString::fromUtf8("passwordLabel"));
-
-        verticalLayout->addWidget(passwordLabel);
-
-
-        horizontalLayout->addWidget(widget);
-
         widget_2 = new QWidget(widget_3);
         widget_2->setObjectName(QString::fromUtf8("widget_2"));
         verticalLayout_2 = new QVBoxLayout(widget_2);
@@ -156,10 +210,11 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(accountEdit->sizePolicy().hasHeightForWidth());
         accountEdit->setSizePolicy(sizePolicy);
-        accountEdit->setMinimumSize(QSize(200, 0));
+        accountEdit->setMinimumSize(QSize(230, 0));
         accountEdit->setMaximumSize(QSize(16777215, 16777215));
+        accountEdit->setFocusPolicy(Qt::StrongFocus);
         accountEdit->setMaxLength(20);
-        accountEdit->setClearButtonEnabled(true);
+        accountEdit->setClearButtonEnabled(false);
 
         verticalLayout_2->addWidget(accountEdit);
 
@@ -167,11 +222,12 @@ public:
         passwordEdit->setObjectName(QString::fromUtf8("passwordEdit"));
         sizePolicy.setHeightForWidth(passwordEdit->sizePolicy().hasHeightForWidth());
         passwordEdit->setSizePolicy(sizePolicy);
-        passwordEdit->setMinimumSize(QSize(200, 0));
+        passwordEdit->setMinimumSize(QSize(230, 0));
         passwordEdit->setMaximumSize(QSize(16777215, 16777215));
+        passwordEdit->setFocusPolicy(Qt::StrongFocus);
         passwordEdit->setMaxLength(20);
         passwordEdit->setEchoMode(QLineEdit::Password);
-        passwordEdit->setClearButtonEnabled(true);
+        passwordEdit->setClearButtonEnabled(false);
 
         verticalLayout_2->addWidget(passwordEdit);
 
@@ -196,16 +252,33 @@ public:
 
         autoCheckBox = new QCheckBox(widget_8);
         autoCheckBox->setObjectName(QString::fromUtf8("autoCheckBox"));
+        autoCheckBox->setFocusPolicy(Qt::NoFocus);
 
         horizontalLayout_5->addWidget(autoCheckBox);
 
+        label_2 = new QLabel(widget_8);
+        label_2->setObjectName(QString::fromUtf8("label_2"));
+        label_2->setMinimumSize(QSize(10, 0));
+        label_2->setMaximumSize(QSize(10, 16777215));
+
+        horizontalLayout_5->addWidget(label_2);
+
         rememberCheckBox = new QCheckBox(widget_8);
         rememberCheckBox->setObjectName(QString::fromUtf8("rememberCheckBox"));
+        rememberCheckBox->setFocusPolicy(Qt::NoFocus);
 
         horizontalLayout_5->addWidget(rememberCheckBox);
 
+        label = new QLabel(widget_8);
+        label->setObjectName(QString::fromUtf8("label"));
+        label->setMinimumSize(QSize(10, 0));
+        label->setMaximumSize(QSize(10, 16777215));
+
+        horizontalLayout_5->addWidget(label);
+
         resetButton = new QPushButton(widget_8);
         resetButton->setObjectName(QString::fromUtf8("resetButton"));
+        resetButton->setFocusPolicy(Qt::NoFocus);
 
         horizontalLayout_5->addWidget(resetButton);
 
@@ -231,11 +304,30 @@ public:
         verticalLayout_4->setContentsMargins(-1, 0, -1, -1);
         loginButton = new QPushButton(widget_4);
         loginButton->setObjectName(QString::fromUtf8("loginButton"));
+        loginButton->setMinimumSize(QSize(75, 0));
+        loginButton->setFocusPolicy(Qt::NoFocus);
+        loginButton->setStyleSheet(QString::fromUtf8("QPushButton \n"
+"{\n"
+"	background-color: rgba(18, 150, 219, 0.7);\n"
+"    border-radius: 4px;  \n"
+"	color: #ffffff;\n"
+"	font: 14px \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"}  \n"
+"\n"
+"QPushButton:pressed\n"
+"{\n"
+"	background-color: #00aaff;\n"
+"}"));
+        loginButton->setAutoDefault(false);
+        loginButton->setFlat(false);
 
         verticalLayout_4->addWidget(loginButton);
 
         registeredButton = new QPushButton(widget_4);
         registeredButton->setObjectName(QString::fromUtf8("registeredButton"));
+        registeredButton->setMinimumSize(QSize(75, 0));
+        registeredButton->setFocusPolicy(Qt::NoFocus);
+        registeredButton->setFlat(false);
 
         verticalLayout_4->addWidget(registeredButton);
 
@@ -256,21 +348,25 @@ public:
 
         retranslateUi(Login);
 
+        loginButton->setDefault(false);
+
+
         QMetaObject::connectSlotsByName(Login);
     } // setupUi
 
     void retranslateUi(QWidget *Login)
     {
         Login->setWindowTitle(QCoreApplication::translate("Login", "Form", nullptr));
+        label_3->setText(QCoreApplication::translate("Login", "\347\231\273\345\275\225", nullptr));
         userLabel->setText(QCoreApplication::translate("Login", "\344\272\262\347\210\261\347\232\204\347\224\250\346\210\267", nullptr));
         tipsLabel->setText(QCoreApplication::translate("Login", "\346\227\251\344\270\212\345\245\275", nullptr));
-        accountLabel->setText(QCoreApplication::translate("Login", "\350\264\246 \345\217\267:", nullptr));
-        passwordLabel->setText(QCoreApplication::translate("Login", "\345\257\206 \347\240\201:", nullptr));
         accountEdit->setText(QString());
         accountEdit->setPlaceholderText(QCoreApplication::translate("Login", "\350\257\267\350\276\223\345\205\245\350\264\246\345\217\267", nullptr));
         passwordEdit->setPlaceholderText(QCoreApplication::translate("Login", "\350\257\267\350\276\223\345\205\245\345\257\206\347\240\201", nullptr));
         autoCheckBox->setText(QCoreApplication::translate("Login", "\350\207\252\345\212\250\347\231\273\345\275\225", nullptr));
+        label_2->setText(QString());
         rememberCheckBox->setText(QCoreApplication::translate("Login", "\350\256\260\344\275\217\345\257\206\347\240\201", nullptr));
+        label->setText(QString());
         resetButton->setText(QCoreApplication::translate("Login", "\345\277\230\350\256\260\345\257\206\347\240\201", nullptr));
         loginButton->setText(QCoreApplication::translate("Login", "\347\231\273\345\275\225", nullptr));
         registeredButton->setText(QCoreApplication::translate("Login", "\346\263\250\345\206\214", nullptr));

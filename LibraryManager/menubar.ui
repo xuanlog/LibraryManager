@@ -19,15 +19,96 @@
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
        <widget class="QPushButton" name="stackRoomButton">
+        <property name="minimumSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
+        <property name="toolTip">
+         <string>书库</string>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton
+{
+	border-image: url(:/Images/home.png);
+}
+
+QPushButton:hover
+{
+	border-image: url(:/Images/home_hover.png);
+}
+
+QPushButton:pressed
+{
+	border-image: url(:/Images/home_pre.png);
+}
+
+
+</string>
+        </property>
         <property name="text">
-         <string>书库大厅</string>
+         <string/>
+        </property>
+        <property name="flat">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="minimumSize">
+         <size>
+          <width>43</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="personalButton">
-        <property name="text">
+        <property name="minimumSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
+        <property name="toolTip">
          <string>个人中心</string>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton
+{
+	border-image: url(:/Images/user.png);
+}
+
+QPushButton:hover
+{
+	border-image: url(:/Images/user_hover.png);
+}
+
+QPushButton:pressed
+{
+	border-image: url(:/Images/user_pre.png);
+}
+
+
+</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="flat">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -39,15 +120,96 @@
      <layout class="QHBoxLayout" name="horizontalLayout_3">
       <item>
        <widget class="QPushButton" name="managerButton">
-        <property name="text">
+        <property name="minimumSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
+        <property name="toolTip">
          <string>书籍管理</string>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton
+{
+	border-image: url(:/Images/book.png);
+}
+
+QPushButton:hover
+{
+	border-image: url(:/Images/book_hover.png);
+}
+
+QPushButton:pressed
+{
+	border-image: url(:/Images/book_pre.png);
+}
+
+
+</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="flat">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_2">
+        <property name="minimumSize">
+         <size>
+          <width>43</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="readerButton">
+        <property name="minimumSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
+        <property name="toolTip">
+         <string>用户管理</string>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton
+{
+	border-image: url(:/Images/reader.png);
+}
+
+QPushButton:hover
+{
+	border-image: url(:/Images/reader_hover.png);
+}
+
+QPushButton:pressed
+{
+	border-image: url(:/Images/reader_pre.png);
+}
+
+
+</string>
+        </property>
         <property name="text">
-         <string>读者管理</string>
+         <string/>
+        </property>
+        <property name="flat">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -69,8 +231,42 @@
    </item>
    <item>
     <widget class="QPushButton" name="logoutButton">
+     <property name="minimumSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
+     <property name="toolTip">
+      <string>切换账号</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton
+{
+	border-image: url(:/Images/logout.png);
+}
+
+QPushButton:hover
+{
+	border-image: url(:/Images/logout_hover.png);
+}
+
+QPushButton:pressed
+{
+	border-image: url(:/Images/logout_pre.png);
+}
+
+
+</string>
+     </property>
      <property name="text">
-      <string>退出登录</string>
+      <string/>
+     </property>
+     <property name="flat">
+      <bool>true</bool>
      </property>
     </widget>
    </item>

@@ -15,7 +15,7 @@ protected:
     void run();
 
 signals:
-    void sigTipsUpdate(const QString &time, const QString &tips = "");
+    void sigTipsUpdate(const QString &time, const QString &tips = "", const QString &image = "");
 };
 
 #endif // TIMEMANAGER_H

@@ -23,6 +23,7 @@ private:
     QString m_account;    // 账号
 
     void initialization();    // 初始化
+    void initStyle();
     void connectConfig();    // 信号与槽的设置
 
 signals:

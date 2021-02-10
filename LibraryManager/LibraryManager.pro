@@ -31,6 +31,7 @@ SOURCES += \
     sqltablemodel.cpp \
     stackroom.cpp \
     timemanager.cpp \
+    titlebar.cpp \
     widget.cpp
 
 HEADERS += \
@@ -48,6 +49,7 @@ HEADERS += \
     sqltablemodel.h \
     stackroom.h \
     timemanager.h \
+    titlebar.h \
     widget.h
 
 FORMS += \
@@ -59,9 +61,13 @@ FORMS += \
     registered.ui \
     resetpassword.ui \
     stackroom.ui \
+    titlebar.ui \
     widget.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    library.qrc

@@ -3,6 +3,7 @@
 #include "librarydefine.h"
 #include "widget.h"
 #include <QDateTime>
+#include <QAction>
 
 StackRoom::StackRoom(QWidget *parent)
     : QWidget(parent)
@@ -11,6 +12,7 @@ StackRoom::StackRoom(QWidget *parent)
     ui->setupUi(this);
 
     initialization();
+    initStyle();
     connectConfig();
 }
 
@@ -19,13 +21,21 @@ StackRoom::~StackRoom()
     delete ui;
 }
 
+void StackRoom::initStyle()
+{
+    QAction *queryAction = new QAction(this);
+    queryAction->setIcon(QIcon(":/Images/clear.png"));
+    ui->queryEdit->addAction(queryAction, QLineEdit::TrailingPosition);
+    connect(queryAction, &QAction::triggered, this, &StackRoom::changeType);
+}
+
 // 初始化
 void StackRoom::initialization()
 {
     m_account = "";
     m_model = new SqlTableModel(this);
     m_model->setTable("stackRoom");
-    m_model->setSort(0, Qt::AscendingOrder);    // 升序
+    m_model->setSort(STACK_INVENTORY, Qt::DescendingOrder);    // 降序
 
     // 设置列宽，Stretch：填充屏幕 ResizeToContents：根据内容长度设定 Fixed：固定
     ui->bookInfoView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
@@ -171,4 +181,5 @@ void StackRoom::refresh(const QString &account)
 {
     m_account = account;
     m_model->select();
+    ui->queryTypeComboBox->setCurrentIndex(0);
 }

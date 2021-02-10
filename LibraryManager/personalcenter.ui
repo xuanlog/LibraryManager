@@ -13,6 +13,92 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QLabel,
+QTableView
+{
+	border: none;
+	color: #1296db;
+	font: 14px &quot;微软雅黑&quot;;
+}
+
+QLabel:hover
+{
+	color: #ffffff;
+}
+
+QTableView:item:selected
+{
+	color: #1296db;
+	background: qlineargradient(spread: pad, x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #def0fe, stop: 1 #c0def6);
+}
+
+QTableView:item:hover
+{
+	background: qlineargradient(spread: pad, x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #f2f9ff, stop: 1 #daefff);
+}
+
+QTableView:item
+{
+	padding: 5px;
+	margin: 0px;
+}
+
+QScrollBar:vertical
+{
+	padding-top: 15px;
+	padding-bottom: 15px;
+	background-color: rgba(0, 0, 0, 0);
+}
+
+QScrollBar:add-line:vertical
+{
+	height: 15px;
+	width: 15px;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
+	border-image: url(:/Images/down.png);
+}
+
+QScrollBar:add-line:vertical:pressed
+{
+	height: 15px;
+	width: 15px;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
+	border-image: url(:/Images/down_pre.png);
+}
+
+QScrollBar:sub-line:vertical
+{
+	height: 15px;
+	width: 15px;
+	subcontrol-position: top;
+	subcontrol-origin: margin;
+	border-image: url(:/Images/up.png);
+}
+
+QScrollBar:sub-line:vertical:pressed
+{
+	height: 15px;
+	width: 15px;
+	subcontrol-position: top;
+	subcontrol-origin: margin;
+	border-image: url(:/Images/up_pre.png);
+}
+
+QScrollBar:handle:vertical
+{
+	background: #1296db;
+	width: 15px;
+}
+
+QScrollBar:handle:vertical:hover
+{
+	width: 15px;
+	background: #00aaff;
+}</string>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="MenuBar" name="widget_3" native="true"/>
@@ -26,6 +112,12 @@
    </item>
    <item>
     <widget class="QTableView" name="bookInfoView">
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: #000000;</string>
+     </property>
      <property name="editTriggers">
       <set>QAbstractItemView::NoEditTriggers</set>
      </property>
@@ -58,6 +150,32 @@
       </item>
       <item>
        <widget class="QPushButton" name="reBorrowButton">
+        <property name="minimumSize">
+         <size>
+          <width>75</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
+        <property name="toolTip">
+         <string>还书时间推迟15天</string>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton 
+{
+	background-color: rgba(18, 150, 219, 0.7);
+    border-radius: 4px;  
+	color: #ffffff;
+	font: 14px &quot;微软雅黑&quot;;
+}  
+
+QPushButton:pressed
+{
+	background-color: #00aaff;
+}</string>
+        </property>
         <property name="text">
          <string>续借</string>
         </property>
@@ -65,6 +183,32 @@
       </item>
       <item>
        <widget class="QPushButton" name="returnButton">
+        <property name="minimumSize">
+         <size>
+          <width>75</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
+        <property name="toolTip">
+         <string>点击还书后，请将书籍整理好，稍后会有专人回收</string>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton 
+{
+	background-color: rgba(18, 150, 219, 0.7);
+    border-radius: 4px;  
+	color: #ffffff;
+	font: 14px &quot;微软雅黑&quot;;
+}  
+
+QPushButton:pressed
+{
+	background-color: #00aaff;
+}</string>
+        </property>
         <property name="text">
          <string>还书</string>
         </property>

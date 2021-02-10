@@ -5,6 +5,7 @@
 #include "md5.h"
 #include "base64.h"
 #include "filemanager.h"
+#include <QAction>
 
 Login::Login(QWidget *parent) :
     QWidget(parent),
@@ -13,6 +14,7 @@ Login::Login(QWidget *parent) :
     ui->setupUi(this);
 
     initialization();
+    initStyle();
     connectConfig();
     initData();
 }
@@ -20,6 +22,33 @@ Login::Login(QWidget *parent) :
 Login::~Login()
 {
     delete ui;
+}
+
+void Login::initStyle()
+{
+    // 账号
+    QAction *accountLead = new QAction(this);
+    accountLead->setIcon(QIcon(":/Images/account.png"));
+    ui->accountEdit->addAction(accountLead, QLineEdit::LeadingPosition);
+
+    QAction *accountTrail = new QAction(this);
+    accountTrail->setIcon(QIcon(":/Images/clear.png"));
+    ui->accountEdit->addAction(accountTrail, QLineEdit::TrailingPosition);
+    connect(accountTrail, &QAction::triggered, this, [=](){
+        ui->accountEdit->clear();
+    });
+
+    // 密码
+    QAction *passwordLead = new QAction(this);
+    passwordLead->setIcon(QIcon(":/Images/password.png"));
+    ui->passwordEdit->addAction(passwordLead, QLineEdit::LeadingPosition);
+
+    QAction *passwordTrail = new QAction(this);
+    passwordTrail->setIcon(QIcon(":/Images/clear.png"));
+    ui->passwordEdit->addAction(passwordTrail, QLineEdit::TrailingPosition);
+    connect(passwordTrail, &QAction::triggered, this, [=](){
+        ui->passwordEdit->clear();
+    });
 }
 
 // 初始化
@@ -39,7 +68,7 @@ void Login::connectConfig()
     connect(ui->accountEdit, &QLineEdit::textChanged, this, &Login::userUpdate);
     connect(ui->autoCheckBox, &QCheckBox::clicked, this, &Login::autoUpdate);
     connect(ui->rememberCheckBox, &QCheckBox::clicked, this, &Login::rememberUpdate);
-    connect(m_timer, &QTimer::timeout, this, &Login::autoLogin);
+    connect(m_timer, &QTimer::timeout, this, &Login::autoLogin); 
 }
 
 void Login::initData()

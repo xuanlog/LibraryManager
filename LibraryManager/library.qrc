@@ -1,0 +1,45 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Images/bg001.jpg</file>
+        <file>Images/bg002.jpg</file>
+        <file>Images/bg003.jpg</file>
+        <file>Images/bg004.jpg</file>
+        <file>Images/bg005.jpg</file>
+        <file>Images/bg006.jpg</file>
+        <file>Images/bg007.jpg</file>
+        <file>Images/bg008.jpg</file>
+        <file>Images/clear.png</file>
+        <file>Images/account.png</file>
+        <file>Images/password.png</file>
+        <file>Images/check.png</file>
+        <file>Images/uncheck.png</file>
+        <file>Images/down.png</file>
+        <file>Images/up.png</file>
+        <file>Images/down_pre.png</file>
+        <file>Images/up_pre.png</file>
+        <file>Images/back.png</file>
+        <file>Images/back_hover.png</file>
+        <file>Images/back_pre.png</file>
+        <file>Images/home.png</file>
+        <file>Images/home_hover.png</file>
+        <file>Images/home_pre.png</file>
+        <file>Images/user.png</file>
+        <file>Images/user_hover.png</file>
+        <file>Images/user_pre.png</file>
+        <file>Images/book.png</file>
+        <file>Images/book_hover.png</file>
+        <file>Images/book_pre.png</file>
+        <file>Images/reader.png</file>
+        <file>Images/reader_hover.png</file>
+        <file>Images/reader_pre.png</file>
+        <file>Images/logout.png</file>
+        <file>Images/logout_hover.png</file>
+        <file>Images/logout_pre.png</file>
+        <file>Images/close.png</file>
+        <file>Images/max.png</file>
+        <file>Images/min.png</file>
+        <file>Images/icon.png</file>
+        <file>Images/max_ok.png</file>
+        <file>Images/bar.jpg</file>
+    </qresource>
+</RCC>
