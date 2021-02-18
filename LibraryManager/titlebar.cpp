@@ -36,7 +36,7 @@ void TitleBar::connectConfig()
     });
 
     connect(ui->closeButton, &QPushButton::clicked, this, [=](){
-        this->window()->close();
+        this->window()->hide();
     });
 }
 
@@ -52,7 +52,10 @@ void TitleBar::mouseDoubleClickEvent(QMouseEvent *event)
 {
     Q_UNUSED(event)
 
-    maxSize();
+    if (event->button() == Qt::LeftButton)
+    {
+        maxSize();
+    }
 }
 
 void TitleBar::mousePressEvent(QMouseEvent *event)

@@ -15,8 +15,8 @@ Login::Login(QWidget *parent) :
 
     initialization();
     initStyle();
-    connectConfig();
     initData();
+    connectConfig();
 }
 
 Login::~Login()
@@ -56,7 +56,9 @@ void Login::initialization()
 {
     m_model = new SqlTableModel(this);
     m_model->setTable("userInfo");
+
     m_timer = new QTimer(this);
+    connect(m_timer, &QTimer::timeout, this, &Login::autoLogin);
 }
 
 // 信号与槽的设置
@@ -68,7 +70,6 @@ void Login::connectConfig()
     connect(ui->accountEdit, &QLineEdit::textChanged, this, &Login::userUpdate);
     connect(ui->autoCheckBox, &QCheckBox::clicked, this, &Login::autoUpdate);
     connect(ui->rememberCheckBox, &QCheckBox::clicked, this, &Login::rememberUpdate);
-    connect(m_timer, &QTimer::timeout, this, &Login::autoLogin); 
 }
 
 void Login::initData()
@@ -77,7 +78,7 @@ void Login::initData()
     QString isRemeber = FileManager::read("INFO/RememberFlag");
     ui->accountEdit->setText(account);
 
-    if (isRemeber == "false")
+    if (isRemeber != "true")
     {
         return;
     }

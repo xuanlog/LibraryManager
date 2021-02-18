@@ -3,6 +3,7 @@
 #include "librarydefine.h"
 #include <windows.h>
 #include <windowsx.h>
+#include <QMenu>
 
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
@@ -10,15 +11,45 @@ Widget::Widget(QWidget *parent)
 {
     ui->setupUi(this);
 
+    m_isClose = false;
     m_timer = new TimeManager(this);
-    m_timer->start();
+    connect(m_timer, &TimeManager::sigTipsUpdate, this, &Widget::timeUpdate, Qt::BlockingQueuedConnection);
     this->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);    // 隐藏标题栏
+    initTray();
     connectConfig();
+
+    m_timer->start();
 }
 
 Widget::~Widget()
 {
     delete ui;
+}
+
+void Widget::initTray()
+{
+    // 托盘菜单
+    QMenu *menu = new QMenu(this);
+    QAction *openWindow = new QAction(QString::fromUtf8("打开主窗口"), this);
+    QAction *closeWindow = new QAction(QString::fromUtf8("退出"), this);
+
+    connect(openWindow, &QAction::triggered, this, [=](){
+        this->show();
+    });
+
+    connect(closeWindow, &QAction::triggered, this, &Widget::exitWindow);
+
+    menu->addAction(openWindow);
+    menu->addSeparator();    // 添加分隔符
+    menu->addAction(closeWindow);
+
+    // 托盘
+    m_tray = new QSystemTrayIcon(this);
+    m_tray->setIcon(QIcon(":/Images/icon.png"));
+    m_tray->setToolTip(QString::fromUtf8("图书管理系统"));
+    m_tray->setContextMenu(menu);    // 菜单栏添加到托盘
+    m_tray->show();
+    connect(m_tray, &QSystemTrayIcon::activated, this, &Widget::showWindow);
 }
 
 // 信号与槽的设置
@@ -38,8 +69,6 @@ void Widget::connectConfig()
     connect(ui->readerWidget, &Reader::sigDelete, ui->personalCenterWidget, &PersonalCenter::clearAccount);
 
     connect(ui->registeredWidget, &Registered::sigRegist, ui->readerWidget, &Reader::refresh);
-
-    connect(m_timer, &TimeManager::sigTipsUpdate, this, &Widget::timeUpdate, Qt::BlockingQueuedConnection);
 }
 
 void Widget::timeUpdate(const QString &time, const QString &tips, const QString &image)
@@ -51,6 +80,33 @@ void Widget::timeUpdate(const QString &time, const QString &tips, const QString 
         ui->loginWidget->tipsUpdate(tips);
         this->setStyleSheet(QString("#stackedWidget{border-image: url(:/Images/%1.jpg)}").arg(image));
     }
+}
+
+void Widget::showWindow(QSystemTrayIcon::ActivationReason reason)
+{
+    if (reason == QSystemTrayIcon::Trigger)
+    {
+        this->show();
+    }
+}
+
+void Widget::exitWindow()
+{
+    m_isClose = true;
+    this->close();
+}
+
+void Widget::closeEvent(QCloseEvent *event)
+{
+    if (!m_isClose)
+    {
+        event->ignore();
+        this->hide();
+        return;
+    }
+
+    m_isClose = false;
+    event->accept();
 }
 
 bool Widget::nativeEvent(const QByteArray &eventType, void *message, long *result)

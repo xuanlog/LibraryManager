@@ -1,6 +1,7 @@
 #include "timemanager.h"
 #include <QDateTime>
 #include <windows.h>
+#include <QDebug>
 
 TimeManager::TimeManager(QObject *parent)
     : QThread(parent)

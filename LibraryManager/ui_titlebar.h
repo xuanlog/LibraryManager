@@ -37,10 +37,6 @@ public:
         if (TitleBar->objectName().isEmpty())
             TitleBar->setObjectName(QString::fromUtf8("TitleBar"));
         TitleBar->resize(840, 32);
-        TitleBar->setStyleSheet(QString::fromUtf8("#TitleBar\n"
-"{\n"
-"	border-image: url(:/Images/bar.jpg);\n"
-"}"));
         horizontalLayout = new QHBoxLayout(TitleBar);
         horizontalLayout->setSpacing(0);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
