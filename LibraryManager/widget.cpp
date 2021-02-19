@@ -67,6 +67,7 @@ void Widget::connectConfig()
     connect(ui->loginWidget, &Login::sigManager, ui->readerWidget, &Reader::refresh);
 
     connect(ui->readerWidget, &Reader::sigDelete, ui->personalCenterWidget, &PersonalCenter::clearAccount);
+    connect(ui->readerWidget, &Reader::sigReturn, ui->stackRoomWidget, &StackRoom::bookUpdate);
 
     connect(ui->registeredWidget, &Registered::sigRegist, ui->readerWidget, &Reader::refresh);
 }

@@ -102,6 +102,13 @@ void Registered::registered()
         return;
     }
 
+    if (account.contains(" ") || password.contains(" "))
+    {
+        QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("账号或密码含有非法字符!"),
+                                 QString::fromUtf8("确定"));
+        return;
+    }
+
     if (password != confirmPassword)
     {
         QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("两次密码不一致!"),

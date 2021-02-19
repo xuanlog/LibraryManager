@@ -1,6 +1,7 @@
 #include "reader.h"
 #include "ui_reader.h"
 #include "librarydefine.h"
+#include <QAction>
 
 Reader::Reader(QWidget *parent) :
     QWidget(parent),
@@ -9,6 +10,7 @@ Reader::Reader(QWidget *parent) :
     ui->setupUi(this);
 
     initialization();
+    initStyle();
     connectConfig();
 }
 
@@ -20,6 +22,7 @@ Reader::~Reader()
 // 初始化
 void Reader::initialization()
 {
+    // 读者表
     m_model = new SqlTableModel(this);
     m_model->setTable("userInfo");
     // 不显示管理员账号
@@ -30,12 +33,33 @@ void Reader::initialization()
     // 设置列宽，Stretch：填充屏幕 ResizeToContents：根据内容长度设定 Fixed：固定
     ui->readerView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->readerView->setModel(m_model);
+
+    // 逾期书籍表
+    m_pModel = new SqlTableModel(this);
+    m_pModel->setTable("personalCenter");
+    m_pModel->setMultiTable("personalCenter, stackRoom");
+    m_pModel->setMultiItem(QString::fromUtf8("借书时间, 还书时间, personalCenter.编号, 书名, 出版社, 作者"));
+    ui->bookInfoView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->bookInfoView->setModel(m_pModel);
+}
+
+void Reader::initStyle()
+{
+    QAction *accountTrail = new QAction(this);
+    accountTrail->setIcon(QIcon(":/Images/clear.png"));
+    ui->searchEdit->addAction(accountTrail, QLineEdit::TrailingPosition);
+    connect(accountTrail, &QAction::triggered, this, [=](){
+        ui->searchEdit->clear();
+    });
+
 }
 
 // 信号与槽的设置
 void Reader::connectConfig()
 {
     connect(ui->deleteButton, &QPushButton::clicked, this, &Reader::deleteAccount);
+    connect(ui->searchEdit, &QLineEdit::textChanged, this, &Reader::search);
+    connect(ui->confirmButton, &QPushButton::clicked, this, &Reader::returnBook);
 }
 
 // 删除账号
@@ -68,6 +92,49 @@ void Reader::deleteAccount()
 void Reader::refresh()
 {
     m_model->select();
+    ui->searchEdit->clear();
+}
+
+void Reader::search(const QString &account)
+{
+    QString filter =
+            QString::fromUtf8(
+                "personalCenter.账号 = '%1' AND personalCenter.编号 = stackRoom.编号 AND personalCenter.状态 = %2")
+            .arg(account).arg(STATUS_OVERDUE);
+
+    m_pModel->setMultiFilter(filter);
+    m_pModel->multiSelect();
+
+    filter = QString::fromUtf8("账号 NOT LIKE '%1' AND 账号 LIKE '%%2%'").arg(kManagerAccount).arg(account);
+    m_model->setFilter(filter);
+}
+
+void Reader::returnBook()
+{
+    int selectRow = ui->bookInfoView->currentIndex().row();
+
+    if (selectRow < 0)
+    {
+        QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("请选择书籍!"),
+                                 QString::fromUtf8("确定"));
+        return;
+    }
+
+    int ret = QMessageBox::question(this, QString::fromUtf8("提示"), QString::fromUtf8("确认归还?"),
+                                    QString::fromUtf8("确定"), QString::fromUtf8("取消"));
+
+    if (ret == SELECT_OK)
+    {
+        QModelIndex index = m_pModel->index(selectRow, PERSONAL_NUM);
+        int bookNum = m_pModel->data(index).toInt();
+
+        QString condition = QString::fromUtf8("账号 = '%1' AND 编号 = %2")
+                .arg(ui->searchEdit->text()).arg(bookNum);
+
+        m_pModel->removeSqlRow(condition);
+        m_pModel->multiSelect();
+        emit sigReturn(bookNum);
+    }
 }
 
 void Reader::bookUpdate(const QString &account, bool isBorrow)

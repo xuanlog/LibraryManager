@@ -41,42 +41,42 @@ void TimeManager::run()
 
         if (time > sixClock && time <= eightClock)
         {
-            tips = QString::fromUtf8("早上好");
+            tips = QString::fromUtf8("三更灯火五更鸡，正是男儿读书时");
             image = "bg001";
         }
         else if (time > eightClock && time <= elevenClock)
         {
-            tips = QString::fromUtf8("上午好");
+            tips = QString::fromUtf8("人之进学在于思，思则能知是与非");
             image = "bg002";
         }
         else if (time > elevenClock && time <= thirteenClock)
         {
-            tips = QString::fromUtf8("中午好");
+            tips = QString::fromUtf8("书到用时方恨少，事非经过不知难");
             image = "bg003";
         }
         else if (time > thirteenClock && time <= seventeenClock)
         {
-            tips = QString::fromUtf8("下午好");
+            tips = QString::fromUtf8("我闭南楼看道书，幽帘清寂在仙居");
             image = "bg004";
         }
         else if (time > seventeenClock && time <= nineteenClock)
         {
-            tips = QString::fromUtf8("傍晚好");
+            tips = QString::fromUtf8("书当快意读易尽，客有可人期不来");
             image = "bg005";
         }
         else if (time > nineteenClock && time <= twentyThreeClock)
         {
-            tips = QString::fromUtf8("晚上好");
+            tips = QString::fromUtf8("月过碧窗今夜酒，雨昏红壁去年书");
             image = "bg006";
         }
         else if (time > twentyThreeClock && time <= threeClock)
         {
-            tips = QString::fromUtf8("深夜好");
+            tips = QString::fromUtf8("晓月闲移三尺剑，孤灯苦读五更书\n夜已深了，还请早些休息");
             image = "bg007";
         }
         else if (time > threeClock && time <= sixClock)
         {
-            tips = QString::fromUtf8("凌晨好");
+            tips = QString::fromUtf8("读书切戒在慌忙，涵泳工夫兴味长\n已经凌晨了，请注意休息");
             image = "bg008";
         }
 

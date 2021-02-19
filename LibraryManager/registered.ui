@@ -210,7 +210,7 @@ QPushButton:pressed
             <number>20</number>
            </property>
            <property name="placeholderText">
-            <string>请输入账号</string>
+            <string>请输入6-20位账号</string>
            </property>
            <property name="clearButtonEnabled">
             <bool>false</bool>

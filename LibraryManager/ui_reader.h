@@ -13,6 +13,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QTableView>
@@ -30,15 +31,22 @@ public:
     QTableView *readerView;
     QWidget *widget;
     QHBoxLayout *horizontalLayout;
+    QLineEdit *searchEdit;
     QSpacerItem *horizontalSpacer;
     QPushButton *deleteButton;
+    QTableView *bookInfoView;
+    QWidget *widget_3;
+    QHBoxLayout *horizontalLayout_2;
+    QSpacerItem *horizontalSpacer_2;
+    QPushButton *confirmButton;
+    QSpacerItem *horizontalSpacer_3;
     QSpacerItem *verticalSpacer;
 
     void setupUi(QWidget *Reader)
     {
         if (Reader->objectName().isEmpty())
             Reader->setObjectName(QString::fromUtf8("Reader"));
-        Reader->resize(787, 572);
+        Reader->resize(745, 585);
         Reader->setStyleSheet(QString::fromUtf8("QLabel,\n"
 "QTableView,\n"
 "QPushButton \n"
@@ -135,6 +143,17 @@ public:
 "QMessageBox\n"
 "{\n"
 "	border-image: url(:/Images/dialog.jpg);\n"
+"}\n"
+"\n"
+"QLineEdit\n"
+"{\n"
+"	border: none;\n"
+"	color: #000000;\n"
+"	font: 75 14px \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"	border"
+                        "-radius: 5px;\n"
+"	selection-background-color: #def0fe;\n"
+"	selection-color: #1296db;\n"
 "}"));
         verticalLayout = new QVBoxLayout(Reader);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
@@ -158,6 +177,12 @@ public:
         widget->setObjectName(QString::fromUtf8("widget"));
         horizontalLayout = new QHBoxLayout(widget);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        searchEdit = new QLineEdit(widget);
+        searchEdit->setObjectName(QString::fromUtf8("searchEdit"));
+        searchEdit->setMaximumSize(QSize(320, 16777215));
+
+        horizontalLayout->addWidget(searchEdit);
+
         horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         horizontalLayout->addItem(horizontalSpacer);
@@ -183,6 +208,46 @@ public:
 
         verticalLayout->addWidget(widget);
 
+        bookInfoView = new QTableView(Reader);
+        bookInfoView->setObjectName(QString::fromUtf8("bookInfoView"));
+
+        verticalLayout->addWidget(bookInfoView);
+
+        widget_3 = new QWidget(Reader);
+        widget_3->setObjectName(QString::fromUtf8("widget_3"));
+        horizontalLayout_2 = new QHBoxLayout(widget_3);
+        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_2->addItem(horizontalSpacer_2);
+
+        confirmButton = new QPushButton(widget_3);
+        confirmButton->setObjectName(QString::fromUtf8("confirmButton"));
+        confirmButton->setMinimumSize(QSize(250, 30));
+        confirmButton->setMaximumSize(QSize(250, 30));
+        confirmButton->setStyleSheet(QString::fromUtf8("QPushButton \n"
+"{\n"
+"	background-color: rgba(18, 150, 219, 0.7);\n"
+"    border-radius: 4px;  \n"
+"	color: #ffffff;\n"
+"	font: 14px \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"}  \n"
+"\n"
+"QPushButton:pressed\n"
+"{\n"
+"	background-color: #00aaff;\n"
+"}\n"
+""));
+
+        horizontalLayout_2->addWidget(confirmButton);
+
+        horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_2->addItem(horizontalSpacer_3);
+
+
+        verticalLayout->addWidget(widget_3);
+
         verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
         verticalLayout->addItem(verticalSpacer);
@@ -196,7 +261,9 @@ public:
     void retranslateUi(QWidget *Reader)
     {
         Reader->setWindowTitle(QCoreApplication::translate("Reader", "Form", nullptr));
+        searchEdit->setPlaceholderText(QCoreApplication::translate("Reader", "\350\257\267\350\276\223\345\205\245\346\243\200\347\264\242\350\264\246\345\217\267", nullptr));
         deleteButton->setText(QCoreApplication::translate("Reader", "\346\263\250\351\224\200\346\255\244\350\264\246\345\217\267", nullptr));
+        confirmButton->setText(QCoreApplication::translate("Reader", "\347\241\256\350\256\244\345\275\222\350\277\230", nullptr));
     } // retranslateUi
 
 };

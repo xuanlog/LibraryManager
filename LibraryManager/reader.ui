@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>787</width>
-    <height>572</height>
+    <width>745</width>
+    <height>585</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -109,6 +109,16 @@ QPushButton:pressed
 QMessageBox
 {
 	border-image: url(:/Images/dialog.jpg);
+}
+
+QLineEdit
+{
+	border: none;
+	color: #000000;
+	font: 75 14px &quot;微软雅黑&quot;;
+	border-radius: 5px;
+	selection-background-color: #def0fe;
+	selection-color: #1296db;
 }</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -140,6 +150,19 @@ QMessageBox
    <item>
     <widget class="QWidget" name="widget" native="true">
      <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QLineEdit" name="searchEdit">
+        <property name="maximumSize">
+         <size>
+          <width>320</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="placeholderText">
+         <string>请输入检索账号</string>
+        </property>
+       </widget>
+      </item>
       <item>
        <spacer name="horizontalSpacer">
         <property name="orientation">
@@ -176,6 +199,75 @@ QPushButton:pressed
          <string>注销此账号</string>
         </property>
        </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QTableView" name="bookInfoView"/>
+   </item>
+   <item>
+    <widget class="QWidget" name="widget_3" native="true">
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="confirmButton">
+        <property name="minimumSize">
+         <size>
+          <width>250</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>250</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton 
+{
+	background-color: rgba(18, 150, 219, 0.7);
+    border-radius: 4px;  
+	color: #ffffff;
+	font: 14px &quot;微软雅黑&quot;;
+}  
+
+QPushButton:pressed
+{
+	background-color: #00aaff;
+}
+</string>
+        </property>
+        <property name="text">
+         <string>确认归还</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
       </item>
      </layout>
     </widget>

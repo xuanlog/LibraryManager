@@ -260,7 +260,7 @@ public:
         backButton->setText(QString());
         label->setText(QCoreApplication::translate("Registered", "\346\263\250\345\206\214", nullptr));
         label_2->setText(QString());
-        accountEdit->setPlaceholderText(QCoreApplication::translate("Registered", "\350\257\267\350\276\223\345\205\245\350\264\246\345\217\267", nullptr));
+        accountEdit->setPlaceholderText(QCoreApplication::translate("Registered", "\350\257\267\350\276\223\345\205\2456-20\344\275\215\350\264\246\345\217\267", nullptr));
         passwordEdit->setPlaceholderText(QCoreApplication::translate("Registered", "\350\257\267\350\276\223\345\205\245\345\257\206\347\240\201", nullptr));
         confirmEdit->setPlaceholderText(QCoreApplication::translate("Registered", "\350\257\267\345\206\215\346\254\241\350\276\223\345\205\245\345\257\206\347\240\201", nullptr));
         registeredButton->setText(QCoreApplication::translate("Registered", "\346\263\250\345\206\214", nullptr));

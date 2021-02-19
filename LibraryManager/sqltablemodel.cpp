@@ -1,6 +1,5 @@
 #include "sqltablemodel.h"
 #include <QSqlQuery>
-#include <QDebug>
 
 SqlTableModel::SqlTableModel(QObject *parent)
     : QSqlTableModel(parent)
@@ -48,7 +47,6 @@ void SqlTableModel::multiSelect()
     }
 
     QSqlQueryModel::setQuery(cmd);
-    qDebug() << cmd;
 }
 
 // 判断表中是否存在数据
@@ -62,7 +60,6 @@ bool SqlTableModel::checkSqlData(const QString &condition)
      * 利用 query.next() 使得 query 指向结果集的第一条记录
      */
     m_query->exec(cmd);
-    qDebug() << cmd;
     return m_query->next();
 }
 
@@ -75,7 +72,6 @@ bool SqlTableModel::checkSqlData(const QString &tableName, const QString &condit
      * 利用 query.next() 使得 query 指向结果集的第一条记录
      */
     m_query->exec(cmd);
-    qDebug() << cmd;
     return m_query->next();
 }
 
@@ -86,7 +82,6 @@ void SqlTableModel::setSqlData(const QString &condition, const QString &value)
     QString cmd = QString("UPDATE %1 SET %2 WHERE %3").arg(tableName).arg(value).arg(condition);
     m_query->exec(cmd);
     QSqlTableModel::select();
-    qDebug() << cmd;
 }
 
 // 新增一行
@@ -96,7 +91,6 @@ void SqlTableModel::insertSqlRow(const QString &value)
     QString cmd = QString("INSERT INTO %1 VALUES(%2)").arg(tableName).arg(value);
     m_query->exec(cmd);
     QSqlTableModel::select();
-    qDebug() << cmd;
 }
 
 // 删除相关行
@@ -106,5 +100,4 @@ void SqlTableModel::removeSqlRow(const QString &condition)
     QString cmd = QString("DELETE FROM %1 WHERE %2").arg(tableName).arg(condition);
     m_query->exec(cmd);
     QSqlTableModel::select();
-    qDebug() << cmd;
 }

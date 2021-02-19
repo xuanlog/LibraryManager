@@ -102,6 +102,13 @@ void ResetPassword::reset()
         return;
     }
 
+    if (password.contains(" "))
+    {
+        QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("密码含有非法字符!"),
+                                 QString::fromUtf8("确定"));
+        return;
+    }
+
     if (password != confirmPassword)
     {
         QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("两次密码不一致!"),
