@@ -109,10 +109,3 @@ void Reader::bookUpdate(const QString &account, bool isBorrow)
         }
     }
 }
-
-void Reader::statusUpdate(const QString &account)
-{
-    QString condition = QString::fromUtf8("账号 = %1").arg(account);
-    QString value = QString::fromUtf8("逾期记录 = '有'");
-    m_model->setSqlData(condition, value);
-}

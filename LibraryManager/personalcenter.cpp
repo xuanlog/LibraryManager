@@ -37,22 +37,13 @@ void PersonalCenter::initialization()
 }
 
 void PersonalCenter::initStatus()
-{
+{   
     for (int i = 0; i < MAX_BORROW; i++)
     {
-        int ret = bookStatus(i);
-
-        if (ret == -1)
+        if (bookStatus(i) == -1)
         {
             break;
         }
-        else if (ret == 0)
-        {
-            continue;
-        }
-
-        emit sigStatus(ui->accountLabel->text());
-        break;
     }
 }
 
@@ -87,12 +78,25 @@ int PersonalCenter::bookStatus(int row)
     QDateTime dateTime = QDateTime::fromString(returnTime, "yyyy-MM-dd:hh:mm:ss");
     QDateTime curTime = QDateTime::currentDateTime();
 
-    if (curTime > dateTime)
+    if (curTime < dateTime)
+    { 
+        return 0;
+    }
+
+    index = m_model->index(row, PERSONAL_NUM);
+    int bookNum = m_model->data(index).toInt();
+    QString condition = QString::fromUtf8("账号 = '%1' AND 编号 = %2 AND 状态 = %3")
+            .arg(ui->accountLabel->text()).arg(bookNum).arg(STATUS_OVERDUE);
+
+    if (m_model->checkSqlData(condition))
     {
         return 1;
     }
 
-    return 0;
+    condition = QString::fromUtf8("账号 = '%1' AND 编号 = %2").arg(ui->accountLabel->text()).arg(bookNum);
+    QString value = QString::fromUtf8("状态 = %1").arg(STATUS_OVERDUE);
+    m_model->setSqlData(condition, value);
+    return 1;
 }
 
 // 续借
@@ -121,7 +125,8 @@ void PersonalCenter::reBorrow()
     }
 
     // 判断是否续借过
-    QString condition = QString::fromUtf8("编号 = %1 AND 状态 = %2").arg(bookNum).arg(STATUS_REBORROW);
+    QString condition = QString::fromUtf8("账号 = '%1' AND 编号 = %2 AND 状态 = %3")
+            .arg(ui->accountLabel->text()).arg(bookNum).arg(STATUS_REBORROW);
 
     if (m_model->checkSqlData(condition))
     {
@@ -137,7 +142,7 @@ void PersonalCenter::reBorrow()
     returnTime = dateTime.addDays(BORROW_TIME).toString("yyyy-MM-dd:hh:mm:ss");
 
     // 更新还书时间
-    condition = QString::fromUtf8("编号 = %1").arg(bookNum);
+    condition = QString::fromUtf8("账号 = '%1' AND 编号 = %2").arg(ui->accountLabel->text()).arg(bookNum);
     QString value = QString::fromUtf8("还书时间 = '%1', 状态 = %2").arg(returnTime).arg(STATUS_REBORROW);
     m_model->setSqlData(condition, value);
     m_model->multiSelect();
@@ -175,7 +180,9 @@ void PersonalCenter::returnBook()
         QModelIndex index = m_model->index(selectRow, PERSONAL_NUM);
         int bookNum = m_model->data(index).toInt();
 
-        QString condition = QString::fromUtf8("编号 = %1").arg(bookNum);
+        QString condition = QString::fromUtf8("账号 = '%1' AND 编号 = %2")
+                .arg(ui->accountLabel->text()).arg(bookNum);
+
         m_model->removeSqlRow(condition);
         m_model->multiSelect();
         emit sigReturn(bookNum);

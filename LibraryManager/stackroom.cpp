@@ -115,9 +115,10 @@ void StackRoom::borrowBook()
         return;
     }
 
-    QString condition = QString::fromUtf8("账号 = '%1' AND 逾期记录 = '有'").arg(m_account);
+    // 有逾期书籍的情况
+    QString condition = QString::fromUtf8("账号 = '%1' AND 状态 = %2").arg(m_account).arg(STATUS_OVERDUE);
 
-    if (m_model->checkSqlData("userInfo", condition))
+    if (m_model->checkSqlData("personalCenter", condition))
     {
         QMessageBox::information(this, QString::fromUtf8("提示"),
                                  QString::fromUtf8("您有书籍逾期未还，\n需到图书馆柜台办理还书并缴纳滞纳金后方可借书!"),
@@ -125,6 +126,7 @@ void StackRoom::borrowBook()
         return;
     }
 
+    // 借书上限
     condition = QString::fromUtf8("账号 = '%1' AND 已借书 = %2").arg(m_account).arg(MAX_BORROW);
 
     if (m_model->checkSqlData("userInfo", condition))

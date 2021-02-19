@@ -15,8 +15,8 @@ Login::Login(QWidget *parent) :
 
     initialization();
     initStyle();
-    initData();
     connectConfig();
+    initData();
 }
 
 Login::~Login()

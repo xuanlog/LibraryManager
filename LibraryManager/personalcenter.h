@@ -29,7 +29,6 @@ private:
 signals:
     void sigReturn(int num);    // 归还信号
     void sigBorrow(const QString &account, bool isBorrow);
-    void sigStatus(const QString &account);
 
 public slots:
     void refresh(const QString &account);    // 刷新
