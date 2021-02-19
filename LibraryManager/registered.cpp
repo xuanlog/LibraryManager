@@ -122,7 +122,7 @@ void Registered::registered()
     password = MD5::Encrypt(account + password);
 
     // userInfo 表添加信息
-    QString value = QString("'%1', '%2', 0, 0").arg(account).arg(password);
+    QString value = QString("'%1', '%2', 0, 0, '无'").arg(account).arg(password);
     m_model->insertSqlRow(value);
     emit sigRegist();
     QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("注册成功!"),

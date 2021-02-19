@@ -77,14 +77,16 @@ public:
         Manager->resize(851, 545);
         Manager->setStyleSheet(QString::fromUtf8("QLabel,\n"
 "QTableView,\n"
-"QComboBox\n"
+"QComboBox,\n"
+"QPushButton \n"
 "{\n"
 "	border: none;\n"
 "	color: #1296db;\n"
 "	font: 14px \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "}\n"
 "\n"
-"QLabel:hover\n"
+"QLabel:hover,\n"
+"QPushButton:hover\n"
 "{\n"
 "	color: #ffffff;\n"
 "}\n"
@@ -122,11 +124,11 @@ public:
 "	border-image: url(:/Images/down.png);\n"
 "}\n"
 "\n"
-"QScrollBar:add-line:vertical:pressed\n"
+"QScrollBar:add-line:vertical:"
+                        "pressed\n"
 "{\n"
 "	height: 15px;\n"
-"	wid"
-                        "th: 15px;\n"
+"	width: 15px;\n"
 "	subcontrol-position: bottom;\n"
 "	subcontrol-origin: margin;\n"
 "	border-image: url(:/Images/down_pre.png);\n"
@@ -174,11 +176,11 @@ public:
 "\n"
 "QComboBox\n"
 "{\n"
-"	border-radius: 3px;\n"
+""
+                        "	border-radius: 3px;\n"
 "}\n"
 "\n"
-"QComb"
-                        "oBox::drop-down\n"
+"QComboBox::drop-down\n"
 "{	\n"
 "	border-left-width: 1px;\n"
 "	border-left-style: solid;	\n"
@@ -189,6 +191,16 @@ public:
 "QComboBox:down-arrow\n"
 "{\n"
 "	image: url(:/Images/down.png);\n"
+"}\n"
+"\n"
+"QPushButton:pressed\n"
+"{\n"
+"	color: #00aaff;\n"
+"}\n"
+"\n"
+"QMessageBox\n"
+"{\n"
+"	border-image: url(:/Images/dialog.jpg);\n"
 "}"));
         verticalLayout = new QVBoxLayout(Manager);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
@@ -344,7 +356,7 @@ public:
         numEdit->setSizePolicy(sizePolicy2);
         numEdit->setMinimumSize(QSize(150, 0));
         numEdit->setFocusPolicy(Qt::StrongFocus);
-        numEdit->setClearButtonEnabled(true);
+        numEdit->setClearButtonEnabled(false);
 
         horizontalLayout_4->addWidget(numEdit);
 
@@ -359,7 +371,7 @@ public:
         nameEdit->setSizePolicy(sizePolicy2);
         nameEdit->setMinimumSize(QSize(150, 0));
         nameEdit->setFocusPolicy(Qt::StrongFocus);
-        nameEdit->setClearButtonEnabled(true);
+        nameEdit->setClearButtonEnabled(false);
 
         horizontalLayout_4->addWidget(nameEdit);
 
@@ -374,7 +386,7 @@ public:
         publishEdit->setSizePolicy(sizePolicy2);
         publishEdit->setMinimumSize(QSize(150, 0));
         publishEdit->setFocusPolicy(Qt::StrongFocus);
-        publishEdit->setClearButtonEnabled(true);
+        publishEdit->setClearButtonEnabled(false);
 
         horizontalLayout_4->addWidget(publishEdit);
 
@@ -404,7 +416,7 @@ public:
         authorEdit->setSizePolicy(sizePolicy2);
         authorEdit->setMinimumSize(QSize(150, 0));
         authorEdit->setFocusPolicy(Qt::StrongFocus);
-        authorEdit->setClearButtonEnabled(true);
+        authorEdit->setClearButtonEnabled(false);
 
         horizontalLayout_5->addWidget(authorEdit);
 
@@ -419,7 +431,7 @@ public:
         inventoryEdit->setSizePolicy(sizePolicy2);
         inventoryEdit->setMinimumSize(QSize(150, 0));
         inventoryEdit->setFocusPolicy(Qt::StrongFocus);
-        inventoryEdit->setClearButtonEnabled(true);
+        inventoryEdit->setClearButtonEnabled(false);
 
         horizontalLayout_5->addWidget(inventoryEdit);
 

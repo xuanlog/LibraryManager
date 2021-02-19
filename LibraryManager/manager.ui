@@ -16,14 +16,16 @@
   <property name="styleSheet">
    <string notr="true">QLabel,
 QTableView,
-QComboBox
+QComboBox,
+QPushButton 
 {
 	border: none;
 	color: #1296db;
 	font: 14px &quot;微软雅黑&quot;;
 }
 
-QLabel:hover
+QLabel:hover,
+QPushButton:hover
 {
 	color: #ffffff;
 }
@@ -126,6 +128,16 @@ QComboBox::drop-down
 QComboBox:down-arrow
 {
 	image: url(:/Images/down.png);
+}
+
+QPushButton:pressed
+{
+	color: #00aaff;
+}
+
+QMessageBox
+{
+	border-image: url(:/Images/dialog.jpg);
 }</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -409,7 +421,7 @@ QPushButton:pressed
             <enum>Qt::StrongFocus</enum>
            </property>
            <property name="clearButtonEnabled">
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
           </widget>
          </item>
@@ -438,7 +450,7 @@ QPushButton:pressed
             <enum>Qt::StrongFocus</enum>
            </property>
            <property name="clearButtonEnabled">
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
           </widget>
          </item>
@@ -467,7 +479,7 @@ QPushButton:pressed
             <enum>Qt::StrongFocus</enum>
            </property>
            <property name="clearButtonEnabled">
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
           </widget>
          </item>
@@ -528,7 +540,7 @@ QPushButton:pressed
             <enum>Qt::StrongFocus</enum>
            </property>
            <property name="clearButtonEnabled">
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
           </widget>
          </item>
@@ -557,7 +569,7 @@ QPushButton:pressed
             <enum>Qt::StrongFocus</enum>
            </property>
            <property name="clearButtonEnabled">
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
           </widget>
          </item>

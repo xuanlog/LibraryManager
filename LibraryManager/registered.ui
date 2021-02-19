@@ -14,14 +14,16 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QLabel
+   <string notr="true">QLabel,
+QPushButton 
 {
 	border: none;
 	color: #1296db;
 	font: 14px &quot;微软雅黑&quot;;
 }
 
-QLabel:hover
+QLabel:hover,
+QPushButton:hover
 {
 	color: #ffffff;
 }
@@ -34,6 +36,16 @@ QLineEdit
 	border-radius: 5px;
 	selection-background-color: #def0fe;
 	selection-color: #1296db;
+}
+
+QPushButton:pressed
+{
+	color: #00aaff;
+}
+
+QMessageBox
+{
+	border-image: url(:/Images/dialog.jpg);
 }</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">

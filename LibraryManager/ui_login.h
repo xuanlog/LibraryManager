@@ -119,6 +119,11 @@ public:
 "QPushButton:pressed\n"
 "{\n"
 "	color: #00aaff;\n"
+"}\n"
+"\n"
+"QMessageBox\n"
+"{\n"
+"	border-image: url(:/Images/dialog.jpg);\n"
 "}"));
         verticalLayout_3 = new QVBoxLayout(Login);
         verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));

@@ -115,7 +115,17 @@ void StackRoom::borrowBook()
         return;
     }
 
-    QString condition = QString::fromUtf8("账号 = '%1' AND 已借书 = %2").arg(m_account).arg(MAX_BORROW);
+    QString condition = QString::fromUtf8("账号 = '%1' AND 逾期记录 = '有'").arg(m_account);
+
+    if (m_model->checkSqlData("userInfo", condition))
+    {
+        QMessageBox::information(this, QString::fromUtf8("提示"),
+                                 QString::fromUtf8("您有书籍逾期未还，\n需到图书馆柜台办理还书并缴纳滞纳金后方可借书!"),
+                                 QString::fromUtf8("确定"));
+        return;
+    }
+
+    condition = QString::fromUtf8("账号 = '%1' AND 已借书 = %2").arg(m_account).arg(MAX_BORROW);
 
     if (m_model->checkSqlData("userInfo", condition))
     {
@@ -144,7 +154,7 @@ void StackRoom::borrowBook()
     // 获取时间
     QDateTime curTime = QDateTime::currentDateTime();
     QString lendTime = curTime.toString("yyyy-MM-dd:hh:mm:ss");    // 借书时间
-    QString returnTime = curTime.addDays(15).toString("yyyy-MM-dd:hh:mm:ss");    // 还书时间
+    QString returnTime = curTime.addDays(BORROW_TIME).toString("yyyy-MM-dd:hh:mm:ss");    // 还书时间
 
     // 传输数据到 personalCenter 表
     QStringList info = {lendTime, returnTime, data, m_account};

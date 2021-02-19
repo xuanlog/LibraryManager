@@ -40,6 +40,8 @@
         <file>Images/min.png</file>
         <file>Images/icon.png</file>
         <file>Images/max_ok.png</file>
-        <file>Images/bar.jpg</file>
+        <file>Images/bottom.jpg</file>
+        <file>Images/dialog.jpg</file>
+        <file>Images/top.jpg</file>
     </qresource>
 </RCC>

@@ -41,6 +41,27 @@ public:
         if (MenuBar->objectName().isEmpty())
             MenuBar->setObjectName(QString::fromUtf8("MenuBar"));
         MenuBar->resize(777, 364);
+        MenuBar->setStyleSheet(QString::fromUtf8("QMessageBox\n"
+"{\n"
+"	border-image: url(:/Images/dialog.jpg);\n"
+"}\n"
+"\n"
+"QPushButton \n"
+"{\n"
+"	border: none;\n"
+"	color: #1296db;\n"
+"	font: 14px \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"}\n"
+"\n"
+"QPushButton:hover\n"
+"{\n"
+"	color: #ffffff;\n"
+"}\n"
+"\n"
+"QPushButton:pressed\n"
+"{\n"
+"	color: #00aaff;\n"
+"}"));
         horizontalLayout = new QHBoxLayout(MenuBar);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         userWidget = new QWidget(MenuBar);

@@ -60,6 +60,7 @@ void Widget::connectConfig()
 
     connect(ui->personalCenterWidget, &PersonalCenter::sigReturn, ui->stackRoomWidget, &StackRoom::bookUpdate);
     connect(ui->personalCenterWidget, &PersonalCenter::sigBorrow, ui->readerWidget, &Reader::bookUpdate);
+    connect(ui->personalCenterWidget, &PersonalCenter::sigStatus, ui->readerWidget, &Reader::statusUpdate);
 
     connect(ui->loginWidget, &Login::sigLogin, ui->stackRoomWidget, &StackRoom::refresh);
     connect(ui->loginWidget, &Login::sigLogin, ui->personalCenterWidget, &PersonalCenter::refresh);

@@ -36,6 +36,26 @@ void PersonalCenter::initialization()
     ui->bookInfoView->setModel(m_model);
 }
 
+void PersonalCenter::initStatus()
+{
+    for (int i = 0; i < MAX_BORROW; i++)
+    {
+        int ret = bookStatus(i);
+
+        if (ret == -1)
+        {
+            break;
+        }
+        else if (ret == 0)
+        {
+            continue;
+        }
+
+        emit sigStatus(ui->accountLabel->text());
+        break;
+    }
+}
+
 // 信号与槽的设置
 void PersonalCenter::connectConfig()
 {
@@ -54,6 +74,27 @@ void PersonalCenter::addBook(const QStringList &info)
     emit sigBorrow(info.at(3), true);
 }
 
+int PersonalCenter::bookStatus(int row)
+{
+    QModelIndex index = m_model->index(row, PERSONAL_RTIME);
+    QString returnTime = m_model->data(index).toString();
+
+    if (returnTime.isEmpty())
+    {
+        return -1;
+    }
+
+    QDateTime dateTime = QDateTime::fromString(returnTime, "yyyy-MM-dd:hh:mm:ss");
+    QDateTime curTime = QDateTime::currentDateTime();
+
+    if (curTime > dateTime)
+    {
+        return 1;
+    }
+
+    return 0;
+}
+
 // 续借
 void PersonalCenter::reBorrow()
 {
@@ -70,6 +111,15 @@ void PersonalCenter::reBorrow()
     QModelIndex index = m_model->index(selectRow, PERSONAL_NUM);
     int bookNum = m_model->data(index).toInt();
 
+    // 判断是否逾期
+    if (bookStatus(selectRow) == 1)
+    {
+        QMessageBox::information(this, QString::fromUtf8("提示"),
+                                 QString::fromUtf8("该书已逾期，\n请到图书馆柜台办理还书并缴纳滞纳金!"),
+                                 QString::fromUtf8("确定"));
+        return;
+    }
+
     // 判断是否续借过
     QString condition = QString::fromUtf8("编号 = %1 AND 状态 = %2").arg(bookNum).arg(STATUS_REBORROW);
 
@@ -80,11 +130,11 @@ void PersonalCenter::reBorrow()
         return;
     }
 
-    // 获取还书时间
+    // 续借后的还书时间
     index = m_model->index(selectRow, PERSONAL_RTIME);
     QString returnTime = m_model->data(index).toString();
     QDateTime dateTime = QDateTime::fromString(returnTime, "yyyy-MM-dd:hh:mm:ss");
-    returnTime = dateTime.addDays(15).toString("yyyy-MM-dd:hh:mm:ss");    // 续借 15 天
+    returnTime = dateTime.addDays(BORROW_TIME).toString("yyyy-MM-dd:hh:mm:ss");
 
     // 更新还书时间
     condition = QString::fromUtf8("编号 = %1").arg(bookNum);
@@ -107,6 +157,16 @@ void PersonalCenter::returnBook()
         return;
     }
 
+    // 判断是否逾期
+    if (bookStatus(selectRow) == 1)
+    {
+        QMessageBox::information(this, QString::fromUtf8("提示"),
+                                 QString::fromUtf8("该书已逾期，\n请到图书馆柜台办理还书并缴纳滞纳金!"),
+                                 QString::fromUtf8("确定"));
+        return;
+    }
+
+    // 还书
     int ret = QMessageBox::question(this, QString::fromUtf8("提示"), QString::fromUtf8("确认归还该书籍?"),
                                     QString::fromUtf8("确定"), QString::fromUtf8("取消"));
 
@@ -142,4 +202,6 @@ void PersonalCenter::refresh(const QString &account)
 
     m_model->setMultiFilter(filter);
     m_model->multiSelect();
+
+    initStatus();
 }

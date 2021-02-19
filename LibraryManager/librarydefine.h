@@ -8,6 +8,7 @@
 #define MAX_BORROW 5
 #define MD5_LENGTH 16
 #define MIN_LENGTH 6
+#define BORROW_TIME 30
 
 const QString kVersion = "1.0.3";
 const QString kManagerAccount = "admin";
@@ -53,8 +54,7 @@ enum USER_INFO_HEADER
 enum STATUS
 {
     STATUS_NORMAL = 0,
-    STATUS_REBORROW,
-    STATUS_OVERDUE
+    STATUS_REBORROW
 };
 
 enum SELECT_FLAG

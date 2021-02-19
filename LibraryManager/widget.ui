@@ -44,7 +44,7 @@
      <property name="styleSheet">
       <string notr="true">#widget_2
 {
-	border-image: url(:/Images/bar.jpg);
+	border-image: url(:/Images/top.jpg);
 }</string>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -92,7 +92,7 @@
 
 #widget
 {
-	border-image: url(:/Images/bar.jpg);
+	border-image: url(:/Images/bottom.jpg);
 }</string>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">

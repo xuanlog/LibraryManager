@@ -13,6 +13,29 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QMessageBox
+{
+	border-image: url(:/Images/dialog.jpg);
+}
+
+QPushButton 
+{
+	border: none;
+	color: #1296db;
+	font: 14px &quot;微软雅黑&quot;;
+}
+
+QPushButton:hover
+{
+	color: #ffffff;
+}
+
+QPushButton:pressed
+{
+	color: #00aaff;
+}</string>
+  </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
     <widget class="QWidget" name="userWidget" native="true">

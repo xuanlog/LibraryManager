@@ -54,14 +54,16 @@ public:
         if (ResetPassword->objectName().isEmpty())
             ResetPassword->setObjectName(QString::fromUtf8("ResetPassword"));
         ResetPassword->resize(729, 590);
-        ResetPassword->setStyleSheet(QString::fromUtf8("QLabel\n"
+        ResetPassword->setStyleSheet(QString::fromUtf8("QLabel,\n"
+"QPushButton \n"
 "{\n"
 "	border: none;\n"
 "	color: #1296db;\n"
 "	font: 14px \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "}\n"
 "\n"
-"QLabel:hover\n"
+"QLabel:hover,\n"
+"QPushButton:hover\n"
 "{\n"
 "	color: #ffffff;\n"
 "}\n"
@@ -74,6 +76,16 @@ public:
 "	border-radius: 5px;\n"
 "	selection-background-color: #def0fe;\n"
 "	selection-color: #1296db;\n"
+"}\n"
+"\n"
+"QPushButton:pressed\n"
+"{\n"
+"	color: #00aaff;\n"
+"}\n"
+"\n"
+"QMessageBox\n"
+"{\n"
+"	border-image: url(:/Images/dialog.jpg);\n"
 "}"));
         verticalLayout_3 = new QVBoxLayout(ResetPassword);
         verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));

@@ -59,6 +59,11 @@ QLineEdit
 QPushButton:pressed
 {
 	color: #00aaff;
+}
+
+QMessageBox
+{
+	border-image: url(:/Images/dialog.jpg);
 }</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">

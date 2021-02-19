@@ -164,6 +164,15 @@ void Manager::addBook()
         return;
     }
 
+    QString condition = QString::fromUtf8("编号 = %1").arg(ui->numEdit->text());
+
+    if (m_model->checkSqlData(condition))
+    {
+        QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("编号已存在!"),
+                                 QString::fromUtf8("确定"));
+        return;
+    }
+
     QString value = QString("%1, '%2', '%3', '%4', %5")
             .arg(ui->numEdit->text()).arg(ui->nameEdit->text())
             .arg(ui->publishEdit->text()).arg(ui->authorEdit->text())

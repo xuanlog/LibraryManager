@@ -31,6 +31,7 @@ signals:
 public slots:
     void refresh();    // 刷新
     void bookUpdate(const QString &account, bool isBorrow);
+    void statusUpdate(const QString &account);
 
 private slots:
     void deleteAccount();    // 删除账号
