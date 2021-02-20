@@ -18,24 +18,28 @@ void SqlTableModel::initialization()
     m_query = new QSqlQuery(QSqlTableModel::database());
     m_tableName = "";
     m_filter = "";
-    m_item = "*";
+    m_item = "*";    // 初始化设为 * 表示如果不设置 item，则多表查询会把所有表的列都显示
 }
 
+// 多表查询表名设置
 void SqlTableModel::setMultiTable(const QString &tableName)
 {
     m_tableName = tableName;
 }
 
+// 多表查询条件设置
 void SqlTableModel::setMultiFilter(const QString &filter)
 {
     m_filter = filter;
 }
 
+// 多表查询项设置
 void SqlTableModel::setMultiItem(const QString &item)
 {
     m_item = item;
 }
 
+// 多表查询
 void SqlTableModel::multiSelect()
 {
     QString cmd = QString::fromUtf8("SELECT %1 FROM %2 WHERE %3").arg(m_item)
@@ -49,28 +53,25 @@ void SqlTableModel::multiSelect()
     QSqlQueryModel::setQuery(cmd);
 }
 
-// 判断表中是否存在数据
+// 数据检测
 bool SqlTableModel::checkSqlData(const QString &condition)
 {
     QString tableName = QSqlTableModel::tableName();
     QString cmd = QString("SELECT * FROM %1 WHERE %2").arg(tableName).arg(condition);
 
-    /*
-     * 刚执行完 query.exec() 时，query 是指向结果集以外的，
-     * 利用 query.next() 使得 query 指向结果集的第一条记录
-     */
+    // 刚执行完 query.exec() 时，query 是指向结果集以外的，
+    // 利用 query.next() 使得 query 指向结果集的第一条记录
     m_query->exec(cmd);
     return m_query->next();
 }
 
+// 数据检测
 bool SqlTableModel::checkSqlData(const QString &tableName, const QString &condition)
 {
     QString cmd = QString("SELECT * FROM %1 WHERE %2").arg(tableName).arg(condition);
 
-    /*
-     * 刚执行完 query.exec() 时，query 是指向结果集以外的，
-     * 利用 query.next() 使得 query 指向结果集的第一条记录
-     */
+    // 刚执行完 query.exec() 时，query 是指向结果集以外的，
+    // 利用 query.next() 使得 query 指向结果集的第一条记录
     m_query->exec(cmd);
     return m_query->next();
 }
@@ -84,7 +85,7 @@ void SqlTableModel::setSqlData(const QString &condition, const QString &value)
     QSqlTableModel::select();
 }
 
-// 新增一行
+// 行新增
 void SqlTableModel::insertSqlRow(const QString &value)
 {
     QString tableName = QSqlTableModel::tableName();
@@ -93,7 +94,7 @@ void SqlTableModel::insertSqlRow(const QString &value)
     QSqlTableModel::select();
 }
 
-// 删除相关行
+// 行删除
 void SqlTableModel::removeSqlRow(const QString &condition)
 {
     QString tableName = QSqlTableModel::tableName();

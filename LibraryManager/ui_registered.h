@@ -41,6 +41,7 @@ public:
     QLineEdit *accountEdit;
     QLineEdit *passwordEdit;
     QLineEdit *confirmEdit;
+    QLineEdit *addressEdit;
     QSpacerItem *horizontalSpacer_2;
     QWidget *widget_4;
     QHBoxLayout *horizontalLayout_2;
@@ -200,6 +201,19 @@ public:
 
         verticalLayout_2->addWidget(confirmEdit);
 
+        addressEdit = new QLineEdit(widget_2);
+        addressEdit->setObjectName(QString::fromUtf8("addressEdit"));
+        sizePolicy.setHeightForWidth(addressEdit->sizePolicy().hasHeightForWidth());
+        addressEdit->setSizePolicy(sizePolicy);
+        addressEdit->setMinimumSize(QSize(230, 0));
+        addressEdit->setMaximumSize(QSize(16777215, 16777215));
+        addressEdit->setFocusPolicy(Qt::StrongFocus);
+        addressEdit->setMaxLength(20);
+        addressEdit->setEchoMode(QLineEdit::Normal);
+        addressEdit->setClearButtonEnabled(false);
+
+        verticalLayout_2->addWidget(addressEdit);
+
 
         horizontalLayout->addWidget(widget_2);
 
@@ -261,8 +275,9 @@ public:
         label->setText(QCoreApplication::translate("Registered", "\346\263\250\345\206\214", nullptr));
         label_2->setText(QString());
         accountEdit->setPlaceholderText(QCoreApplication::translate("Registered", "\350\257\267\350\276\223\345\205\2456-20\344\275\215\350\264\246\345\217\267", nullptr));
-        passwordEdit->setPlaceholderText(QCoreApplication::translate("Registered", "\350\257\267\350\276\223\345\205\245\345\257\206\347\240\201", nullptr));
+        passwordEdit->setPlaceholderText(QCoreApplication::translate("Registered", "\350\257\267\350\276\223\345\205\2456-20\344\275\215\345\257\206\347\240\201", nullptr));
         confirmEdit->setPlaceholderText(QCoreApplication::translate("Registered", "\350\257\267\345\206\215\346\254\241\350\276\223\345\205\245\345\257\206\347\240\201", nullptr));
+        addressEdit->setPlaceholderText(QCoreApplication::translate("Registered", "\350\257\267\350\276\223\345\205\245\346\224\266\350\264\247\345\234\260\345\235\200", nullptr));
         registeredButton->setText(QCoreApplication::translate("Registered", "\346\263\250\345\206\214", nullptr));
     } // retranslateUi
 

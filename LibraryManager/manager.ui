@@ -269,11 +269,6 @@ QMessageBox
           <string>作者</string>
          </property>
         </item>
-        <item>
-         <property name="text">
-          <string>库存</string>
-         </property>
-        </item>
        </widget>
       </item>
       <item>

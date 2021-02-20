@@ -260,7 +260,7 @@ public:
         label->setText(QCoreApplication::translate("ResetPassword", "\351\207\215\347\275\256\345\257\206\347\240\201", nullptr));
         label_2->setText(QString());
         accountEdit->setPlaceholderText(QCoreApplication::translate("ResetPassword", "\350\257\267\350\276\223\345\205\245\350\264\246\345\217\267", nullptr));
-        passwordEdit->setPlaceholderText(QCoreApplication::translate("ResetPassword", "\350\257\267\350\276\223\345\205\245\345\257\206\347\240\201", nullptr));
+        passwordEdit->setPlaceholderText(QCoreApplication::translate("ResetPassword", "\350\257\267\350\276\223\345\205\2456-20\344\275\215\345\257\206\347\240\201", nullptr));
         confirmEdit->setPlaceholderText(QCoreApplication::translate("ResetPassword", "\350\257\267\345\206\215\346\254\241\350\276\223\345\205\245\345\257\206\347\240\201", nullptr));
         confirmButton->setText(QCoreApplication::translate("ResetPassword", "\347\241\256\350\256\244", nullptr));
     } // retranslateUi

@@ -19,13 +19,16 @@ Manager::~Manager()
     delete ui;
 }
 
+// 控件风格初始化
 void Manager::initStyle()
 {
     // 查询
     QAction *queryAction = new QAction(this);
     queryAction->setIcon(QIcon(":/Images/clear.png"));
     ui->queryEdit->addAction(queryAction, QLineEdit::TrailingPosition);
-    connect(queryAction, &QAction::triggered, this, &Manager::changeType);
+    connect(queryAction, &QAction::triggered, this, [=](){
+        ui->queryEdit->clear();
+    });
 
     // 编号
     QAction *numAction = new QAction(this);
@@ -71,27 +74,27 @@ void Manager::initStyle()
 // 初始化
 void Manager::initialization()
 {
-    m_isHide = true;
-    ui->addWidget->hide();    // 添加窗口初始隐藏
+    m_isHide = true;          // 标志位置于 true 表示关闭
+    ui->addWidget->hide();    // 添加书籍窗口初始隐藏
 
     m_model = new SqlTableModel(this);
     m_model->setTable("stackRoom");
-    m_model->setSort(STACK_INVENTORY, Qt::DescendingOrder);
+    m_model->setSort(STACK_INVENTORY, Qt::DescendingOrder);    // 库存数量降序
 
     // 设置列宽，Stretch：填充屏幕 ResizeToContents：根据内容长度设定 Fixed：固定
     ui->bookInfoView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->bookInfoView->setModel(m_model);
 }
 
-// 信号与槽的设置
+// 控件信号链接
 void Manager::connectConfig()
 {
-    /*
-     * QComboBox 的 currentIndexChanged 有两个重载，一个参数是 int，一个参数是 QString，所以需要用下面的语句强制类型转换，否则
-     * connect 不知道触发哪个信号，用 QT4 的写法则无此问题
-     */
-    connect(ui->queryTypeComboBox, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
-            this, &Manager::changeType);
+    // QComboBox 的 currentIndexChanged 有两个重载，一个参数是 int，一个参数是 QString，所以需要用下面的语句强制类型转换，
+    // 否则 connect 不知道触发哪个信号，用 QT4 的写法则无此问题
+    connect(ui->queryTypeComboBox, static_cast<void(QComboBox::*)(int)>
+            (&QComboBox::currentIndexChanged),this, [=](){
+        ui->queryEdit->clear();
+    });
 
     connect(ui->queryEdit, &QLineEdit::textChanged, this, &Manager::queryBook);
     connect(ui->addButton, &QPushButton::clicked, this, &Manager::changeWidgetState);
@@ -99,7 +102,7 @@ void Manager::connectConfig()
     connect(ui->deleteButton, &QPushButton::clicked, this, &Manager::deleteBook);
 }
 
-// 查询
+// 模糊查询
 void Manager::queryBook(const QString &info)
 {
     int queryType = ui->queryTypeComboBox->currentIndex();
@@ -120,19 +123,10 @@ void Manager::queryBook(const QString &info)
     case STACK_AUTHOR:
         filter = QString::fromUtf8("作者 LIKE '%%1%'").arg(info);
         break;
-    case STACK_INVENTORY:
-        filter = QString::fromUtf8("库存 LIKE '%%1%'").arg(info);
-        break;
     }
 
     m_model->setFilter(filter);
     m_model->select();
-}
-
-// 切换查询类型
-void Manager::changeType()
-{
-    ui->queryEdit->clear();
 }
 
 // 切换窗口状态
@@ -153,6 +147,7 @@ void Manager::changeWidgetState()
 // 添加书籍
 void Manager::addBook()
 {
+    // 判断书籍信息是否完整
     bool isEmpty = ui->numEdit->text().isEmpty() || ui->nameEdit->text().isEmpty() ||
             ui->publishEdit->text().isEmpty() || ui->authorEdit->text().isEmpty() ||
             ui->inventoryEdit->text().isEmpty();
@@ -164,6 +159,19 @@ void Manager::addBook()
         return;
     }
 
+    // 判断书籍信息是否含有非法字符
+    bool isSpace = ui->numEdit->text().contains(" ") || ui->nameEdit->text().contains(" ") ||
+            ui->publishEdit->text().contains(" ") || ui->authorEdit->text().contains(" ") ||
+            ui->inventoryEdit->text().contains(" ");
+
+    if (isSpace)
+    {
+        QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("含有非法字符!"),
+                                 QString::fromUtf8("确定"));
+        return;
+    }
+
+    // 判断编号是否存在
     QString condition = QString::fromUtf8("编号 = %1").arg(ui->numEdit->text());
 
     if (m_model->checkSqlData(condition))
@@ -173,6 +181,7 @@ void Manager::addBook()
         return;
     }
 
+    // 添加
     QString value = QString("%1, '%2', '%3', '%4', %5")
             .arg(ui->numEdit->text()).arg(ui->nameEdit->text())
             .arg(ui->publishEdit->text()).arg(ui->authorEdit->text())
@@ -183,6 +192,12 @@ void Manager::addBook()
                              QString::fromUtf8("确定"));
 
     // 清空信息
+    clearMessage();
+}
+
+// 清除信息
+void Manager::clearMessage()
+{
     ui->numEdit->clear();
     ui->nameEdit->clear();
     ui->publishEdit->clear();
@@ -205,11 +220,13 @@ void Manager::deleteBook()
     int ret = QMessageBox::question(this, QString::fromUtf8("提示"), QString::fromUtf8("确认删除该书籍?"),
                                     QString::fromUtf8("确定"), QString::fromUtf8("取消"));
 
-    if (ret == SELECT_OK)    // 删除书籍
+    if (ret == SELECT_OK)
     {
+        // 获取编号
         QModelIndex index = m_model->index(selectRow, STACK_NUM);
         int bookNum = m_model->data(index).toInt();
 
+        // 删除
         QString condition = QString::fromUtf8("编号 = %1").arg(bookNum);
         m_model->removeSqlRow(condition);
         QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("已删除!"),
@@ -221,6 +238,9 @@ void Manager::deleteBook()
 void Manager::refresh()
 {
     m_model->select();
+
     ui->addWidget->hide();
+    m_isHide = true;
+    clearMessage();
     ui->queryTypeComboBox->setCurrentIndex(0);
 }

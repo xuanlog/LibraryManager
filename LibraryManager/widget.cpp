@@ -11,10 +11,7 @@ Widget::Widget(QWidget *parent)
 {
     ui->setupUi(this);
 
-    m_isClose = false;
-    m_timer = new TimeManager(this);
-    connect(m_timer, &TimeManager::sigTipsUpdate, this, &Widget::timeUpdate, Qt::BlockingQueuedConnection);
-    this->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);    // 隐藏标题栏
+    initialization();
     initTray();
     connectConfig();
 
@@ -26,6 +23,20 @@ Widget::~Widget()
     delete ui;
 }
 
+// 初始化
+void Widget::initialization()
+{
+    m_isClose = false;
+
+    m_timer = new TimeManager(this);
+    connect(m_timer, &TimeManager::sigTipsUpdate, this, &Widget::timeUpdate, Qt::BlockingQueuedConnection);
+
+    this->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);    // 隐藏标题栏
+
+    m_w = new About;
+}
+
+// 系统托盘初始化
 void Widget::initTray()
 {
     // 托盘菜单
@@ -52,7 +63,7 @@ void Widget::initTray()
     connect(m_tray, &QSystemTrayIcon::activated, this, &Widget::showWindow);
 }
 
-// 信号与槽的设置
+// 控件信号链接
 void Widget::connectConfig()
 {
     connect(ui->stackRoomWidget, &StackRoom::sigBorrow, ui->personalCenterWidget, &PersonalCenter::addBook);
@@ -60,6 +71,7 @@ void Widget::connectConfig()
 
     connect(ui->personalCenterWidget, &PersonalCenter::sigReturn, ui->stackRoomWidget, &StackRoom::bookUpdate);
     connect(ui->personalCenterWidget, &PersonalCenter::sigBorrow, ui->readerWidget, &Reader::bookUpdate);
+    connect(ui->personalCenterWidget, &PersonalCenter::sigAddress, ui->readerWidget, &Reader::addressUpdate);
 
     connect(ui->loginWidget, &Login::sigLogin, ui->stackRoomWidget, &StackRoom::refresh);
     connect(ui->loginWidget, &Login::sigLogin, ui->personalCenterWidget, &PersonalCenter::refresh);
@@ -70,19 +82,26 @@ void Widget::connectConfig()
     connect(ui->readerWidget, &Reader::sigReturn, ui->stackRoomWidget, &StackRoom::bookUpdate);
 
     connect(ui->registeredWidget, &Registered::sigRegist, ui->readerWidget, &Reader::refresh);
+    connect(ui->registeredWidget, &Registered::sigRegist, ui->loginWidget, &Login::refresh);
+
+    connect(ui->aboutButton, &QPushButton::clicked, this, [=](){
+        m_w->show();
+    });
 }
 
+// 时间更新
 void Widget::timeUpdate(const QString &time, const QString &tips, const QString &image)
 {
     ui->timeLabel->setText(time);
 
-    if (!tips.isEmpty())    // 为空则不更新
+    if (!tips.isEmpty())    // 为空则时间段未变，不更新
     {
         ui->loginWidget->tipsUpdate(tips);
         this->setStyleSheet(QString("#stackedWidget{border-image: url(:/Images/%1.jpg)}").arg(image));
     }
 }
 
+// 主窗口显示
 void Widget::showWindow(QSystemTrayIcon::ActivationReason reason)
 {
     if (reason == QSystemTrayIcon::Trigger)
@@ -91,25 +110,31 @@ void Widget::showWindow(QSystemTrayIcon::ActivationReason reason)
     }
 }
 
+// 窗口关闭
 void Widget::exitWindow()
 {
-    m_isClose = true;
+    m_isClose = true;    // 标志位置 true 后 close 才可关闭窗口
+    m_w->close();
     this->close();
 }
 
+// 关闭事件
 void Widget::closeEvent(QCloseEvent *event)
 {
     if (!m_isClose)
     {
+        // 不处理信号，隐藏窗口
         event->ignore();
         this->hide();
         return;
     }
 
+    // 处理信号，关闭窗口
     m_isClose = false;
     event->accept();
 }
 
+// windows 消息事件
 bool Widget::nativeEvent(const QByteArray &eventType, void *message, long *result)
 {
     Q_UNUSED(eventType)

@@ -13,6 +13,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
@@ -41,6 +42,11 @@ public:
     QPushButton *confirmButton;
     QSpacerItem *horizontalSpacer_3;
     QSpacerItem *verticalSpacer;
+    QWidget *widget_4;
+    QHBoxLayout *horizontalLayout_3;
+    QSpacerItem *horizontalSpacer_4;
+    QLabel *label;
+    QSpacerItem *horizontalSpacer_5;
 
     void setupUi(QWidget *Reader)
     {
@@ -157,6 +163,7 @@ public:
 "}"));
         verticalLayout = new QVBoxLayout(Reader);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
+        verticalLayout->setContentsMargins(-1, -1, -1, 0);
         widget_2 = new MenuBar(Reader);
         widget_2->setObjectName(QString::fromUtf8("widget_2"));
 
@@ -210,6 +217,10 @@ public:
 
         bookInfoView = new QTableView(Reader);
         bookInfoView->setObjectName(QString::fromUtf8("bookInfoView"));
+        bookInfoView->setFocusPolicy(Qt::NoFocus);
+        bookInfoView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+        bookInfoView->setSelectionMode(QAbstractItemView::SingleSelection);
+        bookInfoView->setSelectionBehavior(QAbstractItemView::SelectRows);
 
         verticalLayout->addWidget(bookInfoView);
 
@@ -225,6 +236,7 @@ public:
         confirmButton->setObjectName(QString::fromUtf8("confirmButton"));
         confirmButton->setMinimumSize(QSize(250, 30));
         confirmButton->setMaximumSize(QSize(250, 30));
+        confirmButton->setFocusPolicy(Qt::NoFocus);
         confirmButton->setStyleSheet(QString::fromUtf8("QPushButton \n"
 "{\n"
 "	background-color: rgba(18, 150, 219, 0.7);\n"
@@ -252,6 +264,27 @@ public:
 
         verticalLayout->addItem(verticalSpacer);
 
+        widget_4 = new QWidget(Reader);
+        widget_4->setObjectName(QString::fromUtf8("widget_4"));
+        horizontalLayout_3 = new QHBoxLayout(widget_4);
+        horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
+        horizontalLayout_3->setContentsMargins(0, 0, 0, 0);
+        horizontalSpacer_4 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_3->addItem(horizontalSpacer_4);
+
+        label = new QLabel(widget_4);
+        label->setObjectName(QString::fromUtf8("label"));
+
+        horizontalLayout_3->addWidget(label);
+
+        horizontalSpacer_5 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_3->addItem(horizontalSpacer_5);
+
+
+        verticalLayout->addWidget(widget_4);
+
 
         retranslateUi(Reader);
 
@@ -264,6 +297,7 @@ public:
         searchEdit->setPlaceholderText(QCoreApplication::translate("Reader", "\350\257\267\350\276\223\345\205\245\346\243\200\347\264\242\350\264\246\345\217\267", nullptr));
         deleteButton->setText(QCoreApplication::translate("Reader", "\346\263\250\351\224\200\346\255\244\350\264\246\345\217\267", nullptr));
         confirmButton->setText(QCoreApplication::translate("Reader", "\347\241\256\350\256\244\345\275\222\350\277\230", nullptr));
+        label->setText(QCoreApplication::translate("Reader", "\347\256\241\347\220\206\345\221\230\344\270\215\345\276\227\346\263\204\351\234\262\344\273\273\344\275\225\346\234\211\345\205\263\347\224\250\346\210\267\347\232\204\344\277\241\346\201\257\357\274\214\350\277\235\350\200\205\345\277\205\347\251\266\357\274\201\357\274\201\357\274\201", nullptr));
     } // retranslateUi
 
 };

@@ -43,5 +43,9 @@
         <file>Images/bottom.jpg</file>
         <file>Images/dialog.jpg</file>
         <file>Images/top.jpg</file>
+        <file>Images/about.png</file>
+        <file>Images/about_hover.png</file>
+        <file>Images/about_pre.png</file>
+        <file>Images/address.png</file>
     </qresource>
 </RCC>

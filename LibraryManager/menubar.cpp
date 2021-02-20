@@ -25,42 +25,47 @@ void MenuBar::initialization()
     // 管理员与普通用户显示不同的菜单栏
     QString objectName = this->parent()->objectName();
 
+    // 管理员
     if (objectName == "Manager" || objectName == "Reader")
     {
         ui->userWidget->hide();
         return;
     }
 
+    // 用户
     ui->managerWidget->hide();
 }
 
-// 信号与槽的设置
+// 控件信号链接
 void MenuBar::connectConfig()
 {
-    connect(ui->personalButton, &QPushButton::clicked, this, &MenuBar::moveToPersonalCenter);
-    connect(ui->stackRoomButton, &QPushButton::clicked, this, &MenuBar::moveToStackRoom);
+    connect(ui->personalButton, &QPushButton::clicked, this, [=](){
+        changeWidget(PAGE_PERSONAL);
+    });
+
+    connect(ui->stackRoomButton, &QPushButton::clicked, this, [=](){
+        changeWidget(PAGE_STACK_ROOM);
+    });
+
+    connect(ui->managerButton, &QPushButton::clicked, this, [=](){
+        changeWidget(PAGE_MANAGER);
+    });
+
+    connect(ui->readerButton, &QPushButton::clicked, this, [=](){
+        changeWidget(PAGE_READER);
+    });
+
     connect(ui->logoutButton, &QPushButton::clicked, this, &MenuBar::moveToLogin);
-    connect(ui->managerButton, &QPushButton::clicked, this, &MenuBar::moveToManager);
-    connect(ui->readerButton, &QPushButton::clicked, this, &MenuBar::moveToReader);
 }
 
-// 切换窗口
+// 界面切换
 void MenuBar::changeWidget(int index)
 {
     QStackedWidget *widget = (QStackedWidget *)this->parent()->parent();
     widget->setCurrentIndex(index);
 }
 
-void MenuBar::moveToStackRoom()
-{
-    changeWidget(PAGE_STACK_ROOM);
-}
-
-void MenuBar::moveToPersonalCenter()
-{
-    changeWidget(PAGE_PERSONAL);
-}
-
+// 退出登录
 void MenuBar::moveToLogin()
 {
     int ret = QMessageBox::question(this, QString::fromUtf8("提示"), QString::fromUtf8("确定退出登录?"),
@@ -71,14 +76,4 @@ void MenuBar::moveToLogin()
         changeWidget(PAGE_LOGIN);
         FileManager::write("INFO/AutoFlag", "false");
     }
-}
-
-void MenuBar::moveToManager()
-{
-    changeWidget(PAGE_MANAGER);
-}
-
-void MenuBar::moveToReader()
-{
-    changeWidget(PAGE_READER);
 }

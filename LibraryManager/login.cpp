@@ -24,6 +24,7 @@ Login::~Login()
     delete ui;
 }
 
+// 控件风格初始化
 void Login::initStyle()
 {
     // 账号
@@ -56,33 +57,44 @@ void Login::initialization()
 {
     m_model = new SqlTableModel(this);
     m_model->setTable("userInfo");
+    m_model->select();
 
     m_timer = new QTimer(this);
     connect(m_timer, &QTimer::timeout, this, &Login::autoLogin);
 }
 
-// 信号与槽的设置
+// 控件信号链接
 void Login::connectConfig()
 {
     connect(ui->loginButton, &QPushButton::clicked, this, &Login::login);
-    connect(ui->registeredButton, &QPushButton::clicked, this, &Login::moveToRegistered);
-    connect(ui->resetButton, &QPushButton::clicked, this, &Login::moveToReset);
+
+    connect(ui->registeredButton, &QPushButton::clicked, this, [=](){
+        changeWidget(PAGE_REGISTERED);
+    });
+
+    connect(ui->resetButton, &QPushButton::clicked, this, [=](){
+        changeWidget(PAGE_RESET);
+    });
+
     connect(ui->accountEdit, &QLineEdit::textChanged, this, &Login::userUpdate);
-    connect(ui->autoCheckBox, &QCheckBox::clicked, this, &Login::autoUpdate);
-    connect(ui->rememberCheckBox, &QCheckBox::clicked, this, &Login::rememberUpdate);
+    connect(ui->autoCheckBox, &QCheckBox::clicked, this, &Login::rememberUpdate);
+    connect(ui->rememberCheckBox, &QCheckBox::clicked, this, &Login::autoUpdate);
 }
 
+// 用户数据初始化
 void Login::initData()
 {
+    // 账号信息
     QString account = FileManager::read("INFO/Account");
     QString isRemeber = FileManager::read("INFO/RememberFlag");
     ui->accountEdit->setText(account);
 
-    if (isRemeber != "true")
+    if (isRemeber != "true")    // 判断是否记住了密码
     {
         return;
     }
 
+    // 记住的密码
     QString password = FileManager::read("INFO/Password");
     password = Base64::Decrypt(password);    // 解密
     ui->rememberCheckBox->setChecked(true);
@@ -98,13 +110,14 @@ void Login::initData()
     }
 }
 
+// 自动登录
 void Login::autoLogin()
 {
     m_timer->stop();
     login();
 }
 
-// 切换窗口
+// 界面切换
 void Login::changeWidget(int index)
 {
     QStackedWidget *widget = (QStackedWidget *)this->parent();
@@ -116,7 +129,9 @@ void Login::login()
 {
     QString account = ui->accountEdit->text();
     QString password = ui->passwordEdit->text();
-    QString passwordMD5 = MD5::Encrypt(account + password);
+    QString passwordMD5 = MD5::Encrypt(account + password);    // MD5 加密
+
+    // 判断账号密码是否正确
     QString condition = QString::fromUtf8("账号 = '%1' AND 密码 = '%2'").arg(account).arg(passwordMD5);
 
     if (!m_model->checkSqlData(condition))
@@ -126,18 +141,26 @@ void Login::login()
         return;
     }
 
-    if (account == kManagerAccount)    // 管理员登录
+    // 判断管理员或普通用户登录
+    if (account == kManagerAccount)    // 管理员
     {
         emit sigManager();
         changeWidget(PAGE_MANAGER);
     }
     else    // 普通用户
     {
-        emit sigLogin(account);
+        QStringList userInfo = getUserInfo(account);
+        emit sigLogin(userInfo);
         changeWidget(PAGE_PERSONAL);
     }
 
     // 更新用户信息存储
+    dataUpdate(account, password);
+}
+
+// 用户数据更新
+void Login::dataUpdate(const QString &account, const QString &password)
+{
     FileManager::write("INFO/Account", account);
 
     if (!ui->rememberCheckBox->isChecked())    // 不记住密码
@@ -148,10 +171,12 @@ void Login::login()
         return;
     }
 
+    // 记住密码
     QString passwordBase64 = Base64::Encrypt(password);
     FileManager::write("INFO/Password", passwordBase64);
     FileManager::write("INFO/RememberFlag", "true");
 
+    // 下次自动登录
     if (ui->autoCheckBox->isChecked())
     {
         ui->autoCheckBox->setChecked(false);
@@ -159,18 +184,31 @@ void Login::login()
     }
 }
 
-// 跳转注册页面
-void Login::moveToRegistered()
+// 用户信息获取
+QStringList Login::getUserInfo(const QString &account)
 {
-    changeWidget(PAGE_REGISTERED);
+    int maxRow = m_model->rowCount();
+    QStringList userInfo = {account};
+
+    for (int i = 0; i < maxRow; i++)
+    {
+        // 查找账号所在行
+        QModelIndex index = m_model->index(i, USER_ACCOUNT);
+
+        if (account == m_model->data(index).toString())
+        {
+            // 获取地址
+            index = m_model->index(i, USER_ADDRESS);
+            QString address = m_model->data(index).toString();
+            userInfo.append(address);
+            break;
+        }
+    }
+
+    return userInfo;
 }
 
-void Login::moveToReset()
-{
-    changeWidget(PAGE_RESET);
-}
-
-// 更新提示
+// 用户提示更新
 void Login::userUpdate(const QString &account)
 {
     if (account == kManagerAccount)
@@ -192,10 +230,12 @@ void Login::userUpdate(const QString &account)
         return;
     }
 
+    // 读取文件进行信息的恢复
     initData();
 }
 
-void Login::autoUpdate(bool isChecked)
+// 记住密码勾选框更新
+void Login::rememberUpdate(bool isChecked)
 {
     if (isChecked)
     {
@@ -203,7 +243,8 @@ void Login::autoUpdate(bool isChecked)
     }
 }
 
-void Login::rememberUpdate(bool isChecked)
+// 自动登录勾选框更新
+void Login::autoUpdate(bool isChecked)
 {
     if (!isChecked)
     {
@@ -211,7 +252,14 @@ void Login::rememberUpdate(bool isChecked)
     }
 }
 
+// 诗句更新
 void Login::tipsUpdate(const QString &tips)
 {
     ui->tipsLabel->setText(tips);
+}
+
+// 刷新
+void Login::refresh()
+{
+    m_model->select();
 }

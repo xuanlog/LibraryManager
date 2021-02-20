@@ -25,7 +25,6 @@ void PersonalCenter::initialization()
 {
     m_model = new SqlTableModel(this);
     m_model->setTable("personalCenter");
-    m_model->setSort(PERSONAL_RTIME, Qt::AscendingOrder);   // 以还书时间升序排列
 
     // 设置多表查询所需条件
     m_model->setMultiTable("personalCenter, stackRoom");
@@ -36,25 +35,26 @@ void PersonalCenter::initialization()
     ui->bookInfoView->setModel(m_model);
 }
 
+// 书籍状态初始化
 void PersonalCenter::initStatus()
 {   
-    for (int i = 0; i < MAX_BORROW; i++)
+    int maxRow = m_model->rowCount();
+
+    for (int i = 0; i < maxRow; i++)
     {
-        if (bookStatus(i) == -1)
-        {
-            break;
-        }
+        bookStatus(i);
     }
 }
 
-// 信号与槽的设置
+// 控件信号链接
 void PersonalCenter::connectConfig()
 {
     connect(ui->reBorrowButton, &QPushButton::clicked, this, &PersonalCenter::reBorrow);
     connect(ui->returnButton, &QPushButton::clicked, this, &PersonalCenter::returnBook);
+    connect(ui->changeButton, &QPushButton::clicked, this, &PersonalCenter::addressUpdate);
 }
 
-// 获取书籍信息
+// 添加书籍
 void PersonalCenter::addBook(const QStringList &info)
 {
     QString value = QString("'%1', '%2', %3, '%4', %5").arg(info.at(0)).arg(info.at(1))
@@ -65,34 +65,33 @@ void PersonalCenter::addBook(const QStringList &info)
     emit sigBorrow(info.at(3), true);
 }
 
+// 书籍状态
 int PersonalCenter::bookStatus(int row)
 {
     QModelIndex index = m_model->index(row, PERSONAL_RTIME);
     QString returnTime = m_model->data(index).toString();
-
-    if (returnTime.isEmpty())
-    {
-        return -1;
-    }
-
     QDateTime dateTime = QDateTime::fromString(returnTime, "yyyy-MM-dd:hh:mm:ss");
     QDateTime curTime = QDateTime::currentDateTime();
 
+    // 判断是否逾期，未逾期则返回
     if (curTime < dateTime)
     { 
         return 0;
     }
 
+    // 逾期
     index = m_model->index(row, PERSONAL_NUM);
     int bookNum = m_model->data(index).toInt();
     QString condition = QString::fromUtf8("账号 = '%1' AND 编号 = %2 AND 状态 = %3")
             .arg(ui->accountLabel->text()).arg(bookNum).arg(STATUS_OVERDUE);
 
+    // 判断本书是否已经登记为逾期，登记则直接返回
     if (m_model->checkSqlData(condition))
     {
         return 1;
     }
 
+    // 登记为逾期状态
     condition = QString::fromUtf8("账号 = '%1' AND 编号 = %2").arg(ui->accountLabel->text()).arg(bookNum);
     QString value = QString::fromUtf8("状态 = %1").arg(STATUS_OVERDUE);
     m_model->setSqlData(condition, value);
@@ -189,7 +188,7 @@ void PersonalCenter::returnBook()
     }
 }
 
-// 清除账号信息
+// 账号信息清除
 void PersonalCenter::clearAccount(const QString &account)
 {
     QString condition = QString::fromUtf8("账号 = '%1'").arg(account);
@@ -198,17 +197,46 @@ void PersonalCenter::clearAccount(const QString &account)
                              QString::fromUtf8("确定"));
 }
 
-// 刷新
-void PersonalCenter::refresh(const QString &account)
+// 地址更新
+void PersonalCenter::addressUpdate()
 {
-    ui->accountLabel->setText(account);
+    QString address = ui->addressEdit->text();
+
+    // 判断地址是否为空
+    if (address.isEmpty())
+    {
+        QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("地址不可为空!"),
+                                 QString::fromUtf8("确定"));
+        return;
+    }
+
+    // 判断是否有违规字符
+    if (address.contains(" "))
+    {
+        QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("地址包含违规字符!"),
+                                 QString::fromUtf8("确定"));
+        return;
+    }
+
+    // 发送
+    QString account = ui->accountLabel->text();
+    QStringList userInfo = {account, address};
+    emit sigAddress(userInfo);
+}
+
+// 刷新
+void PersonalCenter::refresh(const QStringList &userInfo)
+{
+    ui->accountLabel->setText(userInfo.at(0));
+    ui->addressEdit->setText(userInfo.at(1));
 
     QString filter =
             QString::fromUtf8("personalCenter.账号 = '%1' AND personalCenter.编号 = stackRoom.编号")
-            .arg(account);
+            .arg(userInfo.at(0));
 
     m_model->setMultiFilter(filter);
     m_model->multiSelect();
 
+    // 更新书籍状态
     initStatus();
 }

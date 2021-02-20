@@ -21,12 +21,15 @@ StackRoom::~StackRoom()
     delete ui;
 }
 
+// 控件风格初始化
 void StackRoom::initStyle()
 {
     QAction *queryAction = new QAction(this);
     queryAction->setIcon(QIcon(":/Images/clear.png"));
     ui->queryEdit->addAction(queryAction, QLineEdit::TrailingPosition);
-    connect(queryAction, &QAction::triggered, this, &StackRoom::changeType);
+    connect(queryAction, &QAction::triggered, this, [=](){
+        ui->queryEdit->clear();
+    });
 }
 
 // 初始化
@@ -35,28 +38,28 @@ void StackRoom::initialization()
     m_account = "";
     m_model = new SqlTableModel(this);
     m_model->setTable("stackRoom");
-    m_model->setSort(STACK_INVENTORY, Qt::DescendingOrder);    // 降序
+    m_model->setSort(STACK_INVENTORY, Qt::DescendingOrder);    // 库存数量降序
 
     // 设置列宽，Stretch：填充屏幕 ResizeToContents：根据内容长度设定 Fixed：固定
     ui->bookInfoView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->bookInfoView->setModel(m_model);
 }
 
-// 信号与槽的设置
+// 控件信号链接
 void StackRoom::connectConfig()
 {
-    /*
-     * QComboBox 的 currentIndexChanged 有两个重载，一个参数是 int，一个参数是 QString，所以需要用下面的语句强制类型转换，否则
-     * connect 不知道触发哪个信号，用 QT4 的写法则无此问题
-     */
-    connect(ui->queryTypeComboBox, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
-            this, &StackRoom::changeType);
+    // QComboBox 的 currentIndexChanged 有两个重载，一个参数是 int，一个参数是 QString，所以需要用下面的语句强制类型转换，
+    // 否则 connect 不知道触发哪个信号，用 QT4 的写法则无此问题
+    connect(ui->queryTypeComboBox, static_cast<void(QComboBox::*)(int)>
+            (&QComboBox::currentIndexChanged),this, [=](){
+        ui->queryEdit->clear();
+    });
 
     connect(ui->queryEdit, &QLineEdit::textChanged, this, &StackRoom::queryBook);
     connect(ui->borrowButton, &QPushButton::clicked, this, &StackRoom::borrowBook);
 }
 
-// 查询
+// 模糊查询
 void StackRoom::queryBook(const QString &info)
 {
     int queryType = ui->queryTypeComboBox->currentIndex();
@@ -77,19 +80,10 @@ void StackRoom::queryBook(const QString &info)
     case STACK_AUTHOR:
         filter = QString::fromUtf8("作者 LIKE '%%1%'").arg(info);
         break;
-    case STACK_INVENTORY:
-        filter = QString::fromUtf8("库存 LIKE '%%1%'").arg(info);
-        break;
     }
 
     m_model->setFilter(filter);
     m_model->select();
-}
-
-// 切换查询类型
-void StackRoom::changeType()
-{
-    ui->queryEdit->clear();
 }
 
 // 借阅
@@ -158,11 +152,12 @@ void StackRoom::borrowBook()
     QString lendTime = curTime.toString("yyyy-MM-dd:hh:mm:ss");    // 借书时间
     QString returnTime = curTime.addDays(BORROW_TIME).toString("yyyy-MM-dd:hh:mm:ss");    // 还书时间
 
-    // 传输数据到 personalCenter 表
+    // 将相关信息发送出去
     QStringList info = {lendTime, returnTime, data, m_account};
     emit sigBorrow(info);
 }
 
+// 库存更新
 void StackRoom::bookUpdate(int bookNum)
 {
     int maxRow = m_model->rowCount();
@@ -189,9 +184,9 @@ void StackRoom::bookUpdate(int bookNum)
 }
 
 // 刷新
-void StackRoom::refresh(const QString &account)
+void StackRoom::refresh(const QStringList &userInfo)
 {
-    m_account = account;
+    m_account = userInfo.at(0);
     m_model->select();
     ui->queryTypeComboBox->setCurrentIndex(0);
 }

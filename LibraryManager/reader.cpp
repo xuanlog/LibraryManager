@@ -22,9 +22,10 @@ Reader::~Reader()
 // 初始化
 void Reader::initialization()
 {
-    // 读者表
+    // userInfo 表
     m_model = new SqlTableModel(this);
     m_model->setTable("userInfo");
+
     // 不显示管理员账号
     QString filter = QString::fromUtf8("账号 NOT LIKE '%1'").arg(kManagerAccount);
     m_model->setFilter(filter);
@@ -34,15 +35,17 @@ void Reader::initialization()
     ui->readerView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->readerView->setModel(m_model);
 
-    // 逾期书籍表
+    // personalCenter 表
     m_pModel = new SqlTableModel(this);
     m_pModel->setTable("personalCenter");
     m_pModel->setMultiTable("personalCenter, stackRoom");
     m_pModel->setMultiItem(QString::fromUtf8("借书时间, 还书时间, personalCenter.编号, 书名, 出版社, 作者"));
+
     ui->bookInfoView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->bookInfoView->setModel(m_pModel);
 }
 
+// 控件风格初始化
 void Reader::initStyle()
 {
     QAction *accountTrail = new QAction(this);
@@ -54,7 +57,7 @@ void Reader::initStyle()
 
 }
 
-// 信号与槽的设置
+// 控件信号链接
 void Reader::connectConfig()
 {
     connect(ui->deleteButton, &QPushButton::clicked, this, &Reader::deleteAccount);
@@ -62,7 +65,7 @@ void Reader::connectConfig()
     connect(ui->confirmButton, &QPushButton::clicked, this, &Reader::returnBook);
 }
 
-// 删除账号
+// 账号删除
 void Reader::deleteAccount()
 {
     int selectRow = ui->readerView->currentIndex().row();
@@ -77,8 +80,9 @@ void Reader::deleteAccount()
     int ret = QMessageBox::question(this, QString::fromUtf8("提示"), QString::fromUtf8("操作不可逆，是否继续?"),
                                     QString::fromUtf8("确定"), QString::fromUtf8("取消"));
 
-    if (ret == SELECT_OK)    // 确定删除
+    if (ret == SELECT_OK)
     {
+        // 删除
         QModelIndex index = m_model->index(selectRow, USER_ACCOUNT);
         QString account = m_model->data(index).toString();
 
@@ -95,8 +99,10 @@ void Reader::refresh()
     ui->searchEdit->clear();
 }
 
+// 查询
 void Reader::search(const QString &account)
 {
+    // 仅显示逾期书籍
     QString filter =
             QString::fromUtf8(
                 "personalCenter.账号 = '%1' AND personalCenter.编号 = stackRoom.编号 AND personalCenter.状态 = %2")
@@ -105,10 +111,12 @@ void Reader::search(const QString &account)
     m_pModel->setMultiFilter(filter);
     m_pModel->multiSelect();
 
+    // 账号信息
     filter = QString::fromUtf8("账号 NOT LIKE '%1' AND 账号 LIKE '%%2%'").arg(kManagerAccount).arg(account);
     m_model->setFilter(filter);
 }
 
+// 还书
 void Reader::returnBook()
 {
     int selectRow = ui->bookInfoView->currentIndex().row();
@@ -125,6 +133,7 @@ void Reader::returnBook()
 
     if (ret == SELECT_OK)
     {
+        // 归还
         QModelIndex index = m_pModel->index(selectRow, PERSONAL_NUM);
         int bookNum = m_pModel->data(index).toInt();
 
@@ -137,6 +146,30 @@ void Reader::returnBook()
     }
 }
 
+// 地址更新
+void Reader::addressUpdate(const QStringList &userInfo)
+{
+    int maxRow = m_model->rowCount();
+
+    for (int i = 0; i < maxRow; i++)
+    {
+        // 查找账号所在行
+        QModelIndex index = m_model->index(i, USER_ACCOUNT);
+
+        if (userInfo.at(0) == m_model->data(index).toString())
+        {
+            // 更新地址
+            QString condition = QString::fromUtf8("账号 = '%1'").arg(userInfo.at(0));
+            QString value = QString::fromUtf8("地址 = '%1'").arg(userInfo.at(1));
+            m_model->setSqlData(condition, value);
+            QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("更新成功!"),
+                                     QString::fromUtf8("确定"));
+            break;
+        }
+    }
+}
+
+// 账号借书数量更新
 void Reader::bookUpdate(const QString &account, bool isBorrow)
 {
     int maxRow = m_model->rowCount();
@@ -154,12 +187,11 @@ void Reader::bookUpdate(const QString &account, bool isBorrow)
             index = m_model->index(i, USER_TOTAL);
             int total = m_model->data(index).toInt();
 
-            // 更新
-            QString condition = QString::fromUtf8("账号 = %1").arg(account);
+            QString condition = QString::fromUtf8("账号 = '%1'").arg(account);
 
             if (isBorrow)
             {
-                // 借书
+                // 借书则增加已借书及共借书数量
                 QString value = QString::fromUtf8("已借书 = %1, 共借书 = %2").arg(++borrowed).arg(++total);
                 m_model->setSqlData(condition, value);
                 QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("借书成功!"),
@@ -167,7 +199,7 @@ void Reader::bookUpdate(const QString &account, bool isBorrow)
                 break;
             }
 
-            // 还书
+            // 还书则减少已借书数量
             QString value = QString::fromUtf8("已借书 = %1").arg(--borrowed);
             m_model->setSqlData(condition, value);
             QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("还书成功!"),

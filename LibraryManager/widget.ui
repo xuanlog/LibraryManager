@@ -109,6 +109,41 @@
        <number>5</number>
       </property>
       <item>
+       <widget class="QPushButton" name="aboutButton">
+        <property name="minimumSize">
+         <size>
+          <width>25</width>
+          <height>25</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>25</width>
+          <height>25</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton
+{
+	border-image: url(:/Images/about.png);
+}
+
+QPushButton:hover
+{
+	border-image: url(:/Images/about_hover.png);
+}
+
+QPushButton:press
+{
+	border-image: url(:/Images/about_pre.png);
+}</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
        <spacer name="horizontalSpacer">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>

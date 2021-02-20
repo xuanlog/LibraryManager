@@ -247,7 +247,7 @@ QPushButton:pressed
             <enum>QLineEdit::Password</enum>
            </property>
            <property name="placeholderText">
-            <string>请输入密码</string>
+            <string>请输入6-20位密码</string>
            </property>
            <property name="clearButtonEnabled">
             <bool>false</bool>
@@ -285,6 +285,43 @@ QPushButton:pressed
            </property>
            <property name="placeholderText">
             <string>请再次输入密码</string>
+           </property>
+           <property name="clearButtonEnabled">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="addressEdit">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>230</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="focusPolicy">
+            <enum>Qt::StrongFocus</enum>
+           </property>
+           <property name="maxLength">
+            <number>20</number>
+           </property>
+           <property name="echoMode">
+            <enum>QLineEdit::Normal</enum>
+           </property>
+           <property name="placeholderText">
+            <string>请输入收货地址</string>
            </property>
            <property name="clearButtonEnabled">
             <bool>false</bool>

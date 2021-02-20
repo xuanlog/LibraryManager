@@ -258,7 +258,6 @@ public:
         queryTypeComboBox->addItem(QString());
         queryTypeComboBox->addItem(QString());
         queryTypeComboBox->addItem(QString());
-        queryTypeComboBox->addItem(QString());
         queryTypeComboBox->setObjectName(QString::fromUtf8("queryTypeComboBox"));
         sizePolicy.setHeightForWidth(queryTypeComboBox->sizePolicy().hasHeightForWidth());
         queryTypeComboBox->setSizePolicy(sizePolicy);
@@ -498,7 +497,6 @@ public:
         queryTypeComboBox->setItemText(1, QCoreApplication::translate("Manager", "\344\271\246\345\220\215", nullptr));
         queryTypeComboBox->setItemText(2, QCoreApplication::translate("Manager", "\345\207\272\347\211\210\347\244\276", nullptr));
         queryTypeComboBox->setItemText(3, QCoreApplication::translate("Manager", "\344\275\234\350\200\205", nullptr));
-        queryTypeComboBox->setItemText(4, QCoreApplication::translate("Manager", "\345\272\223\345\255\230", nullptr));
 
         queryEdit->setPlaceholderText(QCoreApplication::translate("Manager", "\350\257\267\350\276\223\345\205\245\346\237\245\350\257\242\344\277\241\346\201\257", nullptr));
         addButton->setText(QCoreApplication::translate("Manager", "\346\267\273\345\212\240\344\271\246\347\261\215", nullptr));

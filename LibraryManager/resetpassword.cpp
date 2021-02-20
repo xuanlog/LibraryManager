@@ -21,6 +21,7 @@ ResetPassword::~ResetPassword()
     delete ui;
 }
 
+// 控件风格初始化
 void ResetPassword::initStyle()
 {
     // 账号
@@ -67,21 +68,21 @@ void ResetPassword::initialization()
     m_model->setTable("userInfo");
 }
 
-// 信号与槽的设置
+// 控件信号链接
 void ResetPassword::connectConfig()
 {
     connect(ui->confirmButton, &QPushButton::clicked, this, &ResetPassword::reset);
     connect(ui->backButton, &QPushButton::clicked, this, &ResetPassword::back);
 }
 
-// 切换窗口
+// 界面切换
 void ResetPassword::changeWidget(int index)
 {
     QStackedWidget *widget = (QStackedWidget *)this->parent();
     widget->setCurrentIndex(index);
 }
 
-// 重置密码
+// 密码重置
 void ResetPassword::reset()
 {
     QString account = ui->accountEdit->text();
@@ -136,22 +137,17 @@ void ResetPassword::reset()
         return;
     }
 
-    // userInfo 表修改信息
+    // 修改密码
     condition = QString::fromUtf8("账号 = '%1'").arg(account);
     QString value = QString::fromUtf8("密码 = '%1'").arg(password);
     m_model->setSqlData(condition, value);
     QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("修改成功!"),
                              QString::fromUtf8("确定"));
-
-    changeWidget(PAGE_LOGIN);
-
-    // 清除信息
-    ui->accountEdit->clear();
-    ui->passwordEdit->clear();
-    ui->confirmEdit->clear();
+    // 返回登录
+    back();
 }
 
-// 返回登录
+// 返回
 void ResetPassword::back()
 {
     changeWidget(PAGE_LOGIN);

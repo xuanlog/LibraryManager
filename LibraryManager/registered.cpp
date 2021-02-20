@@ -21,6 +21,7 @@ Registered::~Registered()
     delete ui;
 }
 
+// 控件风格初始化
 void Registered::initStyle()
 {
     // 账号
@@ -58,6 +59,18 @@ void Registered::initStyle()
     connect(confirmTrail, &QAction::triggered, this, [=](){
         ui->confirmEdit->clear();
     });
+
+    // 地址
+    QAction *addressLead = new QAction(this);
+    addressLead->setIcon(QIcon(":/Images/address.png"));
+    ui->addressEdit->addAction(addressLead, QLineEdit::LeadingPosition);
+
+    QAction *addressTrail = new QAction(this);
+    addressTrail->setIcon(QIcon(":/Images/clear.png"));
+    ui->addressEdit->addAction(addressTrail, QLineEdit::TrailingPosition);
+    connect(addressTrail, &QAction::triggered, this, [=](){
+        ui->addressEdit->clear();
+    });
 }
 
 // 初始化
@@ -67,14 +80,14 @@ void Registered::initialization()
     m_model->setTable("userInfo");
 }
 
-// 信号与槽的设置
+// 控件信号链接
 void Registered::connectConfig()
 {
     connect(ui->registeredButton, &QPushButton::clicked, this, &Registered::registered);
     connect(ui->backButton, &QPushButton::clicked, this, &Registered::back);
 }
 
-// 切换窗口
+// 界面切换
 void Registered::changeWidget(int index)
 {
     QStackedWidget *widget = (QStackedWidget *)this->parent();
@@ -87,8 +100,9 @@ void Registered::registered()
     QString account = ui->accountEdit->text();
     QString password = ui->passwordEdit->text();
     QString confirmPassword = ui->confirmEdit->text(); 
+    QString address = ui->addressEdit->text();
 
-    if (account.isEmpty() || password.isEmpty() || confirmPassword.isEmpty())
+    if (account.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || address.isEmpty())
     {
         QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("请将相关信息补充完整!"),
                                  QString::fromUtf8("确定"));
@@ -102,9 +116,9 @@ void Registered::registered()
         return;
     }
 
-    if (account.contains(" ") || password.contains(" "))
+    if (account.contains(" ") || password.contains(" ") || address.contains(" "))
     {
-        QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("账号或密码含有非法字符!"),
+        QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("账号、密码或地址含有非法字符!"),
                                  QString::fromUtf8("确定"));
         return;
     }
@@ -128,22 +142,17 @@ void Registered::registered()
     // 加密
     password = MD5::Encrypt(account + password);
 
-    // userInfo 表添加信息
-    QString value = QString("'%1', '%2', 0, 0").arg(account).arg(password);
+    // 注册
+    QString value = QString("'%1', '%2', 0, 0, '%3'").arg(account).arg(password).arg(address);
     m_model->insertSqlRow(value);
     emit sigRegist();
     QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("注册成功!"),
                              QString::fromUtf8("确定"));
-
-    changeWidget(PAGE_LOGIN);
-
-    // 清除注册信息
-    ui->accountEdit->clear();
-    ui->passwordEdit->clear();
-    ui->confirmEdit->clear();
+    // 返回登录
+    back();
 }
 
-// 返回登录
+// 返回
 void Registered::back()
 {
     changeWidget(PAGE_LOGIN);
@@ -151,4 +160,5 @@ void Registered::back()
     ui->accountEdit->clear();
     ui->passwordEdit->clear();
     ui->confirmEdit->clear();
+    ui->addressEdit->clear();
 }
