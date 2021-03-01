@@ -15,7 +15,6 @@
   </property>
   <property name="styleSheet">
    <string notr="true">QLabel,
-QTableView,
 QPushButton 
 {
 	border: none;
@@ -23,10 +22,12 @@ QPushButton
 	font: 14px &quot;微软雅黑&quot;;
 }
 
-QLabel:hover,
-QPushButton:hover
+QTableView
 {
-	color: #ffffff;
+	border: none;
+	background-color: rgba(255, 255, 255, 0.7);
+	color: #000000;
+	font: 14px &quot;微软雅黑&quot;;
 }
 
 QTableView:item:selected
@@ -103,7 +104,7 @@ QScrollBar:handle:vertical:hover
 
 QPushButton:pressed
 {
-	color: #00aaff;
+	color: #ffffff;
 }
 
 QMessageBox
@@ -117,6 +118,21 @@ QMessageBox
    </item>
    <item>
     <widget class="QLabel" name="myBorrowLabel">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel
+{
+	background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 4px;  
+	color: #1296db;
+	font: 14px &quot;微软雅黑&quot;;
+}</string>
+     </property>
      <property name="text">
       <string>我的借阅</string>
      </property>
@@ -126,9 +142,6 @@ QMessageBox
     <widget class="QTableView" name="bookInfoView">
      <property name="focusPolicy">
       <enum>Qt::NoFocus</enum>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">color: #000000;</string>
      </property>
      <property name="editTriggers">
       <set>QAbstractItemView::NoEditTriggers</set>
@@ -244,6 +257,15 @@ QPushButton:pressed
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
        <widget class="QLabel" name="msgLabel">
+        <property name="styleSheet">
+         <string notr="true">QLabel
+{
+	background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 4px;  
+	color: #1296db;
+	font: 14px &quot;微软雅黑&quot;;
+}</string>
+        </property>
         <property name="text">
          <string>账号:</string>
         </property>
@@ -251,6 +273,15 @@ QPushButton:pressed
       </item>
       <item>
        <widget class="QLabel" name="accountLabel">
+        <property name="styleSheet">
+         <string notr="true">QLabel
+{
+	background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 4px;  
+	color: #1296db;
+	font: 14px &quot;微软雅黑&quot;;
+}</string>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -277,6 +308,15 @@ QPushButton:pressed
      <layout class="QHBoxLayout" name="horizontalLayout_3">
       <item>
        <widget class="QLabel" name="label">
+        <property name="styleSheet">
+         <string notr="true">QLabel
+{
+	background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 4px;  
+	color: #1296db;
+	font: 14px &quot;微软雅黑&quot;;
+}</string>
+        </property>
         <property name="text">
          <string>地址：</string>
         </property>

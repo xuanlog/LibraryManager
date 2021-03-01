@@ -23,13 +23,6 @@ QPushButton
 	font: 14px &quot;微软雅黑&quot;;
 }
 
-QLabel:hover,
-QCheckBox:hover,
-QPushButton:hover
-{
-	color: #ffffff;
-}
-
 QCheckBox:indicator
 {
 	width: 20px;
@@ -58,7 +51,7 @@ QLineEdit
 
 QPushButton:pressed
 {
-	color: #00aaff;
+	color: #ffffff;
 }
 
 QMessageBox
@@ -89,7 +82,13 @@ QMessageBox
       <item>
        <widget class="QLabel" name="label_3">
         <property name="styleSheet">
-         <string notr="true">font: 25px &quot;微软雅黑&quot;;</string>
+         <string notr="true">QLabel
+{
+	background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 4px;  
+	color: #1296db;
+	font: 25px &quot;微软雅黑&quot;;
+}</string>
         </property>
         <property name="text">
          <string>登录</string>
@@ -146,6 +145,15 @@ QMessageBox
       </item>
       <item>
        <widget class="QLabel" name="userLabel">
+        <property name="styleSheet">
+         <string notr="true">QLabel
+{
+	background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 4px;  
+	color: #1296db;
+	font: 14px &quot;微软雅黑&quot;;
+}</string>
+        </property>
         <property name="text">
          <string>亲爱的用户</string>
         </property>
@@ -188,6 +196,15 @@ QMessageBox
       </item>
       <item>
        <widget class="QLabel" name="tipsLabel">
+        <property name="styleSheet">
+         <string notr="true">QLabel
+{
+	background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 4px;  
+	color: #1296db;
+	font: 14px &quot;微软雅黑&quot;;
+}</string>
+        </property>
         <property name="text">
          <string>早上好</string>
         </property>
@@ -348,6 +365,15 @@ QMessageBox
         <property name="focusPolicy">
          <enum>Qt::NoFocus</enum>
         </property>
+        <property name="styleSheet">
+         <string notr="true">QCheckBox
+{
+	background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 4px;  
+	color: #1296db;
+	font: 14px &quot;微软雅黑&quot;;
+}</string>
+        </property>
         <property name="text">
          <string>自动登录</string>
         </property>
@@ -377,6 +403,15 @@ QMessageBox
         <property name="focusPolicy">
          <enum>Qt::NoFocus</enum>
         </property>
+        <property name="styleSheet">
+         <string notr="true">QCheckBox
+{
+	background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 4px;  
+	color: #1296db;
+	font: 14px &quot;微软雅黑&quot;;
+}</string>
+        </property>
         <property name="text">
          <string>记住密码</string>
         </property>
@@ -405,6 +440,20 @@ QMessageBox
        <widget class="QPushButton" name="resetButton">
         <property name="focusPolicy">
          <enum>Qt::NoFocus</enum>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton
+{
+	background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 4px;  
+	color: #1296db;
+	font: 14px &quot;微软雅黑&quot;;
+}
+
+QPushButton:pressed
+{
+	color: #ffffff;
+}</string>
         </property>
         <property name="text">
          <string>忘记密码</string>
@@ -498,6 +547,20 @@ QPushButton:pressed
            </property>
            <property name="focusPolicy">
             <enum>Qt::NoFocus</enum>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton
+{
+	background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 4px;  
+	color: #1296db;
+	font: 14px &quot;微软雅黑&quot;;
+}
+
+QPushButton:pressed
+{
+	color: #ffffff;
+}</string>
            </property>
            <property name="text">
             <string>注册</string>

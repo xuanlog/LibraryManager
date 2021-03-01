@@ -22,7 +22,7 @@ TitleBar::~TitleBar()
 void TitleBar::initialization()
 {
     // 设置标题
-    ui->titleLabel->setText(QString::fromUtf8("图书管理系统 v%1").arg(kVersion));
+    ui->titleLabel->setText(QString::fromUtf8("(龙轩毕业设计)图书管理系统 v%1").arg(kVersion));
 }
 
 // 控件信号链接

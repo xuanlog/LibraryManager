@@ -41,27 +41,6 @@ public:
         if (MenuBar->objectName().isEmpty())
             MenuBar->setObjectName(QString::fromUtf8("MenuBar"));
         MenuBar->resize(777, 364);
-        MenuBar->setStyleSheet(QString::fromUtf8("QMessageBox\n"
-"{\n"
-"	border-image: url(:/Images/dialog.jpg);\n"
-"}\n"
-"\n"
-"QPushButton \n"
-"{\n"
-"	border: none;\n"
-"	color: #1296db;\n"
-"	font: 14px \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
-"}\n"
-"\n"
-"QPushButton:hover\n"
-"{\n"
-"	color: #ffffff;\n"
-"}\n"
-"\n"
-"QPushButton:pressed\n"
-"{\n"
-"	color: #00aaff;\n"
-"}"));
         horizontalLayout = new QHBoxLayout(MenuBar);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         userWidget = new QWidget(MenuBar);
@@ -74,20 +53,17 @@ public:
         stackRoomButton->setFocusPolicy(Qt::NoFocus);
         stackRoomButton->setStyleSheet(QString::fromUtf8("QPushButton\n"
 "{\n"
+"	background-color: rgba(255, 255, 255, 0.7);\n"
+"    border-radius: 4px;\n"
 "	border-image: url(:/Images/home.png);\n"
-"}\n"
-"\n"
-"QPushButton:hover\n"
-"{\n"
-"	border-image: url(:/Images/home_hover.png);\n"
 "}\n"
 "\n"
 "QPushButton:pressed\n"
 "{\n"
+"	background-color: rgba(255, 255, 255, 0.7);\n"
+"    border-radius: 4px;\n"
 "	border-image: url(:/Images/home_pre.png);\n"
 "}\n"
-"\n"
-"\n"
 ""));
         stackRoomButton->setFlat(true);
 
@@ -105,21 +81,17 @@ public:
         personalButton->setFocusPolicy(Qt::NoFocus);
         personalButton->setStyleSheet(QString::fromUtf8("QPushButton\n"
 "{\n"
+"	background-color: rgba(255, 255, 255, 0.7);\n"
+"    border-radius: 4px;\n"
 "	border-image: url(:/Images/user.png);\n"
-"}\n"
-"\n"
-"QPushButton:hover\n"
-"{\n"
-"	border-image: url(:/Images/user_hover.png);\n"
 "}\n"
 "\n"
 "QPushButton:pressed\n"
 "{\n"
+"	background-color: rgba(255, 255, 255, 0.7);\n"
+"    border-radius: 4px;\n"
 "	border-image: url(:/Images/user_pre.png);\n"
-"}\n"
-"\n"
-"\n"
-""));
+"}"));
         personalButton->setFlat(true);
 
         horizontalLayout_2->addWidget(personalButton);
@@ -137,21 +109,17 @@ public:
         managerButton->setFocusPolicy(Qt::NoFocus);
         managerButton->setStyleSheet(QString::fromUtf8("QPushButton\n"
 "{\n"
+"	background-color: rgba(255, 255, 255, 0.7);\n"
+"    border-radius: 4px;\n"
 "	border-image: url(:/Images/book.png);\n"
-"}\n"
-"\n"
-"QPushButton:hover\n"
-"{\n"
-"	border-image: url(:/Images/book_hover.png);\n"
 "}\n"
 "\n"
 "QPushButton:pressed\n"
 "{\n"
+"	background-color: rgba(255, 255, 255, 0.7);\n"
+"    border-radius: 4px;\n"
 "	border-image: url(:/Images/book_pre.png);\n"
-"}\n"
-"\n"
-"\n"
-""));
+"}"));
         managerButton->setFlat(true);
 
         horizontalLayout_3->addWidget(managerButton);
@@ -168,21 +136,17 @@ public:
         readerButton->setFocusPolicy(Qt::NoFocus);
         readerButton->setStyleSheet(QString::fromUtf8("QPushButton\n"
 "{\n"
+"	background-color: rgba(255, 255, 255, 0.7);\n"
+"    border-radius: 4px;\n"
 "	border-image: url(:/Images/reader.png);\n"
-"}\n"
-"\n"
-"QPushButton:hover\n"
-"{\n"
-"	border-image: url(:/Images/reader_hover.png);\n"
 "}\n"
 "\n"
 "QPushButton:pressed\n"
 "{\n"
+"	background-color: rgba(255, 255, 255, 0.7);\n"
+"    border-radius: 4px;\n"
 "	border-image: url(:/Images/reader_pre.png);\n"
-"}\n"
-"\n"
-"\n"
-""));
+"}"));
         readerButton->setFlat(true);
 
         horizontalLayout_3->addWidget(readerButton);
@@ -200,21 +164,17 @@ public:
         logoutButton->setFocusPolicy(Qt::NoFocus);
         logoutButton->setStyleSheet(QString::fromUtf8("QPushButton\n"
 "{\n"
+"	background-color: rgba(255, 255, 255, 0.7);\n"
+"    border-radius: 4px;\n"
 "	border-image: url(:/Images/logout.png);\n"
-"}\n"
-"\n"
-"QPushButton:hover\n"
-"{\n"
-"	border-image: url(:/Images/logout_hover.png);\n"
 "}\n"
 "\n"
 "QPushButton:pressed\n"
 "{\n"
+"	background-color: rgba(255, 255, 255, 0.7);\n"
+"    border-radius: 4px;\n"
 "	border-image: url(:/Images/logout_pre.png);\n"
-"}\n"
-"\n"
-"\n"
-""));
+"}"));
         logoutButton->setFlat(true);
 
         horizontalLayout->addWidget(logoutButton);

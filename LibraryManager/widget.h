@@ -56,7 +56,7 @@ private:
 
     bool m_isClose;             ///< 是否关闭窗口的标志位
 
-    About *m_w;                 ///< 关于软件的窗口
+    About m_w;                 ///< 关于软件的窗口
 
     /**
     * @brief 初始化函数

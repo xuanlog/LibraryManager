@@ -15,7 +15,6 @@
   </property>
   <property name="styleSheet">
    <string notr="true">QLabel,
-QTableView,
 QComboBox,
 QPushButton 
 {
@@ -24,10 +23,12 @@ QPushButton
 	font: 14px &quot;微软雅黑&quot;;
 }
 
-QLabel:hover,
-QPushButton:hover
+QTableView
 {
-	color: #ffffff;
+	border: none;
+	background-color: rgba(255, 255, 255, 0.7);
+	color: #000000;
+	font: 14px &quot;微软雅黑&quot;;
 }
 
 QTableView:item:selected
@@ -132,7 +133,7 @@ QComboBox:down-arrow
 
 QPushButton:pressed
 {
-	color: #00aaff;
+	color: #ffffff;
 }
 
 QMessageBox
@@ -147,7 +148,7 @@ QMessageBox
    <item>
     <widget class="QLabel" name="bookInfoLabel">
      <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+      <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
@@ -164,6 +165,15 @@ QMessageBox
        <height>16777215</height>
       </size>
      </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel
+{
+	background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 4px;  
+	color: #1296db;
+	font: 14px &quot;微软雅黑&quot;;
+}</string>
+     </property>
      <property name="text">
       <string>图书信息</string>
      </property>
@@ -179,9 +189,6 @@ QMessageBox
      </property>
      <property name="focusPolicy">
       <enum>Qt::NoFocus</enum>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">color: #000000;</string>
      </property>
      <property name="verticalScrollBarPolicy">
       <enum>Qt::ScrollBarAsNeeded</enum>
@@ -232,6 +239,15 @@ QMessageBox
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QLabel
+{
+	background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 4px;  
+	color: #1296db;
+	font: 14px &quot;微软雅黑&quot;;
+}</string>
         </property>
         <property name="text">
          <string>查询类型</string>
@@ -393,6 +409,15 @@ QPushButton:pressed
          </item>
          <item>
           <widget class="QLabel" name="numLabel">
+           <property name="styleSheet">
+            <string notr="true">QLabel
+{
+	background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 4px;  
+	color: #1296db;
+	font: 14px &quot;微软雅黑&quot;;
+}</string>
+           </property>
            <property name="text">
             <string>编号:</string>
            </property>
@@ -422,6 +447,15 @@ QPushButton:pressed
          </item>
          <item>
           <widget class="QLabel" name="nameLabel">
+           <property name="styleSheet">
+            <string notr="true">QLabel
+{
+	background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 4px;  
+	color: #1296db;
+	font: 14px &quot;微软雅黑&quot;;
+}</string>
+           </property>
            <property name="text">
             <string>书名:</string>
            </property>
@@ -451,6 +485,15 @@ QPushButton:pressed
          </item>
          <item>
           <widget class="QLabel" name="publishLabel">
+           <property name="styleSheet">
+            <string notr="true">QLabel
+{
+	background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 4px;  
+	color: #1296db;
+	font: 14px &quot;微软雅黑&quot;;
+}</string>
+           </property>
            <property name="text">
             <string>出版社:</string>
            </property>
@@ -512,6 +555,15 @@ QPushButton:pressed
          </item>
          <item>
           <widget class="QLabel" name="authorLabel">
+           <property name="styleSheet">
+            <string notr="true">QLabel
+{
+	background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 4px;  
+	color: #1296db;
+	font: 14px &quot;微软雅黑&quot;;
+}</string>
+           </property>
            <property name="text">
             <string>作者:</string>
            </property>
@@ -541,6 +593,15 @@ QPushButton:pressed
          </item>
          <item>
           <widget class="QLabel" name="inventoryLabel">
+           <property name="styleSheet">
+            <string notr="true">QLabel
+{
+	background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 4px;  
+	color: #1296db;
+	font: 14px &quot;微软雅黑&quot;;
+}</string>
+           </property>
            <property name="text">
             <string>库存:</string>
            </property>

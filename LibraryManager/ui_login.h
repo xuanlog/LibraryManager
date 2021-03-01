@@ -83,13 +83,6 @@ public:
 "	font: 14px \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "}\n"
 "\n"
-"QLabel:hover,\n"
-"QCheckBox:hover,\n"
-"QPushButton:hover\n"
-"{\n"
-"	color: #ffffff;\n"
-"}\n"
-"\n"
 "QCheckBox:indicator\n"
 "{\n"
 "	width: 20px;\n"
@@ -118,7 +111,7 @@ public:
 "\n"
 "QPushButton:pressed\n"
 "{\n"
-"	color: #00aaff;\n"
+"	color: #ffffff;\n"
 "}\n"
 "\n"
 "QMessageBox\n"
@@ -138,7 +131,13 @@ public:
 
         label_3 = new QLabel(widget);
         label_3->setObjectName(QString::fromUtf8("label_3"));
-        label_3->setStyleSheet(QString::fromUtf8("font: 25px \"\345\276\256\350\275\257\351\233\205\351\273\221\";"));
+        label_3->setStyleSheet(QString::fromUtf8("QLabel\n"
+"{\n"
+"	background-color: rgba(255, 255, 255, 0.7);\n"
+"    border-radius: 4px;  \n"
+"	color: #1296db;\n"
+"	font: 25px \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"}"));
 
         horizontalLayout_6->addWidget(label_3);
 
@@ -164,6 +163,13 @@ public:
 
         userLabel = new QLabel(widget_6);
         userLabel->setObjectName(QString::fromUtf8("userLabel"));
+        userLabel->setStyleSheet(QString::fromUtf8("QLabel\n"
+"{\n"
+"	background-color: rgba(255, 255, 255, 0.7);\n"
+"    border-radius: 4px;  \n"
+"	color: #1296db;\n"
+"	font: 14px \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"}"));
 
         horizontalLayout_3->addWidget(userLabel);
 
@@ -185,6 +191,13 @@ public:
 
         tipsLabel = new QLabel(widget_7);
         tipsLabel->setObjectName(QString::fromUtf8("tipsLabel"));
+        tipsLabel->setStyleSheet(QString::fromUtf8("QLabel\n"
+"{\n"
+"	background-color: rgba(255, 255, 255, 0.7);\n"
+"    border-radius: 4px;  \n"
+"	color: #1296db;\n"
+"	font: 14px \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"}"));
 
         horizontalLayout_4->addWidget(tipsLabel);
 
@@ -258,6 +271,13 @@ public:
         autoCheckBox = new QCheckBox(widget_8);
         autoCheckBox->setObjectName(QString::fromUtf8("autoCheckBox"));
         autoCheckBox->setFocusPolicy(Qt::NoFocus);
+        autoCheckBox->setStyleSheet(QString::fromUtf8("QCheckBox\n"
+"{\n"
+"	background-color: rgba(255, 255, 255, 0.7);\n"
+"    border-radius: 4px;  \n"
+"	color: #1296db;\n"
+"	font: 14px \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"}"));
 
         horizontalLayout_5->addWidget(autoCheckBox);
 
@@ -271,6 +291,13 @@ public:
         rememberCheckBox = new QCheckBox(widget_8);
         rememberCheckBox->setObjectName(QString::fromUtf8("rememberCheckBox"));
         rememberCheckBox->setFocusPolicy(Qt::NoFocus);
+        rememberCheckBox->setStyleSheet(QString::fromUtf8("QCheckBox\n"
+"{\n"
+"	background-color: rgba(255, 255, 255, 0.7);\n"
+"    border-radius: 4px;  \n"
+"	color: #1296db;\n"
+"	font: 14px \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"}"));
 
         horizontalLayout_5->addWidget(rememberCheckBox);
 
@@ -284,6 +311,18 @@ public:
         resetButton = new QPushButton(widget_8);
         resetButton->setObjectName(QString::fromUtf8("resetButton"));
         resetButton->setFocusPolicy(Qt::NoFocus);
+        resetButton->setStyleSheet(QString::fromUtf8("QPushButton\n"
+"{\n"
+"	background-color: rgba(255, 255, 255, 0.7);\n"
+"    border-radius: 4px;  \n"
+"	color: #1296db;\n"
+"	font: 14px \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"}\n"
+"\n"
+"QPushButton:pressed\n"
+"{\n"
+"	color: #ffffff;\n"
+"}"));
 
         horizontalLayout_5->addWidget(resetButton);
 
@@ -332,6 +371,18 @@ public:
         registeredButton->setObjectName(QString::fromUtf8("registeredButton"));
         registeredButton->setMinimumSize(QSize(75, 0));
         registeredButton->setFocusPolicy(Qt::NoFocus);
+        registeredButton->setStyleSheet(QString::fromUtf8("QPushButton\n"
+"{\n"
+"	background-color: rgba(255, 255, 255, 0.7);\n"
+"    border-radius: 4px;  \n"
+"	color: #1296db;\n"
+"	font: 14px \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"}\n"
+"\n"
+"QPushButton:pressed\n"
+"{\n"
+"	color: #ffffff;\n"
+"}"));
         registeredButton->setFlat(false);
 
         verticalLayout_4->addWidget(registeredButton);

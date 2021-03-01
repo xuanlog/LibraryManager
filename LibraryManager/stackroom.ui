@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>779</width>
-    <height>678</height>
+    <width>825</width>
+    <height>443</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,7 +15,6 @@
   </property>
   <property name="styleSheet">
    <string notr="true">QLabel,
-QTableView,
 QComboBox,
 QPushButton 
 {
@@ -24,10 +23,12 @@ QPushButton
 	font: 14px &quot;微软雅黑&quot;;
 }
 
-QLabel:hover,
-QPushButton:hover
+QTableView
 {
-	color: #ffffff;
+	border: none;
+	background-color: rgba(255, 255, 255, 0.7);
+	color: #000000;
+	font: 14px &quot;微软雅黑&quot;;
 }
 
 QTableView:item:selected
@@ -132,7 +133,7 @@ QComboBox:down-arrow
 
 QPushButton:pressed
 {
-	color: #00aaff;
+	color: #ffffff;
 }
 
 QMessageBox
@@ -147,7 +148,7 @@ QMessageBox
    <item>
     <widget class="QLabel" name="bookInfoLabel">
      <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+      <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
@@ -163,6 +164,15 @@ QMessageBox
        <width>16777215</width>
        <height>16777215</height>
       </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel
+{
+	background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 4px;  
+	color: #1296db;
+	font: 14px &quot;微软雅黑&quot;;
+}</string>
      </property>
      <property name="text">
       <string>图书信息</string>
@@ -241,6 +251,15 @@ QMessageBox
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QLabel
+{
+	background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 4px;  
+	color: #1296db;
+	font: 14px &quot;微软雅黑&quot;;
+}</string>
         </property>
         <property name="text">
          <string>查询类型</string>

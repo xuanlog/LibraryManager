@@ -9,7 +9,7 @@
 #define MIN_LENGTH 6      ///< 账号密码最小长度
 #define BORROW_TIME 30    ///< 借书时长
 
-const QString kVersion = "1.1.0";           ///< 软件版本
+const QString kVersion = "1.1.1";           ///< 软件版本
 const QString kManagerAccount = "admin";    ///< 管理员账号
 
 /**

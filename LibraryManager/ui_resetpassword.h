@@ -62,12 +62,6 @@ public:
 "	font: 14px \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "}\n"
 "\n"
-"QLabel:hover,\n"
-"QPushButton:hover\n"
-"{\n"
-"	color: #ffffff;\n"
-"}\n"
-"\n"
 "QLineEdit\n"
 "{\n"
 "	border: none;\n"
@@ -80,7 +74,7 @@ public:
 "\n"
 "QPushButton:pressed\n"
 "{\n"
-"	color: #00aaff;\n"
+"	color: #ffffff;\n"
 "}\n"
 "\n"
 "QMessageBox\n"
@@ -100,21 +94,17 @@ public:
         backButton->setFocusPolicy(Qt::NoFocus);
         backButton->setStyleSheet(QString::fromUtf8("QPushButton\n"
 "{\n"
+"	background-color: rgba(255, 255, 255, 0.7);\n"
+"    border-radius: 4px;\n"
 "	border-image: url(:/Images/back.png);\n"
-"}\n"
-"\n"
-"QPushButton:hover\n"
-"{\n"
-"	border-image: url(:/Images/back_hover.png);\n"
 "}\n"
 "\n"
 "QPushButton:pressed\n"
 "{\n"
+"	background-color: rgba(255, 255, 255, 0.7);\n"
+"    border-radius: 4px;\n"
 "	border-image: url(:/Images/back_pre.png);\n"
-"}\n"
-"\n"
-"\n"
-""));
+"}"));
         backButton->setFlat(true);
 
         horizontalLayout_3->addWidget(backButton);
@@ -125,7 +115,13 @@ public:
 
         label = new QLabel(widget_5);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setStyleSheet(QString::fromUtf8("font: 25px \"\345\276\256\350\275\257\351\233\205\351\273\221\";"));
+        label->setStyleSheet(QString::fromUtf8("QLabel\n"
+"{\n"
+"	background-color: rgba(255, 255, 255, 0.7);\n"
+"    border-radius: 4px;  \n"
+"	color: #1296db;\n"
+"	font: 25px \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"}"));
 
         horizontalLayout_3->addWidget(label);
 

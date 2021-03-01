@@ -54,7 +54,6 @@ public:
             Reader->setObjectName(QString::fromUtf8("Reader"));
         Reader->resize(745, 585);
         Reader->setStyleSheet(QString::fromUtf8("QLabel,\n"
-"QTableView,\n"
 "QPushButton \n"
 "{\n"
 "	border: none;\n"
@@ -62,10 +61,12 @@ public:
 "	font: 14px \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "}\n"
 "\n"
-"QLabel:hover,\n"
-"QPushButton:hover\n"
+"QTableView\n"
 "{\n"
-"	color: #ffffff;\n"
+"	border: none;\n"
+"	background-color: rgba(255, 255, 255, 0.7);\n"
+"	color: #000000;\n"
+"	font: 14px \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "}\n"
 "\n"
 "QTableView:item:selected\n"
@@ -98,13 +99,13 @@ public:
 "	width: 15px;\n"
 "	subcontrol-position: bottom;\n"
 "	subcontrol-origin: margin;\n"
-"	border-image: url(:/Images/down.png);\n"
+"	"
+                        "border-image: url(:/Images/down.png);\n"
 "}\n"
 "\n"
 "QScrollBar:add-line:vertical:pressed\n"
 "{\n"
-""
-                        "	height: 15px;\n"
+"	height: 15px;\n"
 "	width: 15px;\n"
 "	subcontrol-position: bottom;\n"
 "	subcontrol-origin: margin;\n"
@@ -143,7 +144,7 @@ public:
 "\n"
 "QPushButton:pressed\n"
 "{\n"
-"	color: #00aaff;\n"
+"	color: #ffffff;\n"
 "}\n"
 "\n"
 "QMessageBox\n"
@@ -154,10 +155,10 @@ public:
 "QLineEdit\n"
 "{\n"
 "	border: none;\n"
-"	color: #000000;\n"
+"	"
+                        "color: #000000;\n"
 "	font: 75 14px \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
-"	border"
-                        "-radius: 5px;\n"
+"	border-radius: 5px;\n"
 "	selection-background-color: #def0fe;\n"
 "	selection-color: #1296db;\n"
 "}"));
@@ -172,7 +173,6 @@ public:
         readerView = new QTableView(Reader);
         readerView->setObjectName(QString::fromUtf8("readerView"));
         readerView->setFocusPolicy(Qt::NoFocus);
-        readerView->setStyleSheet(QString::fromUtf8("color: #000000;"));
         readerView->setEditTriggers(QAbstractItemView::NoEditTriggers);
         readerView->setSelectionMode(QAbstractItemView::SingleSelection);
         readerView->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -275,6 +275,13 @@ public:
 
         label = new QLabel(widget_4);
         label->setObjectName(QString::fromUtf8("label"));
+        label->setStyleSheet(QString::fromUtf8("QLabel\n"
+"{\n"
+"	background-color: rgba(255, 255, 255, 0.7);\n"
+"    border-radius: 4px;  \n"
+"	color: #1296db;\n"
+"	font: 14px \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"}"));
 
         horizontalLayout_3->addWidget(label);
 

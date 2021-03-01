@@ -32,8 +32,6 @@ void Widget::initialization()
     connect(m_timer, &TimeManager::sigTipsUpdate, this, &Widget::timeUpdate, Qt::BlockingQueuedConnection);
 
     this->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);    // 隐藏标题栏
-
-    m_w = new About;
 }
 
 // 系统托盘初始化
@@ -85,7 +83,7 @@ void Widget::connectConfig()
     connect(ui->registeredWidget, &Registered::sigRegist, ui->loginWidget, &Login::refresh);
 
     connect(ui->aboutButton, &QPushButton::clicked, this, [=](){
-        m_w->show();
+        m_w.show();
     });
 }
 
@@ -114,7 +112,7 @@ void Widget::showWindow(QSystemTrayIcon::ActivationReason reason)
 void Widget::exitWindow()
 {
     m_isClose = true;    // 标志位置 true 后 close 才可关闭窗口
-    m_w->close();
+    m_w.close();
     this->close();
 }
 
