@@ -39,6 +39,8 @@ public:
     QWidget *widget_2;
     QVBoxLayout *verticalLayout_2;
     QLineEdit *accountEdit;
+    QLineEdit *nameEdit;
+    QLineEdit *phoneEdit;
     QLineEdit *passwordEdit;
     QLineEdit *confirmEdit;
     QSpacerItem *horizontalSpacer_2;
@@ -169,6 +171,30 @@ public:
 
         verticalLayout_2->addWidget(accountEdit);
 
+        nameEdit = new QLineEdit(widget_2);
+        nameEdit->setObjectName(QString::fromUtf8("nameEdit"));
+        sizePolicy.setHeightForWidth(nameEdit->sizePolicy().hasHeightForWidth());
+        nameEdit->setSizePolicy(sizePolicy);
+        nameEdit->setMinimumSize(QSize(230, 0));
+        nameEdit->setMaximumSize(QSize(16777215, 16777215));
+        nameEdit->setFocusPolicy(Qt::StrongFocus);
+        nameEdit->setMaxLength(20);
+        nameEdit->setClearButtonEnabled(false);
+
+        verticalLayout_2->addWidget(nameEdit);
+
+        phoneEdit = new QLineEdit(widget_2);
+        phoneEdit->setObjectName(QString::fromUtf8("phoneEdit"));
+        sizePolicy.setHeightForWidth(phoneEdit->sizePolicy().hasHeightForWidth());
+        phoneEdit->setSizePolicy(sizePolicy);
+        phoneEdit->setMinimumSize(QSize(230, 0));
+        phoneEdit->setMaximumSize(QSize(16777215, 16777215));
+        phoneEdit->setFocusPolicy(Qt::StrongFocus);
+        phoneEdit->setMaxLength(20);
+        phoneEdit->setClearButtonEnabled(false);
+
+        verticalLayout_2->addWidget(phoneEdit);
+
         passwordEdit = new QLineEdit(widget_2);
         passwordEdit->setObjectName(QString::fromUtf8("passwordEdit"));
         sizePolicy.setHeightForWidth(passwordEdit->sizePolicy().hasHeightForWidth());
@@ -256,6 +282,8 @@ public:
         label->setText(QCoreApplication::translate("ResetPassword", "\351\207\215\347\275\256\345\257\206\347\240\201", nullptr));
         label_2->setText(QString());
         accountEdit->setPlaceholderText(QCoreApplication::translate("ResetPassword", "\350\257\267\350\276\223\345\205\245\350\264\246\345\217\267", nullptr));
+        nameEdit->setPlaceholderText(QCoreApplication::translate("ResetPassword", "\350\257\267\350\276\223\345\205\245\345\247\223\345\220\215", nullptr));
+        phoneEdit->setPlaceholderText(QCoreApplication::translate("ResetPassword", "\350\257\267\350\276\223\345\205\245\350\201\224\347\263\273\347\224\265\350\257\235", nullptr));
         passwordEdit->setPlaceholderText(QCoreApplication::translate("ResetPassword", "\350\257\267\350\276\223\345\205\2456-20\344\275\215\345\257\206\347\240\201", nullptr));
         confirmEdit->setPlaceholderText(QCoreApplication::translate("ResetPassword", "\350\257\267\345\206\215\346\254\241\350\276\223\345\205\245\345\257\206\347\240\201", nullptr));
         confirmButton->setText(QCoreApplication::translate("ResetPassword", "\347\241\256\350\256\244", nullptr));

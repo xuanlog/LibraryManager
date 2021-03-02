@@ -60,8 +60,9 @@ signals:
     * @detail 触发对应槽函数更新图书库存
     *
     * @param bookNum 书籍编号
+    * @param account 账号
     */
-    void sigReturn(int bookNum);
+    void sigReturn(int bookNum, const QString &account);
 
 public slots:
     /**
@@ -83,12 +84,12 @@ public slots:
     void bookUpdate(const QString &account, bool isBorrow);
 
     /**
-    * @brief 地址更新函数
-    * @detail 更新用户的收货地址
+    * @brief 信息更新函数
+    * @detail 更新用户的信息
     *
-    * @param userInfo 用户相关信息，目前仅有账号与地址
+    * @param userInfo 用户相关信息
     */
-    void addressUpdate(const QStringList &userInfo);
+    void messageUpdate(const QStringList &userInfo);
 
 private slots:
     /**

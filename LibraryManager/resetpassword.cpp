@@ -59,6 +59,30 @@ void ResetPassword::initStyle()
     connect(confirmTrail, &QAction::triggered, this, [=](){
         ui->confirmEdit->clear();
     });
+
+    // 名字
+    QAction *nameLead = new QAction(this);
+    nameLead->setIcon(QIcon(":/Images/address.png"));
+    ui->nameEdit->addAction(nameLead, QLineEdit::LeadingPosition);
+
+    QAction *nameTrail = new QAction(this);
+    nameTrail->setIcon(QIcon(":/Images/clear.png"));
+    ui->nameEdit->addAction(nameTrail, QLineEdit::TrailingPosition);
+    connect(nameTrail, &QAction::triggered, this, [=](){
+        ui->nameEdit->clear();
+    });
+
+    // 电话
+    QAction *phoneLead = new QAction(this);
+    phoneLead->setIcon(QIcon(":/Images/address.png"));
+    ui->phoneEdit->addAction(phoneLead, QLineEdit::LeadingPosition);
+
+    QAction *phoneTrail = new QAction(this);
+    phoneTrail->setIcon(QIcon(":/Images/clear.png"));
+    ui->phoneEdit->addAction(phoneTrail, QLineEdit::TrailingPosition);
+    connect(phoneTrail, &QAction::triggered, this, [=](){
+        ui->phoneEdit->clear();
+    });
 }
 
 // 初始化
@@ -88,8 +112,11 @@ void ResetPassword::reset()
     QString account = ui->accountEdit->text();
     QString password = ui->passwordEdit->text();
     QString confirmPassword = ui->confirmEdit->text();
+    QString name = ui->nameEdit->text();
+    QString phone = ui->phoneEdit->text();
 
-    if (account.isEmpty() || password.isEmpty() || confirmPassword.isEmpty())
+    if (account.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() ||
+            name.isEmpty() || phone.isEmpty())
     {
         QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("请将相关信息补充完整!"),
                                  QString::fromUtf8("确定"));
@@ -117,11 +144,12 @@ void ResetPassword::reset()
         return;
     }
 
-    QString condition = QString::fromUtf8("账号 = '%1'").arg(account);
+    QString condition = QString::fromUtf8("账号 = '%1' AND 姓名 = '%2' AND 电话 = '%3'")
+            .arg(account).arg(name).arg(phone);
 
     if (!m_model->checkSqlData(condition))
     {
-        QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("账号不存在!"),
+        QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("信息错误，重置失败!"),
                                  QString::fromUtf8("确定"));
         return;
     }

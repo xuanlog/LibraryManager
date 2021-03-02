@@ -83,6 +83,15 @@ public slots:
     */
     void bookUpdate(int bookNum);
 
+    /**
+    * @brief 逾期书籍操作函数
+    * @detail 逾期书籍的还书处理
+    *
+    * @param bookNum 书籍编号
+    * @param account 账号
+    */
+    void overdueBook(int bookNum, const QString &account);
+
 private slots:
     /**
     * @brief 模糊查询函数

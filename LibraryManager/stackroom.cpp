@@ -39,6 +39,7 @@ void StackRoom::initialization()
     m_model = new SqlTableModel(this);
     m_model->setTable("stackRoom");
     m_model->setSort(STACK_INVENTORY, Qt::DescendingOrder);    // 库存数量降序
+    m_model->select();
 
     // 设置列宽，Stretch：填充屏幕 ResizeToContents：根据内容长度设定 Fixed：固定
     ui->bookInfoView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
@@ -181,6 +182,13 @@ void StackRoom::bookUpdate(int bookNum)
             break;
         }
     }
+}
+
+// 逾期书籍操作
+void StackRoom::overdueBook(int bookNum, const QString &account)
+{
+    m_account = account;
+    bookUpdate(bookNum);
 }
 
 // 刷新

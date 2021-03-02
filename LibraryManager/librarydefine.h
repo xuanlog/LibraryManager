@@ -51,7 +51,8 @@ enum PERSONAL_CENTER_HEADER
     PERSONAL_NUM,          ///< 编号
     PERSONAL_NAME,         ///< 书名
     PERSONAL_PUBLISH,      ///< 出版社
-    PERSONAL_AUTHOR        ///< 作者
+    PERSONAL_AUTHOR,       ///< 作者
+    PERSONAL_ACCOUNT       ///< 账号
 };
 
 /**
@@ -64,6 +65,8 @@ enum USER_INFO_HEADER
     USER_PASSWORD,       ///< 密码
     USER_BORROWED,       ///< 已借书数目
     USER_TOTAL,          ///< 共借书数目
+    USER_NAME,           ///< 姓名
+    USER_PHONE,          ///< 电话
     USER_ADDRESS         ///< 地址
 };
 

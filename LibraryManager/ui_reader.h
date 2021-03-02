@@ -29,12 +29,14 @@ class Ui_Reader
 public:
     QVBoxLayout *verticalLayout;
     MenuBar *widget_2;
+    QLabel *label_2;
     QTableView *readerView;
     QWidget *widget;
     QHBoxLayout *horizontalLayout;
     QLineEdit *searchEdit;
     QSpacerItem *horizontalSpacer;
     QPushButton *deleteButton;
+    QLabel *label_3;
     QTableView *bookInfoView;
     QWidget *widget_3;
     QHBoxLayout *horizontalLayout_2;
@@ -170,6 +172,23 @@ public:
 
         verticalLayout->addWidget(widget_2);
 
+        label_2 = new QLabel(Reader);
+        label_2->setObjectName(QString::fromUtf8("label_2"));
+        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(label_2->sizePolicy().hasHeightForWidth());
+        label_2->setSizePolicy(sizePolicy);
+        label_2->setStyleSheet(QString::fromUtf8("QLabel\n"
+"{\n"
+"	background-color: rgba(255, 255, 255, 0.7);\n"
+"    border-radius: 4px;  \n"
+"	color: #1296db;\n"
+"	font: 14px \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"}"));
+
+        verticalLayout->addWidget(label_2);
+
         readerView = new QTableView(Reader);
         readerView->setObjectName(QString::fromUtf8("readerView"));
         readerView->setFocusPolicy(Qt::NoFocus);
@@ -214,6 +233,20 @@ public:
 
 
         verticalLayout->addWidget(widget);
+
+        label_3 = new QLabel(Reader);
+        label_3->setObjectName(QString::fromUtf8("label_3"));
+        sizePolicy.setHeightForWidth(label_3->sizePolicy().hasHeightForWidth());
+        label_3->setSizePolicy(sizePolicy);
+        label_3->setStyleSheet(QString::fromUtf8("QLabel\n"
+"{\n"
+"	background-color: rgba(255, 255, 255, 0.7);\n"
+"    border-radius: 4px;  \n"
+"	color: #1296db;\n"
+"	font: 14px \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"}"));
+
+        verticalLayout->addWidget(label_3);
 
         bookInfoView = new QTableView(Reader);
         bookInfoView->setObjectName(QString::fromUtf8("bookInfoView"));
@@ -301,8 +334,10 @@ public:
     void retranslateUi(QWidget *Reader)
     {
         Reader->setWindowTitle(QCoreApplication::translate("Reader", "Form", nullptr));
+        label_2->setText(QCoreApplication::translate("Reader", "\347\224\250\346\210\267\344\277\241\346\201\257", nullptr));
         searchEdit->setPlaceholderText(QCoreApplication::translate("Reader", "\350\257\267\350\276\223\345\205\245\346\243\200\347\264\242\350\264\246\345\217\267", nullptr));
         deleteButton->setText(QCoreApplication::translate("Reader", "\346\263\250\351\224\200\346\255\244\350\264\246\345\217\267", nullptr));
+        label_3->setText(QCoreApplication::translate("Reader", "\351\200\276\346\234\237\344\271\246\347\261\215", nullptr));
         confirmButton->setText(QCoreApplication::translate("Reader", "\347\241\256\350\256\244\345\275\222\350\277\230", nullptr));
         label->setText(QCoreApplication::translate("Reader", "\347\256\241\347\220\206\345\221\230\344\270\215\345\276\227\346\263\204\351\234\262\344\273\273\344\275\225\346\234\211\345\205\263\347\224\250\346\210\267\347\232\204\344\277\241\346\201\257\357\274\214\350\277\235\350\200\205\345\277\205\347\251\266\357\274\201\357\274\201\357\274\201", nullptr));
     } // retranslateUi

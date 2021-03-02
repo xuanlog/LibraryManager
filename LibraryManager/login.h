@@ -102,7 +102,7 @@ signals:
     * @brief 用户登录信号
     * @detail 触发对应槽函数刷新用户相关界面
     *
-    * @param userInfo 用户相关信息，目前仅有账号与地址
+    * @param userInfo 用户相关信息
     */
     void sigLogin(const QStringList &userInfo);
 

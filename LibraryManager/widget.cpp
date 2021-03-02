@@ -69,7 +69,8 @@ void Widget::connectConfig()
 
     connect(ui->personalCenterWidget, &PersonalCenter::sigReturn, ui->stackRoomWidget, &StackRoom::bookUpdate);
     connect(ui->personalCenterWidget, &PersonalCenter::sigBorrow, ui->readerWidget, &Reader::bookUpdate);
-    connect(ui->personalCenterWidget, &PersonalCenter::sigAddress, ui->readerWidget, &Reader::addressUpdate);
+    connect(ui->personalCenterWidget, &PersonalCenter::sigMessage, ui->readerWidget, &Reader::messageUpdate);
+    connect(ui->personalCenterWidget, &PersonalCenter::sigMessage, ui->loginWidget, &Login::refresh);
 
     connect(ui->loginWidget, &Login::sigLogin, ui->stackRoomWidget, &StackRoom::refresh);
     connect(ui->loginWidget, &Login::sigLogin, ui->personalCenterWidget, &PersonalCenter::refresh);
@@ -77,7 +78,7 @@ void Widget::connectConfig()
     connect(ui->loginWidget, &Login::sigManager, ui->readerWidget, &Reader::refresh);
 
     connect(ui->readerWidget, &Reader::sigDelete, ui->personalCenterWidget, &PersonalCenter::clearAccount);
-    connect(ui->readerWidget, &Reader::sigReturn, ui->stackRoomWidget, &StackRoom::bookUpdate);
+    connect(ui->readerWidget, &Reader::sigReturn, ui->stackRoomWidget, &StackRoom::overdueBook);
 
     connect(ui->registeredWidget, &Registered::sigRegist, ui->readerWidget, &Reader::refresh);
     connect(ui->registeredWidget, &Registered::sigRegist, ui->loginWidget, &Login::refresh);

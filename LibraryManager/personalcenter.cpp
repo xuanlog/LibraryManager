@@ -51,7 +51,7 @@ void PersonalCenter::connectConfig()
 {
     connect(ui->reBorrowButton, &QPushButton::clicked, this, &PersonalCenter::reBorrow);
     connect(ui->returnButton, &QPushButton::clicked, this, &PersonalCenter::returnBook);
-    connect(ui->changeButton, &QPushButton::clicked, this, &PersonalCenter::addressUpdate);
+    connect(ui->changeButton, &QPushButton::clicked, this, &PersonalCenter::messageUpdate);
 }
 
 // 添加书籍
@@ -197,38 +197,52 @@ void PersonalCenter::clearAccount(const QString &account)
                              QString::fromUtf8("确定"));
 }
 
-// 地址更新
-void PersonalCenter::addressUpdate()
+// 信息更新
+void PersonalCenter::messageUpdate()
 {
     QString address = ui->addressEdit->text();
+    QString phone = ui->phoneEdit->text();
 
-    // 判断地址是否为空
-    if (address.isEmpty())
+    // 正则表达式
+    QRegExp re_phone("^[1][3-8]\\d{9}$");
+    QRegExpValidator rev_phone(re_phone, 0);
+    int pos = 0;
+
+    // 判断是否为空
+    if (address.isEmpty() || phone.isEmpty())
     {
-        QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("地址不可为空!"),
+        QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("电话、地址不可为空!"),
+                                 QString::fromUtf8("确定"));
+        return;
+    }
+
+    if (rev_phone.validate(phone, pos) != 2)
+    {
+        QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("电话填写错误!"),
                                  QString::fromUtf8("确定"));
         return;
     }
 
     // 判断是否有违规字符
-    if (address.contains(" "))
+    if (address.contains(" ") || phone.contains(" "))
     {
-        QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("地址包含违规字符!"),
+        QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("电话或地址包含违规字符!"),
                                  QString::fromUtf8("确定"));
         return;
     }
 
     // 发送
     QString account = ui->accountLabel->text();
-    QStringList userInfo = {account, address};
-    emit sigAddress(userInfo);
+    QStringList userInfo = {account, phone, address};
+    emit sigMessage(userInfo);
 }
 
 // 刷新
 void PersonalCenter::refresh(const QStringList &userInfo)
 {
     ui->accountLabel->setText(userInfo.at(0));
-    ui->addressEdit->setText(userInfo.at(1));
+    ui->phoneEdit->setText(userInfo.at(1));
+    ui->addressEdit->setText(userInfo.at(2));
 
     QString filter =
             QString::fromUtf8("personalCenter.账号 = '%1' AND personalCenter.编号 = stackRoom.编号")

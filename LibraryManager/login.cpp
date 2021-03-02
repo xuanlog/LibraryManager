@@ -197,6 +197,10 @@ QStringList Login::getUserInfo(const QString &account)
 
         if (account == m_model->data(index).toString())
         {
+            // 获取电话
+            index = m_model->index(i, USER_PHONE);
+            QString phone = m_model->data(index).toString();
+            userInfo.append(phone);
             // 获取地址
             index = m_model->index(i, USER_ADDRESS);
             QString address = m_model->data(index).toString();

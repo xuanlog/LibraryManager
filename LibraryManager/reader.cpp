@@ -39,7 +39,12 @@ void Reader::initialization()
     m_pModel = new SqlTableModel(this);
     m_pModel->setTable("personalCenter");
     m_pModel->setMultiTable("personalCenter, stackRoom");
-    m_pModel->setMultiItem(QString::fromUtf8("借书时间, 还书时间, personalCenter.编号, 书名, 出版社, 作者"));
+    m_pModel->setMultiItem(QString::fromUtf8("借书时间, 还书时间, personalCenter.编号, 书名, 出版社, 作者, 账号"));
+
+    // 仅显示逾期书籍
+    filter = QString::fromUtf8("personalCenter.编号 = stackRoom.编号 AND personalCenter.状态 = %2").arg(STATUS_OVERDUE);
+    m_pModel->setMultiFilter(filter);
+    m_pModel->multiSelect();
 
     ui->bookInfoView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->bookInfoView->setModel(m_pModel);
@@ -96,6 +101,7 @@ void Reader::deleteAccount()
 void Reader::refresh()
 {
     m_model->select();
+    m_pModel->multiSelect();
     ui->searchEdit->clear();
 }
 
@@ -105,8 +111,8 @@ void Reader::search(const QString &account)
     // 仅显示逾期书籍
     QString filter =
             QString::fromUtf8(
-                "personalCenter.账号 = '%1' AND personalCenter.编号 = stackRoom.编号 AND personalCenter.状态 = %2")
-            .arg(account).arg(STATUS_OVERDUE);
+                "personalCenter.编号 = stackRoom.编号 AND personalCenter.状态 = %1 AND personalCenter.账号 LIKE '%%2%'")
+            .arg(STATUS_OVERDUE).arg(account);
 
     m_pModel->setMultiFilter(filter);
     m_pModel->multiSelect();
@@ -137,17 +143,20 @@ void Reader::returnBook()
         QModelIndex index = m_pModel->index(selectRow, PERSONAL_NUM);
         int bookNum = m_pModel->data(index).toInt();
 
+        index = m_pModel->index(selectRow, PERSONAL_ACCOUNT);
+        QString account = m_pModel->data(index).toString();
+
         QString condition = QString::fromUtf8("账号 = '%1' AND 编号 = %2")
-                .arg(ui->searchEdit->text()).arg(bookNum);
+                .arg(account).arg(bookNum);
 
         m_pModel->removeSqlRow(condition);
         m_pModel->multiSelect();
-        emit sigReturn(bookNum);
+        emit sigReturn(bookNum, account);
     }
 }
 
 // 地址更新
-void Reader::addressUpdate(const QStringList &userInfo)
+void Reader::messageUpdate(const QStringList &userInfo)
 {
     int maxRow = m_model->rowCount();
 
@@ -160,7 +169,9 @@ void Reader::addressUpdate(const QStringList &userInfo)
         {
             // 更新地址
             QString condition = QString::fromUtf8("账号 = '%1'").arg(userInfo.at(0));
-            QString value = QString::fromUtf8("地址 = '%1'").arg(userInfo.at(1));
+            QString value = QString::fromUtf8("电话 = '%1', 地址 = '%2'")
+                    .arg(userInfo.at(1)).arg(userInfo.at(2));
+
             m_model->setSqlData(condition, value);
             QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("更新成功!"),
                                      QString::fromUtf8("确定"));

@@ -4,6 +4,7 @@
 #include <QStackedWidget>
 #include "md5.h"
 #include <QAction>
+#include <QRegExpValidator>
 
 Registered::Registered(QWidget *parent) :
     QWidget(parent),
@@ -71,6 +72,30 @@ void Registered::initStyle()
     connect(addressTrail, &QAction::triggered, this, [=](){
         ui->addressEdit->clear();
     });
+
+    // 名字
+    QAction *nameLead = new QAction(this);
+    nameLead->setIcon(QIcon(":/Images/address.png"));
+    ui->nameEdit->addAction(nameLead, QLineEdit::LeadingPosition);
+
+    QAction *nameTrail = new QAction(this);
+    nameTrail->setIcon(QIcon(":/Images/clear.png"));
+    ui->nameEdit->addAction(nameTrail, QLineEdit::TrailingPosition);
+    connect(nameTrail, &QAction::triggered, this, [=](){
+        ui->nameEdit->clear();
+    });
+
+    // 电话
+    QAction *phoneLead = new QAction(this);
+    phoneLead->setIcon(QIcon(":/Images/address.png"));
+    ui->phoneEdit->addAction(phoneLead, QLineEdit::LeadingPosition);
+
+    QAction *phoneTrail = new QAction(this);
+    phoneTrail->setIcon(QIcon(":/Images/clear.png"));
+    ui->phoneEdit->addAction(phoneTrail, QLineEdit::TrailingPosition);
+    connect(phoneTrail, &QAction::triggered, this, [=](){
+        ui->phoneEdit->clear();
+    });
 }
 
 // 初始化
@@ -101,8 +126,16 @@ void Registered::registered()
     QString password = ui->passwordEdit->text();
     QString confirmPassword = ui->confirmEdit->text(); 
     QString address = ui->addressEdit->text();
+    QString name = ui->nameEdit->text();
+    QString phone = ui->phoneEdit->text();
 
-    if (account.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || address.isEmpty())
+    // 正则表达式
+    QRegExp re_phone("^[1][3-8]\\d{9}$");
+    QRegExpValidator rev_phone(re_phone, 0);
+    int pos = 0;
+
+    if (account.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() ||
+        address.isEmpty() || name.isEmpty() || phone.isEmpty())
     {
         QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("请将相关信息补充完整!"),
                                  QString::fromUtf8("确定"));
@@ -116,9 +149,17 @@ void Registered::registered()
         return;
     }
 
-    if (account.contains(" ") || password.contains(" ") || address.contains(" "))
+    if (rev_phone.validate(phone, pos) != 2)
     {
-        QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("账号、密码或地址含有非法字符!"),
+        QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("电话填写错误!"),
+                                 QString::fromUtf8("确定"));
+        return;
+    }
+
+    if (account.contains(" ") || password.contains(" ") || address.contains(" ") ||
+        name.contains(" ") || phone.contains(" "))
+    {
+        QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("相关信息含有非法字符!"),
                                  QString::fromUtf8("确定"));
         return;
     }
@@ -143,7 +184,9 @@ void Registered::registered()
     password = MD5::Encrypt(account + password);
 
     // 注册
-    QString value = QString("'%1', '%2', 0, 0, '%3'").arg(account).arg(password).arg(address);
+    QString value = QString("'%1', '%2', 0, 0, '%3', '%4', '%5'")
+            .arg(account).arg(password).arg(name).arg(phone).arg(address);
+
     m_model->insertSqlRow(value);
     emit sigRegist();
     QMessageBox::information(this, QString::fromUtf8("提示"), QString::fromUtf8("注册成功!"),
@@ -161,4 +204,6 @@ void Registered::back()
     ui->passwordEdit->clear();
     ui->confirmEdit->clear();
     ui->addressEdit->clear();
+    ui->nameEdit->clear();
+    ui->phoneEdit->clear();
 }

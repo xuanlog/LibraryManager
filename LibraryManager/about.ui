@@ -90,7 +90,8 @@ QLabel:hover
    <item>
     <widget class="QLabel" name="label_2">
      <property name="text">
-      <string>1、在本系统借的书籍将会通过快递(限本市内)邮到您的手上，请确保您有充足的时间收取；</string>
+      <string>1、在本系统借的书籍将会通过快递(限本市内)邮到您的手上，快递将由当天下午3点发出，请确保您有充足
+的时间收取；</string>
      </property>
     </widget>
    </item>

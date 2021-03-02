@@ -130,6 +130,28 @@ QLineEdit
     <widget class="MenuBar" name="widget_2" native="true"/>
    </item>
    <item>
+    <widget class="QLabel" name="label_2">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel
+{
+	background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 4px;  
+	color: #1296db;
+	font: 14px &quot;微软雅黑&quot;;
+}</string>
+     </property>
+     <property name="text">
+      <string>用户信息</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QTableView" name="readerView">
      <property name="focusPolicy">
       <enum>Qt::NoFocus</enum>
@@ -205,18 +227,24 @@ QPushButton:pressed
     </widget>
    </item>
    <item>
-    <widget class="QTableView" name="bookInfoView">
-     <property name="focusPolicy">
-      <enum>Qt::NoFocus</enum>
+    <widget class="QLabel" name="label_3">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
      </property>
-     <property name="editTriggers">
-      <set>QAbstractItemView::NoEditTriggers</set>
+     <property name="styleSheet">
+      <string notr="true">QLabel
+{
+	background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 4px;  
+	color: #1296db;
+	font: 14px &quot;微软雅黑&quot;;
+}</string>
      </property>
-     <property name="selectionMode">
-      <enum>QAbstractItemView::SingleSelection</enum>
-     </property>
-     <property name="selectionBehavior">
-      <enum>QAbstractItemView::SelectRows</enum>
+     <property name="text">
+      <string>逾期书籍</string>
      </property>
     </widget>
    </item>

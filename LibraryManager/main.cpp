@@ -44,8 +44,8 @@ void sqlConnection()
     QString password = MD5::Encrypt("admin123456");
 
     // 创建 userInfo 表
-    query.exec(QString::fromUtf8("CREATE TABLE IF NOT EXISTS userInfo(账号 VARCHAR(20) PRIMARY KEY, 密码 VARCHAR(20), 已借书 INT, 共借书 INT, 地址 VARCHAR(64))"));
-    query.exec(QString::fromUtf8("INSERT INTO userInfo VALUES('admin', '%1', 0, 0, ' ')").arg(password));
+    query.exec(QString::fromUtf8("CREATE TABLE IF NOT EXISTS userInfo(账号 VARCHAR(20) PRIMARY KEY, 密码 VARCHAR(20), 已借书 INT, 共借书 INT, 姓名 VARCHAR(10), 电话 VARCHAR(11), 地址 VARCHAR(64))"));
+    query.exec(QString::fromUtf8("INSERT INTO userInfo VALUES('admin', '%1', 0, 0, 'admin', '11111111111', ' ')").arg(password));
 
     // 创建 personalCenter 表
     query.exec(QString::fromUtf8("CREATE TABLE IF NOT EXISTS personalCenter(借书时间 DATATIME, 还书时间 DATATIME, 编号 INT, 账号 VARCHAR(20), 状态 INT)"));

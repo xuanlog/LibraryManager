@@ -74,12 +74,12 @@ signals:
     void sigBorrow(const QString &account, bool isBorrow);
 
     /**
-    * @brief 地址修改信号
-    * @detail 触发对应槽函数修改用户收货地址
+    * @brief 信息修改信号
+    * @detail 触发对应槽函数修改用户信息
     *
-    * @param userInfo 用户相关信息，目前仅有账号与地址
+    * @param userInfo 用户相关信息
     */
-    void sigAddress(const QStringList &userInfo);
+    void sigMessage(const QStringList &userInfo);
 
 public slots:
     /**
@@ -122,10 +122,10 @@ private slots:
     void returnBook();
 
     /**
-    * @brief 地址更新函数
-    * @detail 将更新后的地址通过信号发送出去
+    * @brief 信息更新函数
+    * @detail 将更新后的信息通过信号发送出去
     */
-    void addressUpdate();
+    void messageUpdate();
 };
 
 #endif // PERSONALCENTER_H
