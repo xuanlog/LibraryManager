@@ -100,6 +100,12 @@ private slots:
     * @detail 关闭所有窗口，退出程序
     */
     void exitWindow();
+
+    /**
+    * @brief 关于窗口展示函数
+    * @detail 打开关于界面
+    */
+    void showAbout();
 };
 
 #endif // WIDGET_H

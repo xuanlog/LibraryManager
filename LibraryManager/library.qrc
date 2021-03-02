@@ -18,22 +18,16 @@
         <file>Images/down_pre.png</file>
         <file>Images/up_pre.png</file>
         <file>Images/back.png</file>
-        <file>Images/back_hover.png</file>
         <file>Images/back_pre.png</file>
         <file>Images/home.png</file>
-        <file>Images/home_hover.png</file>
         <file>Images/home_pre.png</file>
         <file>Images/user.png</file>
-        <file>Images/user_hover.png</file>
         <file>Images/user_pre.png</file>
         <file>Images/book.png</file>
-        <file>Images/book_hover.png</file>
         <file>Images/book_pre.png</file>
         <file>Images/reader.png</file>
-        <file>Images/reader_hover.png</file>
         <file>Images/reader_pre.png</file>
         <file>Images/logout.png</file>
-        <file>Images/logout_hover.png</file>
         <file>Images/logout_pre.png</file>
         <file>Images/close.png</file>
         <file>Images/max.png</file>
@@ -47,5 +41,7 @@
         <file>Images/about_hover.png</file>
         <file>Images/about_pre.png</file>
         <file>Images/address.png</file>
+        <file>Images/name.png</file>
+        <file>Images/phone.png</file>
     </qresource>
 </RCC>

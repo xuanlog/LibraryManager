@@ -83,9 +83,16 @@ void Widget::connectConfig()
     connect(ui->registeredWidget, &Registered::sigRegist, ui->readerWidget, &Reader::refresh);
     connect(ui->registeredWidget, &Registered::sigRegist, ui->loginWidget, &Login::refresh);
 
-    connect(ui->aboutButton, &QPushButton::clicked, this, [=](){
-        m_w.show();
-    });
+    connect(ui->aboutButton, &QPushButton::clicked, this, &Widget::showAbout);
+}
+
+// 关于窗口展示
+void Widget::showAbout()
+{
+    m_w.show();
+    int x = (this->width() - m_w.width()) / 2 + this->x();
+    int y = (this->height() - m_w.height()) / 2 + this->y();
+    m_w.move(x, y);
 }
 
 // 时间更新

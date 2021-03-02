@@ -254,6 +254,7 @@ public:
         bookInfoView->setEditTriggers(QAbstractItemView::NoEditTriggers);
         bookInfoView->setSelectionMode(QAbstractItemView::SingleSelection);
         bookInfoView->setSelectionBehavior(QAbstractItemView::SelectRows);
+        bookInfoView->setSortingEnabled(true);
 
         verticalLayout->addWidget(bookInfoView);
 

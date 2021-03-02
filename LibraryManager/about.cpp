@@ -1,5 +1,6 @@
 #include "about.h"
 #include "ui_about.h"
+#include <windows.h>
 
 About::About(QWidget *parent) :
     QWidget(parent),
@@ -16,4 +17,18 @@ About::About(QWidget *parent) :
 About::~About()
 {
     delete ui;
+}
+
+// 鼠标拖动事件
+void About::mousePressEvent(QMouseEvent *event)
+{
+    if (ReleaseCapture())
+    {
+        if (this->window()->isTopLevel())
+        {
+            SendMessage(HWND(this->window()->winId()), WM_SYSCOMMAND, SC_MOVE + HTCAPTION, 0);
+        }
+    }
+
+    event->ignore();
 }

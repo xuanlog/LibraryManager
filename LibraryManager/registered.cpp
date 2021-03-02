@@ -75,7 +75,7 @@ void Registered::initStyle()
 
     // 名字
     QAction *nameLead = new QAction(this);
-    nameLead->setIcon(QIcon(":/Images/address.png"));
+    nameLead->setIcon(QIcon(":/Images/name.png"));
     ui->nameEdit->addAction(nameLead, QLineEdit::LeadingPosition);
 
     QAction *nameTrail = new QAction(this);
@@ -87,7 +87,7 @@ void Registered::initStyle()
 
     // 电话
     QAction *phoneLead = new QAction(this);
-    phoneLead->setIcon(QIcon(":/Images/address.png"));
+    phoneLead->setIcon(QIcon(":/Images/phone.png"));
     ui->phoneEdit->addAction(phoneLead, QLineEdit::LeadingPosition);
 
     QAction *phoneTrail = new QAction(this);
