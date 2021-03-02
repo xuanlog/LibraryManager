@@ -24,7 +24,8 @@ enum WIDGET_PAGE
     PAGE_PERSONAL,      ///< 个人中心
     PAGE_STACK_ROOM,    ///< 书库大厅
     PAGE_MANAGER,       ///< 书籍管理
-    PAGE_READER         ///< 读者管理
+    PAGE_READER,        ///< 读者管理
+    PAGE_MESSAGE        ///< 消息
 };
 
 /**

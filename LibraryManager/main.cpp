@@ -49,6 +49,9 @@ void sqlConnection()
 
     // 创建 personalCenter 表
     query.exec(QString::fromUtf8("CREATE TABLE IF NOT EXISTS personalCenter(借书时间 DATATIME, 还书时间 DATATIME, 编号 INT, 账号 VARCHAR(20), 状态 INT)"));
+
+    // 创建 message 表
+    query.exec(QString::fromUtf8("CREATE TABLE IF NOT EXISTS message(类别 VARCHAR(4), 信息 VARCHAR(255), 处理状态 VARCHAR(6), 处理时间 DATATIME)"));
 }
 
 int main(int argc, char *argv[])

@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Message</class>
+ <widget class="QWidget" name="Message">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>795</width>
+    <height>608</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QLabel,
+QPushButton 
+{
+	border: none;
+	color: #1296db;
+	font: 14px &quot;微软雅黑&quot;;
+}
+
+QPushButton:pressed
+{
+	color: #ffffff;
+}
+
+QTableView
+{
+	border: none;
+	background-color: rgba(255, 255, 255, 0.7);
+	color: #000000;
+	font: 14px &quot;微软雅黑&quot;;
+}
+
+QTableView:item:selected
+{
+	color: #1296db;
+	background: qlineargradient(spread: pad, x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #def0fe, stop: 1 #c0def6);
+}
+
+QTableView:item:hover
+{
+	background: qlineargradient(spread: pad, x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #f2f9ff, stop: 1 #daefff);
+}
+
+QTableView:item
+{
+	padding: 5px;
+	margin: 0px;
+}
+
+QScrollBar:vertical
+{
+	padding-top: 15px;
+	padding-bottom: 15px;
+	background-color: rgba(0, 0, 0, 0);
+}
+
+QScrollBar:add-line:vertical
+{
+	height: 15px;
+	width: 15px;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
+	border-image: url(:/Images/down.png);
+}
+
+QScrollBar:add-line:vertical:pressed
+{
+	height: 15px;
+	width: 15px;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
+	border-image: url(:/Images/down_pre.png);
+}
+
+QScrollBar:sub-line:vertical
+{
+	height: 15px;
+	width: 15px;
+	subcontrol-position: top;
+	subcontrol-origin: margin;
+	border-image: url(:/Images/up.png);
+}
+
+QScrollBar:sub-line:vertical:pressed
+{
+	height: 15px;
+	width: 15px;
+	subcontrol-position: top;
+	subcontrol-origin: margin;
+	border-image: url(:/Images/up_pre.png);
+}
+
+QScrollBar:handle:vertical
+{
+	background: #1296db;
+	width: 15px;
+}
+
+QScrollBar:handle:vertical:hover
+{
+	width: 15px;
+	background: #00aaff;
+}</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="MenuBar" name="widget_2" native="true"/>
+   </item>
+   <item>
+    <widget class="QTableView" name="messageView">
+     <property name="editTriggers">
+      <set>QAbstractItemView::NoEditTriggers</set>
+     </property>
+     <property name="selectionMode">
+      <enum>QAbstractItemView::SingleSelection</enum>
+     </property>
+     <property name="selectionBehavior">
+      <enum>QAbstractItemView::SelectRows</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QWidget" name="widget" native="true">
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="confirmButton">
+        <property name="minimumSize">
+         <size>
+          <width>75</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton 
+{
+	background-color: rgba(18, 150, 219, 0.7);
+    border-radius: 4px;  
+	color: #ffffff;
+	font: 14px &quot;微软雅黑&quot;;
+}  
+
+QPushButton:pressed
+{
+	background-color: #00aaff;
+}</string>
+        </property>
+        <property name="text">
+         <string>处理</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MenuBar</class>
+   <extends>QWidget</extends>
+   <header>menubar.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

@@ -122,3 +122,7 @@ LibraryManager/release/titlebar.o
 LibraryManager/release/Data/D0F240DBC487E5A0
 LibraryManager/debug/icon_res.o
 LibraryManager/debug/about.o
+LibraryManager/debug/message.o
+LibraryManager/debug/moc_about.o
+LibraryManager/debug/moc_message.cpp
+LibraryManager/debug/moc_message.o

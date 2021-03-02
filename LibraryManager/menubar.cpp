@@ -26,7 +26,7 @@ void MenuBar::initialization()
     QString objectName = this->parent()->objectName();
 
     // 管理员
-    if (objectName == "Manager" || objectName == "Reader")
+    if (objectName == "Manager" || objectName == "Reader" || objectName == "Message")
     {
         ui->userWidget->hide();
         return;
@@ -53,6 +53,10 @@ void MenuBar::connectConfig()
 
     connect(ui->readerButton, &QPushButton::clicked, this, [=](){
         changeWidget(PAGE_READER);
+    });
+
+    connect(ui->messageButton, &QPushButton::clicked, this, [=](){
+        changeWidget(PAGE_MESSAGE);
     });
 
     connect(ui->logoutButton, &QPushButton::clicked, this, &MenuBar::moveToLogin);

@@ -27,6 +27,7 @@ SOURCES += \
     manager.cpp \
     md5.cpp \
     menubar.cpp \
+    message.cpp \
     personalcenter.cpp \
     reader.cpp \
     registered.cpp \
@@ -46,6 +47,7 @@ HEADERS += \
     manager.h \
     md5.h \
     menubar.h \
+    message.h \
     personalcenter.h \
     reader.h \
     registered.h \
@@ -61,6 +63,7 @@ FORMS += \
     login.ui \
     manager.ui \
     menubar.ui \
+    message.ui \
     personalcenter.ui \
     reader.ui \
     registered.ui \

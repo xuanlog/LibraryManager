@@ -81,6 +81,15 @@ signals:
     */
     void sigMessage(const QStringList &userInfo);
 
+    /**
+    * @brief 借/还书信息信号
+    * @detail 提醒管理员处理借/还书信息
+    *
+    * @param info 相关信息
+    * @param isBorrow 借/还书标志位
+    */
+    void sigInfo(const QStringList &info, bool isBorrow);
+
 public slots:
     /**
     * @brief 刷新函数

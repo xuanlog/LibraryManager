@@ -9,7 +9,7 @@ class TitleBar;
 }
 
 /**
-* @brief 标题栏窗口类
+* @brief 标题栏界面类
 * 自写的标题栏，用来与软件样式相统一
 */
 class TitleBar : public QWidget

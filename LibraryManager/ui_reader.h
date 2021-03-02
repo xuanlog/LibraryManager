@@ -196,6 +196,7 @@ public:
         readerView->setSelectionMode(QAbstractItemView::SingleSelection);
         readerView->setSelectionBehavior(QAbstractItemView::SelectRows);
         readerView->setSortingEnabled(true);
+        readerView->horizontalHeader()->setStretchLastSection(false);
 
         verticalLayout->addWidget(readerView);
 

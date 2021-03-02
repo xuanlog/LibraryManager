@@ -63,6 +63,12 @@ void PersonalCenter::addBook(const QStringList &info)
     m_model->insertSqlRow(value);
     m_model->multiSelect();
     emit sigBorrow(info.at(3), true);
+
+    // 发送借书消息
+    QStringList bInfo = {info.at(3), info.at(0), info.at(2),
+                         ui->phoneEdit->text(), ui->addressEdit->text()};
+
+    emit sigInfo(bInfo, true);
 }
 
 // 书籍状态
@@ -185,6 +191,15 @@ void PersonalCenter::returnBook()
         m_model->removeSqlRow(condition);
         m_model->multiSelect();
         emit sigReturn(bookNum);
+
+        // 发送还书消息
+        QDateTime curTime = QDateTime::currentDateTime();
+        QString time = curTime.toString("yyyy-MM-dd:hh:mm:ss");
+
+        QStringList bInfo = {ui->accountLabel->text(), time, QString::number(bookNum),
+                             ui->phoneEdit->text(), ui->addressEdit->text()};
+
+        emit sigInfo(bInfo, false);
     }
 }
 

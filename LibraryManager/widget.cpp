@@ -71,6 +71,7 @@ void Widget::connectConfig()
     connect(ui->personalCenterWidget, &PersonalCenter::sigBorrow, ui->readerWidget, &Reader::bookUpdate);
     connect(ui->personalCenterWidget, &PersonalCenter::sigMessage, ui->readerWidget, &Reader::messageUpdate);
     connect(ui->personalCenterWidget, &PersonalCenter::sigMessage, ui->loginWidget, &Login::refresh);
+    connect(ui->personalCenterWidget, &PersonalCenter::sigInfo, ui->messageWidget, &Message::infoUpdate);
 
     connect(ui->loginWidget, &Login::sigLogin, ui->stackRoomWidget, &StackRoom::refresh);
     connect(ui->loginWidget, &Login::sigLogin, ui->personalCenterWidget, &PersonalCenter::refresh);

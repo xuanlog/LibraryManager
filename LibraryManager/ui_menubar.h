@@ -33,6 +33,8 @@ public:
     QPushButton *managerButton;
     QLabel *label_2;
     QPushButton *readerButton;
+    QLabel *label_3;
+    QPushButton *messageButton;
     QSpacerItem *horizontalSpacer;
     QPushButton *logoutButton;
 
@@ -151,6 +153,33 @@ public:
 
         horizontalLayout_3->addWidget(readerButton);
 
+        label_3 = new QLabel(managerWidget);
+        label_3->setObjectName(QString::fromUtf8("label_3"));
+        label_3->setMinimumSize(QSize(43, 0));
+
+        horizontalLayout_3->addWidget(label_3);
+
+        messageButton = new QPushButton(managerWidget);
+        messageButton->setObjectName(QString::fromUtf8("messageButton"));
+        messageButton->setMinimumSize(QSize(32, 32));
+        messageButton->setFocusPolicy(Qt::NoFocus);
+        messageButton->setStyleSheet(QString::fromUtf8("QPushButton\n"
+"{\n"
+"	background-color: rgba(255, 255, 255, 0.7);\n"
+"    border-radius: 4px;\n"
+"	border-image: url(:/Images/reader.png);\n"
+"}\n"
+"\n"
+"QPushButton:pressed\n"
+"{\n"
+"	background-color: rgba(255, 255, 255, 0.7);\n"
+"    border-radius: 4px;\n"
+"	border-image: url(:/Images/reader_pre.png);\n"
+"}"));
+        messageButton->setFlat(true);
+
+        horizontalLayout_3->addWidget(messageButton);
+
 
         horizontalLayout->addWidget(managerWidget);
 
@@ -206,6 +235,11 @@ public:
         readerButton->setToolTip(QCoreApplication::translate("MenuBar", "\347\224\250\346\210\267\347\256\241\347\220\206", nullptr));
 #endif // QT_CONFIG(tooltip)
         readerButton->setText(QString());
+        label_3->setText(QString());
+#if QT_CONFIG(tooltip)
+        messageButton->setToolTip(QCoreApplication::translate("MenuBar", "\347\224\250\346\210\267\347\256\241\347\220\206", nullptr));
+#endif // QT_CONFIG(tooltip)
+        messageButton->setText(QString());
 #if QT_CONFIG(tooltip)
         logoutButton->setToolTip(QCoreApplication::translate("MenuBar", "\345\210\207\346\215\242\350\264\246\345\217\267", nullptr));
 #endif // QT_CONFIG(tooltip)

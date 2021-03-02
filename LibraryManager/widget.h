@@ -12,8 +12,8 @@ namespace Ui { class Widget; }
 QT_END_NAMESPACE
 
 /**
-* @brief 主窗口类
-* 软件主窗口
+* @brief 主界面类
+* 软件主界面
 */
 class Widget : public QWidget
 {

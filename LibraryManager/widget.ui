@@ -78,6 +78,7 @@
      <widget class="StackRoom" name="stackRoomWidget"/>
      <widget class="Manager" name="managerWidget"/>
      <widget class="Reader" name="readerWidget"/>
+     <widget class="Message" name="messageWidget"/>
     </widget>
    </item>
    <item>
@@ -216,6 +217,12 @@ QPushButton:press
    <class>TitleBar</class>
    <extends>QWidget</extends>
    <header>titlebar.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Message</class>
+   <extends>QWidget</extends>
+   <header>message.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
