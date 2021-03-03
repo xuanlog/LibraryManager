@@ -223,7 +223,7 @@ QPushButton:pressed
          <enum>Qt::NoFocus</enum>
         </property>
         <property name="toolTip">
-         <string>用户管理</string>
+         <string>书籍流动信息</string>
         </property>
         <property name="styleSheet">
          <string notr="true">QPushButton
