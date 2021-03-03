@@ -90,8 +90,7 @@ QLabel:hover
    <item>
     <widget class="QLabel" name="label_2">
      <property name="text">
-      <string>1、在本系统借的书籍将会通过快递(限本市内)邮到您的手上，快递将由当天下午3点发出，请确保您有充足
-的时间收取；</string>
+      <string>1、在本系统借的书籍将由送书人员送到您的手上，请确保您有充足的时间收取(限本市内)；</string>
      </property>
     </widget>
    </item>
@@ -120,14 +119,21 @@ QLabel:hover
     <widget class="QLabel" name="label_6">
      <property name="text">
       <string>5、如有书籍逾期未还，您的借书权限将被冻结，且逾期书籍不可续借及线上还书，您需到图书馆柜台办理
-还书并支付一定的逾期费用，具体费用为逾期书籍每日每册0.3元，每册上限20元。</string>
+还书并支付一定的逾期费用，具体费用为逾期书籍每日每册0.3元，每册上限20元；</string>
      </property>
     </widget>
    </item>
    <item>
     <widget class="QLabel" name="label_7">
      <property name="text">
-      <string>6、请确保您的地址填写正确，否则带来的损失将由您个人承担</string>
+      <string>6、请确保您的信息填写正确，否则带来的损失将由您个人承担。</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_8">
+     <property name="text">
+      <string>7、送书人员送/取书时间，9:00——18:30</string>
      </property>
     </widget>
    </item>

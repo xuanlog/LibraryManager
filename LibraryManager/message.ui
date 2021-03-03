@@ -14,7 +14,42 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QLabel,
+   <string notr="true">QMessageBox
+{
+	border-image: url(:/Images/dialog.jpg);
+}
+
+QLineEdit
+{
+	border: none;
+	color: #000000;
+	font: 75 14px &quot;微软雅黑&quot;;
+	border-radius: 5px;
+	selection-background-color: #def0fe;
+	selection-color: #1296db;
+}
+
+QComboBox
+{
+	border-radius: 3px;
+}
+
+QComboBox::drop-down
+{	
+	border-left-width: 1px;
+	border-left-style: solid;	
+	border-bottom-right-radius: 3px;
+	border-left-color: #1296db;
+}
+
+QComboBox:down-arrow
+{
+	image: url(:/Images/down.png);
+}
+
+QLabel,
+QComboBox,
+QCheckBox,
 QPushButton 
 {
 	border: none;
@@ -59,6 +94,13 @@ QScrollBar:vertical
 	background-color: rgba(0, 0, 0, 0);
 }
 
+QScrollBar:horizontal
+{
+	padding-left: 15px;
+	padding-right: 15px;
+	background-color: rgba(0, 0, 0, 0);
+}
+
 QScrollBar:add-line:vertical
 {
 	height: 15px;
@@ -75,6 +117,24 @@ QScrollBar:add-line:vertical:pressed
 	subcontrol-position: bottom;
 	subcontrol-origin: margin;
 	border-image: url(:/Images/down_pre.png);
+}
+
+QScrollBar:add-line:horizontal
+{
+	height: 15px;
+	width: 15px;
+	subcontrol-position: right;
+	subcontrol-origin: margin;
+	border-image: url(:/Images/right.png);
+}
+
+QScrollBar:add-line:horizontal:pressed
+{
+	height: 15px;
+	width: 15px;
+	subcontrol-position: right;
+	subcontrol-origin: margin;
+	border-image: url(:/Images/right_pre.png);
 }
 
 QScrollBar:sub-line:vertical
@@ -95,16 +155,52 @@ QScrollBar:sub-line:vertical:pressed
 	border-image: url(:/Images/up_pre.png);
 }
 
-QScrollBar:handle:vertical
+QScrollBar:sub-line:horizontal
+{
+	height: 15px;
+	width: 15px;
+	subcontrol-position: left;
+	subcontrol-origin: margin;
+	border-image: url(:/Images/left.png);
+}
+
+QScrollBar:sub-line:horizontal:pressed
+{
+	height: 15px;
+	width: 15px;
+	subcontrol-position: left;
+	subcontrol-origin: margin;
+	border-image: url(:/Images/left_pre.png);
+}
+
+QScrollBar:handle:vertical,
+QScrollBar:handle:horizontal
 {
 	background: #1296db;
 	width: 15px;
 }
 
-QScrollBar:handle:vertical:hover
+QScrollBar:handle:vertical:hover,
+QScrollBar:handle:horizontal:hover
 {
 	width: 15px;
 	background: #00aaff;
+}
+
+QCheckBox:indicator
+{
+	width: 20px;
+	height: 20px;
+}
+
+QCheckBox:indicator:unchecked
+{
+	image: url(:/Images/uncheck.png);
+}
+
+QCheckBox:indicator:checked
+{ 
+	image: url(:/Images/check.png);
 }</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -113,6 +209,9 @@ QScrollBar:handle:vertical:hover
    </item>
    <item>
     <widget class="QTableView" name="messageView">
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
      <property name="editTriggers">
       <set>QAbstractItemView::NoEditTriggers</set>
      </property>
@@ -127,6 +226,25 @@ QScrollBar:handle:vertical:hover
    <item>
     <widget class="QWidget" name="widget" native="true">
      <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QCheckBox" name="statusCheckBox">
+        <property name="layoutDirection">
+         <enum>Qt::RightToLeft</enum>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QCheckBox
+{
+	background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 4px;  
+	color: #1296db;
+	font: 14px &quot;微软雅黑&quot;;
+}</string>
+        </property>
+        <property name="text">
+         <string>显示已处理</string>
+        </property>
+       </widget>
+      </item>
       <item>
        <spacer name="horizontalSpacer">
         <property name="orientation">
@@ -148,6 +266,9 @@ QScrollBar:handle:vertical:hover
           <height>0</height>
          </size>
         </property>
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
         <property name="styleSheet">
          <string notr="true">QPushButton 
 {
@@ -166,6 +287,117 @@ QPushButton:pressed
          <string>处理</string>
         </property>
        </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QWidget" name="widget_5" native="true">
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="styleSheet">
+         <string notr="true">QLabel
+{
+	background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 4px;  
+	color: #1296db;
+	font: 14px &quot;微软雅黑&quot;;
+}</string>
+        </property>
+        <property name="text">
+         <string>查看类型</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="typeComboBox">
+        <property name="minimumSize">
+         <size>
+          <width>60</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
+        <item>
+         <property name="text">
+          <string>无</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>借书</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>还书</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_4">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QWidget" name="widget_3" native="true">
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QLabel" name="label_2">
+        <property name="styleSheet">
+         <string notr="true">QLabel
+{
+	background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 4px;  
+	color: #1296db;
+	font: 14px &quot;微软雅黑&quot;;
+}</string>
+        </property>
+        <property name="text">
+         <string>用户搜索</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="searchEdit">
+        <property name="maximumSize">
+         <size>
+          <width>320</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="placeholderText">
+         <string>请输入需要搜索的账号</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
       </item>
      </layout>
     </widget>

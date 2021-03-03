@@ -92,7 +92,7 @@ void Manager::connectConfig()
     // QComboBox 的 currentIndexChanged 有两个重载，一个参数是 int，一个参数是 QString，所以需要用下面的语句强制类型转换，
     // 否则 connect 不知道触发哪个信号，用 QT4 的写法则无此问题
     connect(ui->queryTypeComboBox, static_cast<void(QComboBox::*)(int)>
-            (&QComboBox::currentIndexChanged),this, [=](){
+            (&QComboBox::currentIndexChanged), this, [=](){
         ui->queryEdit->clear();
     });
 

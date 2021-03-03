@@ -230,14 +230,14 @@ QPushButton:pressed
 {
 	background-color: rgba(255, 255, 255, 0.7);
     border-radius: 4px;
-	border-image: url(:/Images/reader.png);
+	border-image: url(:/Images/message.png);
 }
 
 QPushButton:pressed
 {
 	background-color: rgba(255, 255, 255, 0.7);
     border-radius: 4px;
-	border-image: url(:/Images/reader_pre.png);
+	border-image: url(:/Images/message_pre.png);
 }</string>
         </property>
         <property name="text">

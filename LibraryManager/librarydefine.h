@@ -9,7 +9,7 @@
 #define MIN_LENGTH 6      ///< 账号密码最小长度
 #define BORROW_TIME 30    ///< 借书时长
 
-const QString kVersion = "1.1.1";           ///< 软件版本
+const QString kVersion = "1.1.2";           ///< 软件版本
 const QString kManagerAccount = "admin";    ///< 管理员账号
 
 /**
@@ -69,6 +69,14 @@ enum USER_INFO_HEADER
     USER_NAME,           ///< 姓名
     USER_PHONE,          ///< 电话
     USER_ADDRESS         ///< 地址
+};
+
+enum MESSAGE_HEADER
+{
+    MESSAGE_TYPE = 0,    ///< 类型
+    MESSAGE_INFO,        ///< 信息
+    MESSAGE_STATUS,      ///< 处理状态
+    MESSAGE_TIME         ///< 处理时间
 };
 
 /**

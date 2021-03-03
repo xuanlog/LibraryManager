@@ -167,14 +167,14 @@ public:
 "{\n"
 "	background-color: rgba(255, 255, 255, 0.7);\n"
 "    border-radius: 4px;\n"
-"	border-image: url(:/Images/reader.png);\n"
+"	border-image: url(:/Images/message.png);\n"
 "}\n"
 "\n"
 "QPushButton:pressed\n"
 "{\n"
 "	background-color: rgba(255, 255, 255, 0.7);\n"
 "    border-radius: 4px;\n"
-"	border-image: url(:/Images/reader_pre.png);\n"
+"	border-image: url(:/Images/message_pre.png);\n"
 "}"));
         messageButton->setFlat(true);
 

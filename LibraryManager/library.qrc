@@ -43,5 +43,11 @@
         <file>Images/address.png</file>
         <file>Images/name.png</file>
         <file>Images/phone.png</file>
+        <file>Images/message.png</file>
+        <file>Images/message_pre.png</file>
+        <file>Images/left.png</file>
+        <file>Images/left_pre.png</file>
+        <file>Images/right.png</file>
+        <file>Images/right_pre.png</file>
     </qresource>
 </RCC>

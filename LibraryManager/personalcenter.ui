@@ -397,6 +397,9 @@ border-bottom:1px solid #636363;</string>
           <height>0</height>
          </size>
         </property>
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
         <property name="styleSheet">
          <string notr="true">QPushButton 
 {
