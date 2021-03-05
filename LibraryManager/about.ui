@@ -90,7 +90,7 @@ QLabel:hover
    <item>
     <widget class="QLabel" name="label_2">
      <property name="text">
-      <string>1、在本系统借的书籍将由送书人员送到您的手上，请确保您有充足的时间收取(限本市内)；</string>
+      <string>1、在本系统借的书籍将由送书人员送到您的手上，请确保您有充足的时间收取(限本校内)；</string>
      </property>
     </widget>
    </item>
@@ -104,7 +104,7 @@ QLabel:hover
    <item>
     <widget class="QLabel" name="label_4">
      <property name="text">
-      <string>3、还书时请将书籍整理好，点击还书后，会有专人前来回收(限本市内)，请确保您有充足的时间交付书籍；</string>
+      <string>3、还书时请将书籍整理好，点击还书后，会有专人前来回收(限本校内)，请确保您有充足的时间交付书籍；</string>
      </property>
     </widget>
    </item>
@@ -124,16 +124,16 @@ QLabel:hover
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="label_7">
+    <widget class="QLabel" name="label_8">
      <property name="text">
-      <string>6、请确保您的信息填写正确，否则带来的损失将由您个人承担。</string>
+      <string>6、书籍如有损失，需照价赔偿；</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="label_8">
+    <widget class="QLabel" name="label_7">
      <property name="text">
-      <string>7、送书人员送/取书时间，9:00——18:30</string>
+      <string>7、请确保您的信息填写正确，否则带来的损失将由您个人承担。</string>
      </property>
     </widget>
    </item>
