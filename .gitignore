@@ -126,3 +126,10 @@ LibraryManager/debug/message.o
 LibraryManager/debug/moc_about.o
 LibraryManager/debug/moc_message.cpp
 LibraryManager/debug/moc_message.o
+LibraryManager/release/about.o
+LibraryManager/release/icon_res.o
+LibraryManager/release/message.o
+LibraryManager/release/moc_about.cpp
+LibraryManager/release/moc_about.o
+LibraryManager/release/moc_message.cpp
+LibraryManager/release/moc_message.o

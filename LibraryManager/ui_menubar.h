@@ -237,7 +237,7 @@ public:
         readerButton->setText(QString());
         label_3->setText(QString());
 #if QT_CONFIG(tooltip)
-        messageButton->setToolTip(QCoreApplication::translate("MenuBar", "\347\224\250\346\210\267\347\256\241\347\220\206", nullptr));
+        messageButton->setToolTip(QCoreApplication::translate("MenuBar", "\344\271\246\347\261\215\346\265\201\345\212\250\344\277\241\346\201\257", nullptr));
 #endif // QT_CONFIG(tooltip)
         messageButton->setText(QString());
 #if QT_CONFIG(tooltip)
